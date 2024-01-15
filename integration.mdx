@@ -1,0 +1,77 @@
+---
+title: 'Integration'
+description: 'Integrate your API with your survey program of choice'
+---
+
+## Forsta
+
+#### 1. Set up Javascript Tracker (optional)
+
+Our [Javascript tracker](https://github.com/roundtableAI/alias-api/blob/main/tracking-script.js) generates a history of every change made for each open-ended textbox. To use this tracker, replace the value of the `textbox_id` variable at the top of the script with the HTML id of the relevant textbox and then store the generated `question_history`. You can also specify the max number of characters the parsed `question_history` should take before it stops tracking (by default, this is set to 25,000). Note that as is, the script only works if there is one textbox per page. *Also note that the script will need to be modified if participants can go "back" to edit their question.*
+
+#### 2. Collect data and format
+
+Run your survey, storing the `question_history` for each participant and each open-ended question they complete, and structure the data to make API calls as described below. Note that our API only takes data from open-ended questions.
+
+#### 3. Call the API
+
+Call the API using our endpoint at `https://roundtable.ai/api/alias/v011`. *Note: We recommend waiting at least 5 seconds between each API call as we work to scale.*
+
+#### Example Usage
+
+A more detailed script with examples for each value is shown in [call-api.py](https://github.com/roundtableAI/alias-api/blob/main/example/call-api.py).
+
+
+```python
+import requests
+
+url = 'https://roundtable.ai/api/alias/v011'
+
+# Data to be sent in the request body
+data = {
+    "questions": {...},  # Replace with your questions object
+    "question_histories": {...},  # Replace with your change history object or leave empty
+    "responses": {...},  # Replace with an object with the participant's final responses
+    "survey_id": "survey123",
+    "participant_id": "participant123"
+}
+
+# Headers to be sent in the request
+headers = {
+    "Content-Type": "application/json",
+    "api_key": "your-api-key"  # Replace with your actual API key
+}
+
+# Make the POST request
+response = requests.post(url, json=data, headers=headers)
+
+# Parse the response
+if response.status_code == 200:
+    print("Success:", response.json())
+else:
+    # Get the body of the response and print
+    response_body = response.json()
+    print('Error: ', response_body)
+```
+
+## Qualtrics
+
+The Qualtrics integration works by adding a new column to your datasets with response behavior for each participant. This data is then fed to the Alias API at the end of the survey (or whenever you choose to pass the survey data to the API).
+
+#### 1. Set up Javascript Tracker
+
+Our [Qualtrics javascript tracker](https://github.com/roundtableAI/alias-qualtrics-integration/blob/main/qualtrics-tracker.js) generates a history of every change made for each open-ended textbox. To use this tracker, simply paste the code into the "Javascript" block for any open-ended question (you must have at least one open-ended question to call the Alias API).
+
+#### 2. Add an embedded data field
+
+Add an embedded data field called `alias_data` to your survey.
+
+#### 3. Run your survey
+
+All of the data needed for the Alias API will be stored in the `alias_data` embedded data field.
+
+#### 4.Export your data and call the API
+
+Export your survey data as a CSV from Qualtrics, and call the API using the [call-api.py](https://github.com/roundtableAI/alias-qualtrics-integration/blob/main/call-api.py) script. Note that you will have to add an ID for the survey, each participant, as well as your API key to this script. This script will call the API and automatically add new columns with data for (1) the total number of flags generated and (2) flags for each open-ended question (empty responses will be ignored).
+
+## jsPsych

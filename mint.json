@@ -1,18 +1,18 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Roundtable",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/images/png-logo-black.png",
+    "light": "/images/logo-with-text.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#000000",
+    "light": "#000000",
+    "dark": "#000000",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#000000",
+      "to": "#000000"
     }
   },
   "topbarLinks": [
@@ -51,7 +51,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "pages": ["introduction", "quickstart", "integration"]
     },
     {
       "group": "Essentials",
@@ -71,8 +71,8 @@
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "twitter": "https://twitter.com/RoundtableDotAI",
+    "github": "https://github.com/roundtableAI",
+    "linkedin": "https://www.linkedin.com/company/roundtable-ai"
   }
 }
