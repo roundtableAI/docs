@@ -1,6 +1,9 @@
 ---
-title: 'Request Parameters'
-description: 'Example section for showcasing API endpoints'
+title: 'POST /api/alias/v011'
+openapi: 'POST /api/alias/v011'
+description: This endpoint analyzes survey responses to detect fraudulent activity. The API only takes data from one participant---you must make a separate API call for each participant. After a successful API call is made, the data from that call is stored in our database as a response. This allows us to detect duplicate responses if two calls are made with identical responses but different values for participant_id.
+
+
 ---
 
 <Note>

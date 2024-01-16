@@ -1,51 +1,46 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
+  "$schema": "api-reference/openapi.json",
   "name": "Roundtable",
   "logo": {
     "dark": "/images/png-logo-black.png",
-    "light": "/images/logo-with-text.svg"
+    "light": "/images/png-logo.png"
   },
   "favicon": "/favicon.svg",
   "colors": {
     "primary": "#000000",
-    "light": "#000000",
+    "light": "#ffffff",
     "dark": "#000000",
     "anchors": {
-      "from": "#000000",
+      "from": "#ffffff",
       "to": "#000000"
     }
   },
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "support@roundtable.ai"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "url": "roundtable.ai/alias"
   },
   "tabs": [
     {
       "name": "API Reference",
-      "url": "api-reference"
+      "url": "api-reference/endpoint"
     }
   ],
   "anchors": [
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "url": ""
     },
     {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://blog.roundtable.ai/"
     }
   ],
   "navigation": [
@@ -54,25 +49,20 @@
       "pages": ["introduction", "quickstart", "integration"]
     },
     {
-      "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
-    },
-    {
-      "group": "API Documentation",
-      "pages": ["api-reference/introduction"]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
-      ]
+      "group": "API Reference",
+      "pages": ["api-reference/endpoint", "api-reference/request_params"]
     }
   ],
   "footerSocials": {
     "twitter": "https://twitter.com/RoundtableDotAI",
     "github": "https://github.com/roundtableAI",
     "linkedin": "https://www.linkedin.com/company/roundtable-ai"
+  },
+  "api": {
+    "baseUrl": "https://mintlify.com/api",
+    "auth": {
+      "method": "key"
+    }
   }
+
 }
