@@ -1,5 +1,5 @@
 {
-  "$schema": "api-reference/openapi.json",
+  "openapi": "api-reference/openapi.json",
   "name": "Roundtable",
   "logo": {
     "dark": "/images/png-logo-black.png",
@@ -18,12 +18,12 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "support@roundtable.ai"
+      "url": "malito:support@roundtable.ai"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "roundtable.ai/alias"
+    "url": "https://roundtable.ai/alias"
   },
   "tabs": [
     {
@@ -35,7 +35,7 @@
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": ""
+      "url": "https://roundtable.ai/docs"
     },
     {
       "name": "Blog",
