@@ -55,7 +55,13 @@
     },
     {
       "group": "API Endpoints",
-      "pages": ["api-reference/v011"]
+      "pages": ["api-reference/v011"],
+      "version": "v011"
+    },
+    {
+      "group": "API Endpoints",
+      "pages": ["api-reference/v012"],
+      "version": "v012"
     }
   ],
   "footerSocials": {
@@ -68,6 +74,6 @@
     "auth": {
       "method": "key"
     }
-  }
-
+  },
+  "versions": ["v012", "v011"]
 }
