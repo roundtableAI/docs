@@ -1,21 +1,21 @@
 ---
 title: 'Integration'
-description: 'Integrate your API with your survey program of choice'
+description: 'Integrate our API with your survey program of choice'
 ---
 
 ## Forsta
 
 #### 1. Set up Javascript Tracker (optional)
 
-Our [Javascript tracker](https://github.com/roundtableAI/alias-api/blob/main/tracking-script.js) generates a history of every change made for each open-ended textbox. To use this tracker, replace the value of the `textbox_id` variable at the top of the script with the HTML id of the relevant textbox and then store the generated `question_history`. You can also specify the max number of characters the parsed `question_history` should take before it stops tracking (by default, this is set to 25,000). Note that as is, the script only works if there is one textbox per page. *Also note that the script will need to be modified if participants can go "back" to edit their question.*
+Our [Javascript tracker](https://github.com/roundtableAI/alias-api/blob/main/tracking-script.js) generates a history of every change made for each open-ended textbox. To use this tracker, replace the value of `textbox_id` with the HTML id of the relevant textbox and then store the generated `question_history`. Note that as is, the script only works if there is one textbox per page. *Also note that the script will need to be modified if participants can go "back" to edit their question.*
 
 #### 2. Collect data and format
 
-Run your survey, storing the `question_history` for each participant and each open-ended question they complete, and structure the data to make API calls as described below. Note that our API only takes data from open-ended questions.
+Run your survey, storing the `question_history` for each participant's open-ended question they complete.
 
 #### 3. Call the API
 
-Call the API using our endpoint at `https://roundtable.ai/api/alias/v011`. *Note: We recommend waiting at least 5 seconds between each API call as we work to scale.*
+Call the API using our [endpoints](api-reference/v011). *Note: We recommend waiting at least 5 seconds between each API call as we work to scale.*
 
 #### Example Usage
 
@@ -60,11 +60,16 @@ The Qualtrics integration works by adding a new column to your datasets with res
 
 #### 1. Set up Javascript Tracker
 
-Our [Qualtrics javascript tracker](https://github.com/roundtableAI/alias-qualtrics-integration/blob/main/qualtrics-tracker.js) generates a history of every change made for each open-ended textbox. To use this tracker, simply paste the code into the "Javascript" block for any open-ended question (you must have at least one open-ended question to call the Alias API).
+Our [Qualtrics javascript tracker](https://github.com/roundtableAI/alias-qualtrics-integration/blob/main/qualtrics-tracker.js) generates a history of every change made for each open-ended textbox. To use this tracker, simply paste the code into the "Javascript" block for any open-ended question.
+
+![title](/images/js-tracker-qualtrics.gif)
+
 
 #### 2. Add an embedded data field
 
 Add an embedded data field called `alias_data` to your survey.
+
+![title](/images/embedded-data-qualtrics.gif)
 
 #### 3. Run your survey
 
