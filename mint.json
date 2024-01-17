@@ -59,7 +59,7 @@
     "linkedin": "https://www.linkedin.com/company/roundtable-ai"
   },
   "api": {
-    "baseUrl": "https://mintlify.com/api",
+    "baseUrl": "https://roundtable.ai/api/alias/",
     "auth": {
       "method": "key"
     }
