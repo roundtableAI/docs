@@ -27,8 +27,8 @@
   },
   "tabs": [
     {
-      "name": "",
-      "url": ""
+      "name": "API Reference",
+      "url": "api-reference/v011"
     }
   ],
   "anchors": [
@@ -41,6 +41,11 @@
       "name": "Blog",
       "icon": "newspaper",
       "url": "https://blog.roundtable.ai/"
+    },
+    {
+      "name": "Demo",
+      "icon": "laptop",
+      "url": "https://roundtable.ai/demo"
     }
   ],
   "navigation": [
