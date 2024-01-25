@@ -241,8 +241,6 @@ Export your survey data as a CSV from Qualtrics, and call the API using the [cal
 
 ## jsPsych
 
-This repository contains details on using the [Roundtable Alias API](https://github.com/roundtableAI/alias-api) with JsPsych for survey bot and fraud detection.
-
 #### 1. Setup Tracker
 
 The [Alias tracker](https://github.com/roundtableAI/alias-tracker/blob/main/alias-tracker.js) integrates with JsPsych `survey-text` trials to identify potential fraudelent, inattentive, or bot-like responses to open-ended questions. You can use this as a naturalistic captcha to identify participants to exclude from your analyses.
@@ -251,7 +249,7 @@ The extension generates arrayss of all the change events to open-ended questions
 
 The Alias tracker takes an optional initialization argument `max_n_characters`, when specifies the max number of characters the JSON string of each `question_history` can be (by default, this is 50,000; we highly recommend setting it to at least 20,000). The extension also requires a `page_id` parameter on every trial where the extension is used. This allows you to easily compare responses across participants even if there are conditional timelines or repeated questions.
 
-We include a full example of using our extension in a JsPsych experiment in the [public/](https://github.com/roundtableAI/alias-tracker/blob/main/public) directory. Here is a simplified example:
+We include a full example of using our extension in a JsPsych experiment in the [public/](https://github.com/roundtableAI/alias-tracker/blob/main/public) directory of our [GitHub repository](https://github.com/roundtableAI/alias-tracker). Here is a simplified example:
 
 ```javascript
 const jsPsych = initJsPsych({
@@ -281,7 +279,7 @@ Our tracker automatically adds all of the data the Alias API needs to trial data
 
 #### 3. Deploy on Heroku
 
-This repository provides code to deploy an Alias JsPsych experiment to Heroku, a cloud platform service. Follow the steps below to clone the repository, install necessary dependencies, and launch your experiment on Heroku.
+Deploy an Alias JsPsych experiment to Heroku, a cloud platform service. Follow the steps below to clone the repository, install necessary dependencies, and launch your experiment on Heroku.
 
 ```bash
 git clone https://github.com/roundtableAI/alias-tracker.git  # Clones the repository
