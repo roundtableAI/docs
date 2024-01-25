@@ -9,7 +9,7 @@
     "/v011": {
       "post": {
         "summary": "Analyze survey responses to detect fraudulent activity",
-        "description": "This endpoint analyzes survey responses to detect fraudulent activity. The API only takes data from one participant, and you must make a separate API call for each participant.",
+        "description": "This endpoint analyzes survey responses to detect fraudulent activity for one given participant.",
         "requestBody": {
           "required": true,
           "content": {
@@ -68,7 +68,7 @@
     "/v012": {
       "post": {
         "summary": "Analyze survey responses to detect fraudulent activity",
-        "description": "This endpoint analyzes survey responses to detect fraudulent activity for version v012. The API only takes data from one participant, and you must make a separate API call for each participant.",
+        "description": "This endpoint analyzes survey responses to detect fraudulent activity for one given participant.",
         "requestBody": {
           "required": true,
           "content": {

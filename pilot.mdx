@@ -1,0 +1,38 @@
+---
+title: 'Run a Pilot'
+description: ''
+---
+
+#### 1. Collect data and format
+
+Run your survey, storing the `question_history` for each participant's open-ended question they complete.
+
+#### 2. Call the API
+
+Call the API using our [endpoints](api-reference/v011). *Note: We recommend waiting at least 5 seconds between each API call as we work to scale.*
+
+#### Example Usage
+
+```python
+import requests
+
+url = "https://roundtable.ai/api/alias/latest"
+
+payload = {
+    "questions": {},
+    "question_histories": {},
+    "responses": {},
+    "survey_id": "<string>",
+    "participant_id": "<string>"
+}
+headers = {
+    "api_key": "<api_key>",
+    "Content-Type": "application/json"
+}
+
+response = requests.request("POST", url, json=payload, headers=headers)
+
+print(response.text)
+```
+
+

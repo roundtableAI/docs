@@ -38,9 +38,9 @@
       "url": "https://docs.roundtable.ai/"
     },
     {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://blog.roundtable.ai/"
+      "name": "Chat with Founders",
+      "icon": "phone",
+      "url": "https://calendly.com/mayank-roundtable/30min?back=1&month=2024-01"
     },
     {
       "name": "Demo",
@@ -51,15 +51,19 @@
   "navigation": [
     {
       "group": "Welcome",
-      "pages": ["introduction", "getstarted", "integration"]
+      "pages": ["introduction", "account", "pilot"]
     },
     {
-      "group": "API Endpoints",
+      "group": "Advanced",
+      "pages": ["integration", "endpoints"]
+    },
+    {
+      "group": "Version",
       "pages": ["api-reference/v011"],
       "version": "v011"
     },
     {
-      "group": "API Endpoints",
+      "group": "Version",
       "pages": ["api-reference/v012"],
       "version": "v012"
     }
