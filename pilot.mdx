@@ -9,7 +9,7 @@ Run your survey, storing the `question_history` for each participant's open-ende
 
 #### 2. Call the API
 
-Call the API using our [endpoints](api-reference/v011). *Note: We recommend waiting at least 5 seconds between each API call as we work to scale.*
+Call the API using our [endpoints](endpoints).
 
 #### Example Usage
 
@@ -20,13 +20,12 @@ url = "https://roundtable.ai/api/alias/latest"
 
 payload = {
     "questions": {},
-    "question_histories": {},
     "responses": {},
     "survey_id": "<string>",
     "participant_id": "<string>"
 }
 headers = {
-    "api_key": "<api_key>",
+    "api_key": "<string>",
     "Content-Type": "application/json"
 }
 

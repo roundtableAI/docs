@@ -18,7 +18,7 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "malito:support@roundtable.ai"
+      "url": "mailto:support@roundtable.ai"
     }
   ],
   "topbarCtaButton": {
@@ -27,8 +27,8 @@
   },
   "tabs": [
     {
-      "name": "API Reference",
-      "url": "api-reference/v011"
+      "name": "Blog",
+      "url": "blog/introduction.mdx"
     }
   ],
   "anchors": [
@@ -51,21 +51,17 @@
   "navigation": [
     {
       "group": "Welcome",
-      "pages": ["introduction", "account", "pilot"]
+      "pages": ["introduction", "account", "api-reference/v012", "pilot"],
+      "version": "v012"
+    },
+    {
+      "group": "Welcome",
+      "pages": ["introduction", "account", "api-reference/v011", "pilot"],
+      "version": "v011"
     },
     {
       "group": "Advanced",
       "pages": ["integration", "endpoints"]
-    },
-    {
-      "group": "Version",
-      "pages": ["api-reference/v011"],
-      "version": "v011"
-    },
-    {
-      "group": "Version",
-      "pages": ["api-reference/v012"],
-      "version": "v012"
     }
   ],
   "footerSocials": {

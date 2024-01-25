@@ -184,7 +184,8 @@
         "properties": {
           "error": {
             "type": "boolean",
-            "description": "Indicates if there was an error in processing the request."
+            "description": "Indicates if there was an error in processing the request.",
+            "default": false
           },
           "flagged": {
             "type": "boolean",
@@ -192,7 +193,8 @@
           },
           "num_checks_failed": {
             "type": "integer",
-            "description": "Number of checks that failed for version v011."
+            "description": "Number of checks that failed for version v011.",
+            "default": 2
           },
           "checks": {
             "type": "object",
@@ -201,10 +203,6 @@
           "warning": {
             "type": "string",
             "description": "A message that provides additional context or information about potential issues detected during the request processing for version v011. Only returned if there is a warning."
-          },
-          "problem": {
-            "type": "string",
-            "description": "A message that explains why error is True for version v011. Only returned if there is an error."
           }
         }
       },
@@ -213,7 +211,8 @@
         "properties": {
           "error": {
             "type": "boolean",
-            "description": "Indicates if there was an error in processing the request for version v012."
+            "description": "Indicates if there was an error in processing the request for version v012.",
+            "default": "false"
           },
           "flagged": {
             "type": "boolean",
@@ -221,7 +220,8 @@
           },
           "num_checks_failed": {
             "type": "integer",
-            "description": "Number of checks that failed for version v012."
+            "description": "Number of checks that failed for version v012.",
+            "default": "2"
           },
           "checks": {
             "type": "object",
@@ -231,13 +231,13 @@
             "type": "string",
             "description": "A message that provides additional context or information about potential issues detected during the request processing for version v012. Only returned if there is a warning."
           },
-          "problem": {
-            "type": "string",
-            "description": "A message that explains why error is True for version v012. Only returned if there is an error."
-          },
           "response_group": {
             "type": "object",
             "description": "Dictionary where key corresponds to check and value corresponds to the cluster of duplicated responses."
+          },
+          "model": {
+            "type": "string",
+            "description": "String specifying the model type."
           }
         }
       },
@@ -247,6 +247,10 @@
           "error": {
             "type": "string",
             "description": "Error message"
+          },
+          "problem": {
+            "type": "string",
+            "description": "A message that explains why error is True for version v012. Only returned if there is an error."
           }
         }
       }
