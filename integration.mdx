@@ -34,32 +34,41 @@ This code will call the API on the page the code is embedded in. This generally 
 
 ```xml
 <exec>
-survey_id = 'YOUR-SURVEY-ID'
-api_key = 'YOUR-API-KEY'
+survey_id = ''
+api_key = ''
+    
 p.headers = {'api_key': api_key, 'Content-Type': 'application/json'}
 p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['questions'], 
 'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid }
 </exec>
-<logic label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://roundtable.ai/api/alias/v012" uses="api.1"/>
+
+<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://roundtable.ai/api/alias/v012" uses="api.1"/>
 <exec>
 def checks_array_to_string(array):
     return ', '.join(map(str, array)) if array else "None"
+
 def format_checks(response, keys):
     return {key: checks_array_to_string(response.r.get('checks', {}).get(key, [])) for key in keys}
+
 def format_response_groups(response, keys):
     return {key: response.r.get('response_groups', {}).get(key, 0) for key in keys}
         
 labels = p.client_dict['question_labels']
+
 alias_responses.r1.val = alias_api.r.get('flagged', False)
 alias_responses.r2.val = format_checks(alias_api, labels)
 alias_responses.r3.val = format_response_groups(alias_api,labels)
 alias_responses.r4.val = alias_api.r.get('num_checks_failed', 0)
-alias_responses.r5.val = alias_api.r.get('model', 'unknown')
-alias_responses.r6.val = alias_api.r.get('error', True)
+alias_responses.r5.val = alias_api.r.get('model', 'API not called')
+alias_responses.r6.val = alias_api.r.get('error', False)
+alias_responses.r7.val = alias_api.r.get('problem', '')
 </exec>
+
+
 <html label="h1">&lt;script&gt;
 sessionStorage.removeItem('client_dict');
 &lt;/script&gt;</html>
+
 <text 
   label="alias_responses"
   optional="0"
@@ -73,6 +82,7 @@ sessionStorage.removeItem('client_dict');
   <row label="r4">alias-num_checks_failed</row>
   <row label="r5">alias-model</row>
   <row label="r6">alias-error</row>
+  <row label="r7">alias-problem</row>
 </text>
 ```
 
@@ -119,7 +129,7 @@ Here is a example of a simple survey with all of the Alias code integrated:
 
 <text 
   label="q1"
-  optional="0"
+  optional="1"
   size="25">
   <title>What do you do first in the morning?</title>
   <comment>Be specific</comment>
@@ -141,7 +151,7 @@ Here is a example of a simple survey with all of the Alias code integrated:
 <textarea 
   label="q2"
   height="10"
-  optional="0"
+  optional="1"
   width="50">
   <title>Tell me about yourself</title>
   <comment>Be specific</comment>
@@ -170,7 +180,7 @@ p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['q
 'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid }
 </exec>
 
-<logic label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://roundtable.ai/api/alias/v012" uses="api.1"/>
+<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://roundtable.ai/api/alias/v012" uses="api.1"/>
 <exec>
 def checks_array_to_string(array):
     return ', '.join(map(str, array)) if array else "None"
@@ -187,10 +197,11 @@ alias_responses.r1.val = alias_api.r.get('flagged', False)
 alias_responses.r2.val = format_checks(alias_api, labels)
 alias_responses.r3.val = format_response_groups(alias_api,labels)
 alias_responses.r4.val = alias_api.r.get('num_checks_failed', 0)
-alias_responses.r5.val = alias_api.r.get('model', 'unknown')
-alias_responses.r6.val = alias_api.r.get('error', True)
+alias_responses.r5.val = alias_api.r.get('model', 'API not called')
+alias_responses.r6.val = alias_api.r.get('error', False)
 alias_responses.r7.val = alias_api.r.get('problem', '')
 </exec>
+
 
 <html label="h1">&lt;script&gt;
 sessionStorage.removeItem('client_dict');
