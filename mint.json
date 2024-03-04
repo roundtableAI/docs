@@ -51,6 +51,11 @@
   "navigation": [
     {
       "group": "Welcome",
+      "pages": ["introduction", "account", "api-reference/v013", "pilot"],
+      "version": "v013"
+    },
+    {
+      "group": "Welcome",
       "pages": ["introduction", "account", "api-reference/v012", "pilot"],
       "version": "v012"
     },
@@ -75,5 +80,5 @@
       "method": "key"
     }
   },
-  "versions": ["v012", "v011"]
+  "versions": ["v013", "v012", "v011"]
 }
