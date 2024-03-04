@@ -335,17 +335,17 @@
             "default": "false"
           },
           "flagged": {
-            "type": "string",
-            "description": "Indicates the type of fraudulent activity detected for version v013. The value can be one of several specific strings indicating the reason for flagging.",
-            "enum": ["Gibberish", "Off-topic", "Low-effort", "GPT", "Response pasted"]
+            "type": "boolean",
+            "description": "Indicates the type of fraudulent activity detected for version v013. The value can be one of several specific strings indicating the reason for flagging."
           },
           "num_checks_failed": {
             "type": "integer",
             "description": "Number of checks that failed for version v013."
           },
           "checks": {
-            "type": "object",
-            "description": "Details of specific checks and their outcomes for version v013."
+            "type": "string",
+            "description": "Details of specific checks and their outcomes for version v013.",
+            "enum": ["Gibberish", "Off-topic", "Low-effort", "GPT", "Response pasted", "GPT paste artifacts"]
           },
           "warning": {
             "type": "string",
