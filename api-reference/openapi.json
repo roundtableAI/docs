@@ -365,7 +365,7 @@
         "type": "object",
         "properties": {
           "error": {
-            "type": "string",
+            "type": "boolean",
             "description": "Error message"
           },
           "problem": {
