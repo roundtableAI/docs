@@ -355,7 +355,7 @@
               "Self-duplicate response - The participant gave a highly similar answer to more than one question",
               "Cross-duplicate response - The participant gave a highly similar answer as another participant"
             ]
-          }
+          },
           "warning": {
             "type": "string",
             "description": "A message that provides additional context or information about potential issues detected during the request processing for version v013. Only returned if there is a warning."
