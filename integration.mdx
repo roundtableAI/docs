@@ -5,11 +5,13 @@ description: ''
 
 ## Forsta
 
-#### 1. Contact Forsta Support
+<Steps>
+<Step title="Contact Forsta Support">
 
 Contact [Forsta support](https://forstasurveys.zendesk.com/hc/en-us/articles/4409477119643-Technical-Support) and ask them to whitelist `https://www.roundtable.ai` for API calls.
+</Step>
 
-#### 2. Embed Tracking Code
+<Step title="Embed tracking code">
 
 In the XML for your survey, add the following lines of code to every "Text" or "Essay" questions you want to track (`text` and `textarea` elements in XML). This code embeds our Javascript tracker for the question and automatically extracts the question and response:
 
@@ -26,9 +28,9 @@ oes.forEach(el => {
 initializeClientDict(label, q);
 ]]></style>
 ```
+</Step>
 
-#### 3. Store Data
-
+<Step title="Store data">
 Add the following lines of code to the end of your survey and set the `survey_id` value to a string and `api_key` to your Alias API Key (you can generate keys on your [account](https://www.roundtable.ai/account)).
 This code will call the API on the page the code is embedded in. This generally takes a few seconds and must finish executing before the next page is loaded. Also note that the code *must* be placed after any open-ends you are tracking and on a separate page from any open-ends (i.e., after a `<suspend/>` in XML).
 
@@ -42,7 +44,7 @@ p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['q
 'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid }
 </exec>
 
-<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://roundtable.ai/api/alias/v012" uses="api.1"/>
+<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://roundtable.ai/api/alias/latest" uses="api.1"/>
 <exec>
 def checks_array_to_string(array):
     return ', '.join(map(str, array)) if array else "None"
@@ -180,7 +182,7 @@ p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['q
 'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid }
 </exec>
 
-<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://roundtable.ai/api/alias/v012" uses="api.1"/>
+<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://roundtable.ai/api/alias/latest" uses="api.1"/>
 <exec>
 def checks_array_to_string(array):
     return ', '.join(map(str, array)) if array else "None"
@@ -224,43 +226,45 @@ sessionStorage.removeItem('client_dict');
 </text>
 </survey>
 ```
+</Step>
 
+</Steps>
 
 ## Qualtrics
 
 The Qualtrics integration works by adding a new column to your datasets with response behavior for each participant. The response data is then stored on the [Roundtable Dashboard](https://roundtable.ai/dashboard).
 
-### Template
-
 You can import our [survey template](https://github.com/roundtableAI/alias-qualtrics-integration/blob/main/alias_example_survey.qsf) directly into Qualtrics to get started. You just need to add the `survey_id` and `qualtrics_key` to the submission script (see step 3 below). Instructions on importing surveys is given [here](https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/).
 
-#### 1. Generate a Qualtrics key
-
+<Steps>
+<Step title="Generate a Qualtrics key">
 On your [Roundtable account](https://roundtable.ai/account), generate a Qualtrics key for the survey. Add the url for the survey and an expiration date (every survey will have a separate Qualtrics key). Make sure to store the key after generation.
-
-#### 2. Add Javascript tracker to every open-end
-
+</Step>
+<Step title="Add Javascript tracker to every open-end">
 Our [open-ended tracker](https://github.com/roundtableAI/alias-qualtrics-integration/blob/main/qualtrics-oe-tracker.js) generates a history of every change made for each open-ended textbox. To use this tracker, simply paste the code into the "Javascript" block for any open-ended question (you must have at least one open-ended question to call the Alias API).
 
 ![title](/images/js-tracker.gif)
+</Step>
 
-#### 3. Add the submission script
-
+<Step title="Add the submission script">
 Add the [submission script](https://github.com/roundtableAI/alias-qualtrics-integration/blob/main/qualtrics-end-of-survey-tracker.js) to the last question in the survey. If your last question is an open end, simply add it after the open-end tracker code. Set the `qualtrics_key` to the key you generated in step 1, and `survey_id` to a string id for the survey.
 ![title](/images/submission-script.gif)
+</Step>
 
-#### 4. Add an embedded data field
-
+<Step title="Add an embedded data field">
 Add an embedded data field called `alias_participant_id` to your survey.
-![title](/images/images/embedded-data-qualtrics.gif)
+![title](/images/embedded-data-qualtrics.gif)
+</Step>
 
-#### 5. Run your survey
-
+<Step title="Run your survey">
 All of the data needed for the Alias API will be stored in the `alias_data` embedded data field.
+</Step>
 
-#### 6. View the results
-
+<Step title="View the results">
 The results of the API calls will be stored on the [Roundtable Dashboard](https://roundtable.ai/dashboard) for every survey you run.
+</Step>
+
+</Steps>
 
 ### Programmatic Access
 
@@ -269,7 +273,8 @@ If you prefer to call the API after running the experiment so it directly integr
 
 ## jsPsych
 
-#### 1. Setup Tracker
+<Steps>
+<Step title="Setup tracker">
 
 The [Alias tracker](https://github.com/roundtableAI/alias-tracker/blob/main/alias-tracker.js) integrates with JsPsych `survey-text` trials to identify potential fraudelent, inattentive, or bot-like responses to open-ended questions. You can use this as a naturalistic captcha to identify participants to exclude from your analyses.
 
@@ -301,11 +306,14 @@ const openEndsTrial = {
 ...
 ```
 
-#### 2. Call API
+</Step>
+
+<Step title="Call the API">
 
 Our tracker automatically adds all of the data the Alias API needs to trial data with the `jsPsychAliasTracker` extension. This data is stored as `alias_questions`, `alias_responses`, and `alias_question_histories`. This data can be passed to our API without any further modifications. An example of parsing the data from our example experiment and passing it to the API is included in [call-api.py](https://github.com/roundtableAI/alias-tracker/blob/main/call-api.py).
+</Step>
 
-#### 3. Deploy on Heroku
+<Step title="Deploy on Heroku">
 
 Deploy an Alias JsPsych experiment to Heroku, a cloud platform service. Follow the steps below to clone the repository, install necessary dependencies, and launch your experiment on Heroku.
 
@@ -317,3 +325,5 @@ heroku create your-app-name                                  # Creates a new Her
 git push heroku master                                       # Deploys the app to Heroku
 heroku open                                                  # Opens the app in a web browser
 ```
+</Step>
+</Steps>
