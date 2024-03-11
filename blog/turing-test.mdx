@@ -11,11 +11,15 @@ As an aside, part of the intellectual joy of 'survey fraud and bot detection' (w
 
 The plot below shows the response profiles of participants to the temperature questions. Each curve shows the predictions made by one participant, with the dark curve showing the true high temperatures in Boston. The left plot shows human participants, whose predictions follow seasonal patterns with a systematic degree. On the right are bots, both low-quality or GPT. GPT-based agents get near-perfect accuracy, whereas low-quality bots' predictions don't follow basic seasonal patterns and are highly inaccurate.
 
+<div align="center">
 ![title](/images/blog/temp_curves.png)
+</div>
 
 How well does the Alias API do at identifying participants flagged with this knowledge check? Below, we plot group the data into a 2x2 grid based on whether it was flagged by Alias (which only analyzes open-ends) and whether it was flagged with our temperature check (the knowledge flag).
 
+<div align="center">
 ![title](/images/blog/2x2.png)
+</div>
 
 Using just a single open-ended question, the Alias API detected over 85% of bots with low levels of false positives. Researchers have the option of including up to six open-ended questions, which increases the precision of bot detection and reduces both false negatives and false positives. However, even in this simple case the Alias effectively groups participants.
 

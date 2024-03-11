@@ -3,15 +3,17 @@ title: 'Announcing Alias v013'
 description: ''
 ---
 
-We're excited to announce [Alias v013](../api-reference/v013) after great feedback from our customers. The major change has been decomposing the previous **Junk** flag to **Gibberish**, **Off-topic**, and **Low-effort**. We found **Junk** was too big of a catch-all, precisely because researchers have different exclusion criteria when it comes to tags like **Low-effort**. Now with this advanced junk detector, researchers can be extremely precise when automating their data cleaning process.
+We're excited to announce [Alias v013](../api-reference/v013) after great feedback from our customers. The major change has been decomposing the previous **Junk** flag to **Gibberish**, **Off-topic**, and **Low-effort**. Now with this advanced junk detector, researchers can be extremely precise when automating their data cleaning process.
 
-We ran v013 on our MTurk study below.
+We ran v013 on [our MTurk study](turk) below. Each panel shows the results of one 100-person survey.
 
+<div align="center">
 ![title](/images/blog/mturk-v013.png)
+</div>
 
 We see a slight rise in human participants as minimum HIT rate increases, as well as a near complete elimination of 'junk' responses at the highest tier.
 
-Sample answers from each flag are below. Question: What comes to your head when you think about Boston? Please give specific examples.
+Sample answers from each [flag](api-reference/v013) are below. Question: What comes to your head when you think about Boston? Please give specific examples.
 
 - **Human:** The fact that it is located in the Northeast of the country. Boston has a baseball team called the RedSox as well. I also know that Boston is close to New York and other northeast states.
 
@@ -26,3 +28,5 @@ Sample answers from each flag are below. Question: What comes to your head when 
   - Historical Significance: Boston is rich in American history, particularly associated with the American Revolution. Examples include the Freedom Trail, Boston Tea Party Ships & Museum, and landmarks like the Paul Revere House and Bunker Hill Monument.
 
   - Education and Universities: Boston is renowned for its numerous prestigious universities and colleges, such as Harvard University, Massachusetts Institute of Technology (MIT), Boston University, and Northeastern University...
+
+We found **Junk** was too big of a catch-all, precisely because researchers have different exclusion criteria when it comes to tags like **Low-effort**. In addition to better junk flags, v013 provides better GPT detection, more sensitive behavioral analyses, and faster speed.

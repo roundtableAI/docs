@@ -25,17 +25,20 @@
     "name": "Dashboard",
     "url": "https://roundtable.ai/alias"
   },
+  "primaryTab": {
+    "name": "Home"
+  },
   "tabs": [
     {
-      "name": "Blog",
-      "url": "blog/introduction.mdx"
+        "name": "Blog",
+        "url": "docs.roundtable.ai/blog/introduction"
     }
   ],
   "anchors": [
     {
       "name": "Documentation",
       "icon": "book-open-cover",
-      "url": "https://docs.roundtable.ai/"
+      "url": "introduction"
     },
     {
       "name": "Chat with Founders",

@@ -3,11 +3,11 @@ title: 'Run a Pilot'
 description: ''
 ---
 
-#### 1. Collect data and format
-
+<Steps>
+<Step title="Collect data and format">
 Run your survey, and store the necessary data for each participant's open-ended question they complete.
-
-#### 2. Call the API
+</Step>
+<Step title="Call the API">
 
 Call the API using our [endpoints](endpoints).
 
@@ -33,5 +33,6 @@ response = requests.request("POST", url, json=payload, headers=headers)
 
 print(response.text)
 ```
-
+</Step>
+</Steps>
 
