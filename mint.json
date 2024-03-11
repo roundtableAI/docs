@@ -31,7 +31,7 @@
   "tabs": [
     {
         "name": "Blog",
-        "url": "docs.roundtable.ai/blog/introduction"
+        "url": "blog"
     }
   ],
   "anchors": [
@@ -70,6 +70,10 @@
     {
       "group": "Advanced",
       "pages": ["integration", "endpoints"]
+    },
+    {
+      "group": "Blog",
+      "pages": ["blog/v013", "blog/turing-test", "blog/turk", "blog/survey-bot-detection"]
     }
   ],
   "footerSocials": {
