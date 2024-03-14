@@ -44,7 +44,7 @@ p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['q
 'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid }
 </exec>
 
-<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://roundtable.ai/api/alias/latest" uses="api.1"/>
+<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://roundtable.ai/api/alias/v013" uses="api.1"/>
 <exec>
 def checks_array_to_string(array):
     return ', '.join(map(str, array)) if array else "None"
@@ -63,7 +63,7 @@ alias_responses.r3.val = format_response_groups(alias_api,labels)
 alias_responses.r4.val = alias_api.r.get('num_checks_failed', 0)
 alias_responses.r5.val = alias_api.r.get('model', 'API not called')
 alias_responses.r6.val = alias_api.r.get('error', False)
-alias_responses.r7.val = alias_api.r.get('problem', '')
+alias_responses.r7.val = alias_api.r.get('problem', 'None')
 </exec>
 
 
