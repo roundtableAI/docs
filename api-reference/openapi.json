@@ -340,7 +340,7 @@
           },
           "response_group": {
             "type": "object",
-            "description": "Dictionary where key corresponds to check and value corresponds to the cluster of duplicated responses."
+            "description": "Dictionary where key corresponds to question_id and value corresponds to the cluster of duplicated responses."
           },
           "model": {
             "type": "string",
@@ -387,7 +387,7 @@
           },
           "response_group": {
             "type": "object",
-            "description": "Dictionary where key corresponds to check and value corresponds to the cluster of duplicated responses."
+            "description": "Dictionary where key corresponds to question_id and value corresponds to the cluster of duplicated responses."
           },
           "model": {
             "type": "string",
