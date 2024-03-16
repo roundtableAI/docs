@@ -54,22 +54,33 @@
   "navigation": [
     {
       "group": "Welcome",
-      "pages": ["introduction", "account", "api-reference/v013", "pilot"],
+      "pages": ["introduction", "account", "pilot"],
       "version": "v013"
     },
     {
       "group": "Welcome",
-      "pages": ["introduction", "account", "api-reference/v012", "pilot"],
+      "pages": ["introduction", "account"],
       "version": "v012"
     },
     {
       "group": "Welcome",
-      "pages": ["introduction", "account", "api-reference/v011", "pilot"],
+      "pages": ["introduction", "account"],
       "version": "v011"
     },
     {
       "group": "Advanced",
-      "pages": ["integration", "endpoints"]
+      "pages": ["api-reference/v013", "integration", "endpoints"],
+      "version": "v013"
+    },
+    {
+      "group": "Advanced",
+      "pages": ["api-reference/v012", "integration", "endpoints"],
+      "version": "v012"
+    },
+    {
+      "group": "Advanced",
+      "pages": ["api-reference/v011", "integration", "endpoints"],
+      "version": "v011"
     },
     {
       "group": "Blog",

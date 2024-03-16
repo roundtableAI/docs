@@ -1,38 +1,50 @@
 ---
-title: 'Run a Pilot'
+title: 'Interpreting Results'
 description: ''
 ---
 
-<Steps>
-<Step title="Collect data and format">
-Run your survey, and store the necessary data for each participant's open-ended question they complete.
-</Step>
-<Step title="Call the API">
+This document outlines the response flags for the latest Alias version.
 
-Call the API using our [endpoints](endpoints).
+## Automated Test: Gibberish
+- **Question:** "What is your favorite book and why?"
+- **Example Response:** "asdfghjkl"
+- **Interpretation:** Such responses lack intelligible content, highlighting a failure in respondent engagement or comprehension.
 
-#### Example Usage
+## Automated Test: Off-topic
+- **Question:** "How do you approach problem-solving?"
+- **Example Response:** "I love going to the beach on sunny days."
+- **Interpretation:** Off-topic responses do not correlate with the query's intent, suggesting a misalignment in understanding or focus.
 
-```python
-import requests
+## Automated Test: Low-effort
+- **Question:** "Describe a challenging project you worked on."
+- **Example Response:** "It was hard, but I did it."
+- **Interpretation:** Responses that lack elaboration provide limited insights, underscoring the importance of engagement metrics in your API toolkit.
 
-url = "https://roundtable.ai/api/alias/latest"
+## Automated Test: GPT
+- **Question:** "What strategies do you use to manage stress?"
+- **Example Response:** "Regular exercise, healthy eating, and sufficient sleep."
+- **Interpretation:** While coherent, these textbook responses may lack the authenticity you seek.
 
-payload = {
-    "questions": {},
-    "responses": {},
-    "survey_id": "<string>",
-    "participant_id": "<string>"
-}
-headers = {
-    "api_key": "<string>",
-    "Content-Type": "application/json"
-}
+## GPT Paste Artifacts
+- **Question:** "What are your thoughts on continuous learning?"
+- **Example Response:** "[Importance of learning], [Skill development], [Adapting to changes]."
+- **Interpretation:** Structured, repetitive formats often suggest non-individualized responses, possibly indicative of AI influence.
 
-response = requests.request("POST", url, json=payload, headers=headers)
+## Response Pasted
+- **Question:** "What innovations excite you the most?"
+- **Example Response:** "AI, blockchain, and IoT are pivotal today."
+- **Interpretation:** The detection of pasted responses, facilitated by monitoring clipboard actions, is crucial for authenticating original feedback.
 
-print(response.text)
-```
-</Step>
-</Steps>
+## Self-duplicate Response
+- **Question 1:** "Describe your typical day."
+- **Question 2:** "What does your daily routine entail?"
+- **Example Response:** "Yoga, healthy eating, focused work, regular breaks, evening reading."
+- **Interpretation:** Repetitive answers to variant prompts may indicate a lack of thoughtful engagement or an attempt to game the system.
 
+## Cross-duplicate Response
+- **Question (Participant 1):** "What drives you professionally?"
+- **Question (Participant 2):** "What inspires your professional growth?"
+- **Example Response:** "Challenge, learning, innovation, making an impact."
+- **Interpretation:** Mirroring responses across participants can signal collusion or shared answers, detracting from the survey's uniqueness.
+
+Employ this guide as a strategic companion to navigate the complexities of survey response analysis, ensuring that your investments in fraud and bot detection yield accurate, actionable, and authentic insights.

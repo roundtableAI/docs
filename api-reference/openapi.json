@@ -266,7 +266,6 @@
             "type": "object",
             "description": "Records the participant's final responses to each question for version v013.",
             "example": {"Q1":"I brush my teeth, make some pour-over coffee, and then wake up my kids before showering."}
-
           },
           "survey_id": {
             "type": "string",
