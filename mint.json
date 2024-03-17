@@ -54,7 +54,7 @@
   "navigation": [
     {
       "group": "Welcome",
-      "pages": ["introduction", "account", "pilot"],
+      "pages": ["introduction", "account", "interpret"],
       "version": "v013"
     },
     {
@@ -69,17 +69,17 @@
     },
     {
       "group": "Advanced",
-      "pages": ["api-reference/v013", "integration", "endpoints"],
+      "pages": ["integration", "api-reference/v013"],
       "version": "v013"
     },
     {
       "group": "Advanced",
-      "pages": ["api-reference/v012", "integration", "endpoints"],
+      "pages": ["integration", "api-reference/v012"],
       "version": "v012"
     },
     {
       "group": "Advanced",
-      "pages": ["api-reference/v011", "integration", "endpoints"],
+      "pages": ["integration", "api-reference/v011"],
       "version": "v011"
     },
     {

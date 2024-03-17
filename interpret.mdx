@@ -1,0 +1,49 @@
+---
+title: 'Interpreting Results'
+description: ''
+---
+
+This document outlines the response flags for Alias. These flags corresponds to strings in the `checks` object.
+
+## Automated Test: Gibberish
+- **Question:** "What is your favorite book and why?"
+- **Example Response:** "asdfghjkl"
+- **Interpretation:** Nonsensical responses devoid of semantic content.
+
+## Automated Test: Off-topic
+- **Question:** "How do you approach problem-solving?"
+- **Example Response:** "I love going to the beach on sunny days."
+- **Interpretation:** Responses unrelated to the question asked.
+
+## Automated Test: Low-effort
+- **Question:** "Describe a challenging project you worked on."
+- **Example Response:** "No."
+- **Interpretation:** Responses with minimal information.
+
+## Automated Test: GPT
+- **Question:** "What strategies do you use to manage stress?"
+- **Example Response:** "As a large language model, I do not experience stress."
+- **Interpretation:** Response content seems derived from GPT or another large language model (LLM).
+
+## GPT Paste Artifacts
+- **Question:** "What are your thoughts on continuous learning?"
+- **Example Response:** TODO
+- **Interpretation:** TODO
+
+## Response Pasted
+- **Question:** "What innovations excite you the most?"
+- **Example Response:** "AI, blockchain, and IoT are pivotal today."
+- **Interpretation:** Responses either pasted into the textbox or entered programmatically.
+
+## Self-duplicate Response
+- **Question 1:** "Describe your typical day."
+- **Example Response 1**: "Yoga, healthy eating, focused work, regular breaks, evening reading."
+- **Question 2:** "What does your daily routine entail?"
+- **Example Response 2:** "Healthy eating, focused work, regular breaks, and evening reading."
+- **Interpretation:** Near-duplicate responses across multiple questions.
+
+## Cross-duplicate Response
+- **Question:** "What drives you professionally?"
+- **Example Response (Participant 1):** "Challenge, learning, innovation, making an impact."
+- **Example Response (Participant 2):** "Challenge + learning + innovation + having an impact."
+- **Interpretation:** Near-duplicate responses across multiple participants.
