@@ -54,33 +54,22 @@
   "navigation": [
     {
       "group": "Welcome",
-      "pages": ["introduction", "account", "interpret"],
+      "pages": ["introduction", "account", "api-reference/v013", "interpret"],
       "version": "v013"
     },
     {
       "group": "Welcome",
-      "pages": ["introduction", "account"],
+      "pages": ["introduction", "account", "api-reference/v012"],
       "version": "v012"
     },
     {
       "group": "Welcome",
-      "pages": ["introduction", "account"],
+      "pages": ["introduction", "account", "api-reference/v011"],
       "version": "v011"
     },
     {
       "group": "Advanced",
-      "pages": ["integration", "api-reference/v013"],
-      "version": "v013"
-    },
-    {
-      "group": "Advanced",
-      "pages": ["integration", "api-reference/v012"],
-      "version": "v012"
-    },
-    {
-      "group": "Advanced",
-      "pages": ["integration", "api-reference/v011"],
-      "version": "v011"
+      "pages": ["integration"]
     },
     {
       "group": "Blog",
