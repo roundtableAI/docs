@@ -67,7 +67,7 @@ paths:
                     type: integer
                     description: Number of checks that failed for version v013.
                     example: 1
-                  response_group:
+                  response_groups:
                     type: object
                     description: Dictionary where key corresponds to question_id and value corresponds to the cluster of duplicated responses.
                     example: {"Q1": 1}
@@ -176,7 +176,7 @@ paths:
                       items:
                         type: string
                     example: ["Automated test: Junk"]
-                  response_group:
+                  response_groups:
                     type: object
                     description: Dictionary where key corresponds to question_id and value corresponds to the cluster of duplicated responses.
                   warning:

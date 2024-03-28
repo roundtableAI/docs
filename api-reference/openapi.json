@@ -1,433 +1,101 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Fraud Detection API",
-    "version": "v013",
-    "description": "API for analyzing survey responses to detect fraudulent activity"
+      "title": "Fraud Detection API",
+      "version": "v013",
+      "description": "The Fraud Detection API offers robust tools for analyzing survey responses to detect fraudulent activities, leveraging advanced algorithms and machine learning. This comprehensive API scrutinizes various aspects of response data, including patterns, timing, and consistency, to identify potential fraud, ensuring the integrity of survey results and facilitating informed decision-making."
   },
   "paths": {
-    "/v011": {
-      "post": {
-        "summary": "Analyze survey responses to detect fraudulent activity",
-        "description": "This endpoint analyzes survey responses to detect fraudulent activity for one given participant.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestData"
+      "/v013": {
+          "post": {
+              "summary": "Analyze v011 Survey Responses for Fraud",
+              "description": "This endpoint analyzes survey responses from version v011 to detect potential fraudulent activity, utilizing a sophisticated analysis framework that incorporates historical data and behavioral patterns.",
+              "requestBody": {
+                  "required": true,
+                  "content": {
+                      "application/json": {
+                          "schema": {
+                              "$ref": "#/components/schemas/RequestData"
+                          }
+                      }
+                  },
+                  "description": "Request body containing survey response data and associated metadata for analysis."
+              },
+              "parameters": [
+                  {
+                      "name": "api_key",
+                      "in": "header",
+                      "required": true,
+                      "schema": {
+                          "type": "string"
+                      },
+                      "description": "API key required for authentication and access control."
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "Analysis results indicating the presence or absence of suspected fraudulent activity.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/v011Response"
+                              }
+                          }
+                      }
+                  },
+                  "400": {
+                      "description": "Indicates issues with the request format or content.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ErrorResponse"
+                              }
+                          }
+                      }
+                  },
+                  "401": {
+                      "description": "Occurs when authentication fails or is invalid.",
+                      "content": {
+                          "application/json": {
+                              "schema": {
+                                  "$ref": "#/components/schemas/ErrorResponse"
+                              }
+                          }
+                      }
+                  }
               }
-            }
           }
-        },
-        "parameters": [
-          {
-            "name": "api_key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "API key for authentication. Include this in the header of your request."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/v011Response"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
       }
-    },
-    "/v012": {
-      "post": {
-        "summary": "Analyze survey responses to detect fraudulent activity",
-        "description": "This endpoint analyzes survey responses to detect fraudulent activity for one given participant.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestDataV012"
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "api_key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "API key for authentication. Include this in the header of your request."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/v012Response"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v013": {
-      "post": {
-        "summary": "Analyze survey responses to detect fraudulent activity",
-        "description": "This endpoint analyzes survey responses to detect fraudulent activity for one given participant.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequestDataV013"
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "api_key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "YOUR_API_KEY"
-            },
-            "description": "API key for authentication. Include this in the header of your request."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/v013Response"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
   },
   "components": {
-    "schemas": {
-      "RequestData": {
-        "type": "object",
-        "properties": {
-          "questions": {
-            "type": "object",
-            "description": "Contains the survey questions. Each key is the id of the question, and the values are the text of the open-ended survey questions as shown to the participant.",
-            "example": {"Q1":"Describe your morning routine in detail"}
-          },
-          "question_histories": {
-            "type": "object",
-            "description": "Records the changes made by the participant while answering the survey. Each key is the id of the question, and the value is the array of changes generated by our Javascript tracker."
-          },
-          "responses": {
-            "type": "object",
-            "description": "Records the participant's final responses to each question.",
-            "example": {"Q1":"Test Response"}
-          },
-          "survey_id": {
-            "type": "string",
-            "description": "A unique identifier for the survey.",
-            "example": "survey_test"
-          },
-          "participant_id": {
-            "type": "string",
-            "description": "A unique identifier for the participant.",
-            "example": "participant_test"
-          }
-        },
-        "required": ["questions", "responses", "survey_id", "participant_id"]
-      },
-      "RequestDataV012": {
-        "type": "object",
-        "properties": {
-          "questions": {
-            "type": "object",
-            "description": "Contains the survey questions for version v012. Each key is the id of the question, and the values are the text of the open-ended survey questions as shown to the participant.",
-            "example": {"Q1":"Describe your morning routine in detail"}
-          },
-          "question_histories": {
-            "type": "object",
-            "description": "Records the changes made by the participant while answering the survey for version v012. Each key is the id of the question, and the value is the array of changes generated by our Javascript tracker."
-          },
-          "responses": {
-            "type": "object",
-            "description": "Records the participant's final responses to each question for version v012.",
-            "example": {"Q1":"Test Response"}
-          },
-          "survey_id": {
-            "type": "string",
-            "description": "A unique identifier for the survey for version v012.",
-            "example": "survey_test"
-          },
-          "participant_id": {
-            "type": "string",
-            "description": "A unique identifier for the participant for version v012.",
-            "example": "participant_test"
-          }
-        },
-        "required": ["questions", "responses", "survey_id", "participant_id"]
-      },
-      "RequestDataV013": {
-        "type": "object",
-        "properties": {
-          "questions": {
-            "type": "object",
-            "description": "Contains the survey questions for version v013. Each key is the id of the question, and the values are the text of the open-ended survey questions as shown to the participant.",
-            "example": {"Q1":"Describe your morning routine in detail"}
-          },
-          "question_histories": {
-            "type": "object",
-            "description": "Records the changes made by the participant while answering the survey for version v013. Each key is the id of the question, and the value is the array of changes generated by our Javascript tracker."
-          },
-          "responses": {
-            "type": "object",
-            "description": "Records the participant's final responses to each question for version v013.",
-            "example": {"Q1":"Test Response"}
-          },
-          "survey_id": {
-            "type": "string",
-            "description": "A unique identifier for the survey for version v013.",
-            "example": "survey_test"
-          },
-          "participant_id": {
-            "type": "string",
-            "description": "A unique identifier for the participant for version v013.",
-            "example": "participant_test"
-          }
-        },
-        "required": ["questions", "responses", "survey_id", "participant_id"]
-      },
-      "v011Response": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "boolean",
-            "description": "Indicates if there was an error in processing the request.",
-            "example": false
-          },
-          "flagged": {
-            "type": "boolean",
-            "description": "Indicates if any fraudulent activity was detected for version v011. If true, we recommend reviewing the participant's responses.",
-            "example": true
-          },
-          "num_checks_failed": {
-            "type": "integer",
-            "description": "Number of checks that failed for version v011.",
-            "example": 1
-          },
-          "checks": {
-            "type": "string",
-            "description": "Details of specific checks and their outcomes for version v011.",
-            "enum": [
-              "All responses empty - The participant didn't answer any question",
-              "Text chunking - Some text was generated in a chunk (rather than character-by-character)",
-              "GPT paste artifacts - Text is formatted in a highly similar way to ChatGPT",
-              "Self-duplicate response - The participant gave the same answer to more than one question",
-              "Cross-duplicate response - The participant gave the same answer as another participant (excluding simple answers like 'Yes' or 'No')",
-              "Unnatural typing speed - The participant typed abnormally fast or slow",
-              "Unnatural pausing - The participant paused in a way that is common to GPTs but not to humans",
-              "Automated test: Junk - Our ML model flags this response as likely junk",
-              "Automated test: GPT - Our ML model flags this response as likely generated by a GPT"
-            ],
-            "Q1": ["Automated Test: Low-effort"]
-          },
-          "warning": {
-            "type": "string",
-            "description": "A message that provides additional context or information about potential issues detected during the request processing for version v011. Only returned if there is a warning.",
-            "example": "alias-v011"
-          }
-        }
-      },
-      "v012Response": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "boolean",
-            "description": "Indicates if there was an error in processing the request for version v012.",
-            "default": false
-          },
-          "flagged": {
-            "type": "boolean",
-            "description": "Indicates if any fraudulent activity was detected for version v012. If true, we recommend reviewing the participant's responses for version v012.",
-            "example": true
-          },
-          "num_checks_failed": {
-            "type": "integer",
-            "description": "Number of checks that failed for version v012.",
-            "example": 1
-          },
-          "checks": {
-            "type": "string",
-            "description": "Details of specific checks and their outcomes for version v012.",
-            "enum": [
-              "All responses empty - The participant didn't answer any question",
-              "Text chunking - Some text was generated in a chunk (rather than character-by-character)",
-              "GPT paste artifacts - Text is formatted in a highly similar way to ChatGPT",
-              "Self-duplicate response - The participant gave the same answer to more than one question",
-              "Cross-duplicate response - The participant gave the same answer as another participant (excluding simple answers like 'Yes' or 'No')",
-              "Unnatural typing speed - The participant typed abnormally fast or slow",
-              "Unnatural pausing - The participant paused in a way that is common to GPTs but not to humans",
-              "Automated test: Junk - Our ML model flags this response as likely junk",
-              "Automated test: GPT - Our ML model flags this response as likely generated by a GPT"
-            ],
-            "Q1": ["Automated Test: Low-effort"]
-          },
-          "warning": {
-            "type": "string",
-            "description": "A message that provides additional context or information about potential issues detected during the request processing for version v012. Only returned if there is a warning."
-          },
-          "response_group": {
-            "type": "object",
-            "description": "Dictionary where key corresponds to question_id and value corresponds to the cluster of duplicated responses.",
-            "example": {"Q1": 1}
-          },
-          "model": {
-            "type": "string",
-            "description": "String specifying the model type.",
-            "example": "alias-v012"
-          }
-        }
-      },
-      "v013Response": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "boolean",
-            "description": "Indicates if there was an error in processing the request for version v013.",
-            "example": false
-          },
-          "flagged": {
-            "type": "boolean",
-            "description": "Indicates the type of fraudulent activity detected for version v013. The value can be one of several specific strings indicating the reason for flagging.",
-            "example": true
-          },
-          "num_checks_failed": {
-            "type": "integer",
-            "description": "Number of checks that failed for version v013.",
-            "example": 1
-          },
-          "checks": {
-            "type": "object",
-            "description": "Dictionary where keys correspond to questions, and every entry is an array of strings, each string representing a failed check. Possible checks include:\n- Automated test: Gibberish - The response is not coherent or grammatical.\n- Automated test: Off-topic - The response does not address or relate to the question.\n- Automated test: Low-effort - The response relates to the question but provides minimal information.\n- Automated test: GPT - The response is flagged as likely generated by a GPT model.\n- GPT paste artifacts - The text is formatted similarly to ChatGPT outputs.\n- Response pasted - The response was pasted or entered programmatically.\n- Self-duplicate response - A similar or identical answer was given to more than one question.\n- Cross-duplicate response - A similar or identical answer as another participant was provided.",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "string"
+      "schemas": {
+          "RequestData": {
+              "type": "object",
+              "required": [
+                  "questions",
+                  "responses",
+                  "survey_id",
+                  "participant_id"
+              ],
+              "properties": {
+                  "questions": {
+                      "type": "object",
+                      "description": "Object containing survey questions keyed by their identifiers."
+                  },
+                  "responses": {
+                      "type": "object",
+                      "description": "Participant's responses keyed by question identifiers."
+                  },
+                  "survey_id": {
+                      "type": "string",
+                      "description": "Unique identifier for the survey."
+                  },
+                  "participant_id": {
+                      "type": "string",
+                      "description": "Unique identifier for the participant."
+                  }
               }
-            },
-            "example": {
-              "Q1": ["Automated Test: Low-effort"]
-            }
-          },          
-          "warning": {
-            "type": "string",
-            "description": "A message that provides additional context or information about potential issues detected during the request processing for version v013. Only returned if there is a warning."
-          },
-          "response_group": {
-            "type": "object",
-            "description": "Dictionary where key corresponds to question_id and value corresponds to the cluster of duplicated responses.",
-            "example": {"Q1": 1}
-          },
-          "model": {
-            "type": "string",
-            "description": "String specifying the model type.",
-            "example": "alias-v013"
           }
-        }
-      },      
-      "ErrorResponse": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "boolean",
-            "description": "Error message"
-          },
-          "problem": {
-            "type": "string",
-            "description": "A message that explains why error is True for version v012. Only returned if there is an error."
-          }
-        }
       }
-    }
   }
 }
