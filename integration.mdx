@@ -234,42 +234,27 @@ sessionStorage.removeItem('client_dict');
 
 The Qualtrics integration works by adding a new column to your datasets with response behavior for each participant. The response data is then stored on the [Roundtable Dashboard](https://roundtable.ai/dashboard).
 
-You can import our [survey template](https://github.com/roundtableAI/alias-qualtrics-integration/blob/main/alias_example_survey.qsf) directly into Qualtrics to get started. You just need to add the `survey_id` and `qualtrics_key` to the submission script (see step 3 below). Instructions on importing surveys is given [here](https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/).
 
 <Steps>
-<Step title="Generate a Qualtrics key">
-On your [Roundtable account](https://roundtable.ai/account), generate a Qualtrics key for the survey. Add the url for the survey and an expiration date (every survey will have a separate Qualtrics key). Make sure to store the key after generation.
-</Step>
-<Step title="Add Javascript tracker to every open-end">
-Our [open-ended tracker](https://github.com/roundtableAI/alias-qualtrics-integration/blob/main/qualtrics-oe-tracker.js) generates a history of every change made for each open-ended textbox. To use this tracker, simply paste the code into the "Javascript" block for any open-ended question (you must have at least one open-ended question to call the Alias API).
-
+<Step title="Add Javascript tracker">
+Our [Qualtrics javascript tracker](https://github.com/roundtableAI/alias-qualtrics-integration/blob/main/programmatic-access/qualtrics-tracker.js) generates a history of every change made for each open-ended textbox. To use this tracker, simply paste the code into the "Javascript" block for any open-ended question (you must have at least one open-ended question to call the Alias API).
 ![title](/images/js-tracker.gif)
 </Step>
 
-<Step title="Add the submission script">
-Add the [submission script](https://github.com/roundtableAI/alias-qualtrics-integration/blob/main/qualtrics-end-of-survey-tracker.js) to the last question in the survey. If your last question is an open end, simply add it after the open-end tracker code. Set the `qualtrics_key` to the key you generated in step 1, and `survey_id` to a string id for the survey.
-![title](/images/submission-script.gif)
-</Step>
-
 <Step title="Add an embedded data field">
-Add an embedded data field called `alias_participant_id` to your survey.
-![title](/images/embedded-data-qualtrics.gif)
+Add an embedded data field called `alias_data` to your survey.
+![title](/images/embedded-data.gif)
 </Step>
 
 <Step title="Run your survey">
 All of the data needed for the Alias API will be stored in the `alias_data` embedded data field.
 </Step>
 
-<Step title="View the results">
-The results of the API calls will be stored on the [Roundtable Dashboard](https://roundtable.ai/dashboard) for every survey you run.
+<Step title="Upload to dashboard">
+Upload your Qualtrics dataset to the Dashboard
 </Step>
 
 </Steps>
-
-### Programmatic Access
-
-If you prefer to call the API after running the experiment so it directly integrates with your Qualtrics dataset and have experience running Python scripts, you can use our [programmatic access](https://github.com/roundtableAI/alias-qualtrics-integration/blob/main/programmatic-access) integration.
-
 
 ## jsPsych
 
