@@ -8,11 +8,11 @@
   "favicon": "/logo-no-text.svg",
   "colors": {
     "primary": "#000000",
-    "light": "#ffffff",
-    "dark": "#000000",
-    "anchors": {
-      "from": "#ffffff",
-      "to": "#000000"
+    "light": "#d5b7b7",
+    "dark": "#d5b7b7",
+    "background": {
+      "light": "#f8f8f6",
+      "dark": "#000000"
     }
   },
   "topbarLinks": [
@@ -35,25 +35,10 @@
     }
   ],
   "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "introduction"
-    },
-    {
-      "name": "Chat with Founders",
-      "icon": "phone",
-      "url": "https://calendly.com/mayank-roundtable/30min?back=1&month=2024-01"
-    },
-    {
-      "name": "Demo",
-      "icon": "laptop",
-      "url": "https://roundtable.ai/demo"
-    }
   ],
   "navigation": [
     {
-      "group": "Welcome",
+      "group": "Get Started",
       "pages": ["introduction", "account", "api-reference/v013", "interpret"],
       "version": "v013"
     },
@@ -69,7 +54,7 @@
     },
     {
       "group": "Advanced",
-      "pages": ["integration"]
+      "pages": ["integration", "languages"]
     },
     {
       "group": "Blog",

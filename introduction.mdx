@@ -3,47 +3,48 @@ title: Introduction
 description: ''
 ---
 
-## What is Roundtable Alias?
 
-Roundtable Alias is a survey fraud and bot detection software. Use the Alias API to automatically analyze web and user behavior to open-end survey responses and determine whether your participant is a bot in seconds.
+Roundtable Alias is an API that analyzes web and user behavior to open-end survey responses. We flag common bot patterns in responses in order to automate data cleaning and fraud detection.
 
 ## Quickstart
 
-<CardGroup cols={2}>
-  <Card
-    title="Account Setup"
-    icon="key"
-    href="account"
-  >
-    Sign up and receive your API key
-  </Card>
-  <Card
-    title="Interpret Results"
-    icon="scroll"
-    href="interpret"
-  >
-    Descriptions of each survey flag
-  </Card>
-</CardGroup>
+Easily call our API with a simple curl command
 
-## Advanced
+<Tip>
+You can always call our most recent API endpoint at https://roundtable.ai/api/alias/latest
+</Tip>
 
-<CardGroup cols={2}>
-  <Card
-    title="Integration"
-    icon="js"
-    href="integration"
-  >
-    Embed into your survey program
-  </Card>
+``` bash
+curl --request POST \
+  --url https://roundtable.ai/api/alias/v013 \
+  --header 'Content-Type: application/json' \
+  --header 'api_key: <api_key>' \
+  --data '{
+  "participant_id": "participant_123",
+  "questions": {
+    "Q1": "How do you feel our software has impacted your daily workflow?"
+  },
+  "responses": {
+    "Q1": "I really like pineapple on pizza."
+  },
+  "survey_id": "survey_456"
+}'
+```
+Sign up for an [account](/account) to receive your API key.
 
-  <Card
-    title="API Request Format"
-    icon="link"
-    href="api-reference/v013"
-  >
-    Call the API
-  </Card>
+## Resources
 
-</CardGroup>
+- Stress test our [demo](https://roundtable.ai/demo)
+- Have questions? [Book a call](https://calendly.com/mayank-roundtable/30min?back=1&month=2024-01) with the founders
+- Visit our [API Reference](api-reference/v013) page
+
+## Integrations
+
+Embed our API within your survey programming software to use in a live study
+
+|  |  |
+|:---:|:---:|
+| <img src="/images/forsta.png" alt="Forsta Logo" width="200" style={{ verticalAlign: 'middle' }} /> | <div style={{ display: 'table-cell', verticalAlign: 'middle', height: '100px' }}>[Forsta](https://docs.roundtable.ai/integration#forsta)</div> |
+| <img src="/images/qualtrics.png" alt="Qualtrics Logo" width="200" style={{ verticalAlign: 'middle' }} />| <div style={{ display: 'table-cell', verticalAlign: 'middle', height: '100px' }}>[Qualtrics](https://docs.roundtable.ai/integration#qualtrics)</div> |
+| <img src="/images/jspsych.png" alt="jsPsych Logo" width="200" style={{ verticalAlign: 'middle' }} /> | <div style={{ display: 'table-cell', verticalAlign: 'middle', height: '200px' }}>[jsPsych](https://docs.roundtable.ai/integration#jspsych)</div> |
 
