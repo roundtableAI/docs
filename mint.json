@@ -23,7 +23,7 @@
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://roundtable.ai/alias"
+    "url": "https://roundtable.ai/dashboard"
   },
   "primaryTab": {
     "name": "Home"
