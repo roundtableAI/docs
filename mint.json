@@ -39,7 +39,12 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "account", "api-reference/v013", "interpret"],
+      "pages": ["introduction", "account", "api-reference/v014", "interpret-v014"],
+      "version": "v014"
+    },
+    {
+      "group": "Get Started",
+      "pages": ["introduction", "account", "api-reference/v013", "interpret-v013"],
       "version": "v013"
     },
     {
@@ -72,5 +77,5 @@
       "method": "key"
     }
   },
-  "versions": ["v013", "v012", "v011"]
+  "versions": ["v014", "v013", "v012", "v011"]
 }
