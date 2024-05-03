@@ -39,7 +39,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "account", "api-reference/v014", "interpret-v014"],
+      "pages": ["introduction", "account", "api-reference/v014", "interpret-v014", "analyze-v014"],
       "version": "v014"
     },
     {
