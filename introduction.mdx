@@ -3,16 +3,14 @@ title: Introduction
 description: ''
 ---
 
+# Roundtable Alias API Documentation
 
-Roundtable Alias is an API that analyzes web and user behavior to open-end survey responses. We flag common bot patterns in responses in order to automate data cleaning and fraud detection.
+Welcome to the Roundtable Alias API documentation. Roundtable Alias is a powerful API designed to analyze web and user behavior to open-end survey responses. By identifying and flagging common bot patterns, it streamlines data cleaning and fraud detection processes, ensuring the integrity and accuracy of your survey data.
 
 ## Quickstart
 
-Easily call our API with a simple curl command
+Getting started with Roundtable Alias is straightforward. Use the following curl command to make API requests:
 
-<Tip>
-You can always call our most recent API endpoint at https://roundtable.ai/api/alias/latest
-</Tip>
 
 ``` bash
 curl --request POST \
@@ -30,17 +28,36 @@ curl --request POST \
   "survey_id": "survey_456"
 }'
 ```
-Sign up for an [account](/account) to receive your API key.
+
+<Tip>
+You can always call our most recent API endpoint at https://roundtable.ai/api/alias/latest
+</Tip>
+
+Don't forget to sign up for an [account](/account) to receive your unique API key.
+
+## Content vs. Behavioral Analyses
+When it comes to detecting survey fraud and bot activity, there are two primary approaches: content analyses and behavioral analyses.
+
+### Content Analyses
+Content analyses focus on the textual content of survey responses. They involve examining the language, grammar, and semantics of the responses to detect patterns indicative of fraudulent or bot-generated responses. Content analyses can identify suspicious keywords, repetitive phrases, or nonsensical responses commonly associated with bot activity.
+
+### Behavioral Analyses
+Behavioral analyses concentrate on the behavioral patterns exhibited by respondents during survey completion. This includes analyzing response times, click patterns, mouse movements, and other interaction metrics to identify anomalies that may indicate fraudulent behavior. Behavioral analyses can detect unusual navigation patterns, excessive speed in completing surveys, or patterns consistent with automated bot activity.
+
+By combining both content and behavioral analyses, Roundtable Alias provides comprehensive fraud detection capabilities, ensuring the integrity and accuracy of your survey data.
+
 
 ## Resources
 
-- Stress test our [demo](https://roundtable.ai/demo)
-- Have questions? [Book a call](https://calendly.com/mayank-roundtable/30min?back=1&month=2024-01) with the founders
-- Visit our [API Reference](api-reference/v014) page
+Explore our resources to make the most out of Roundtable Alias:
+
+- **Demo:** Stress test our [demo](https://roundtable.ai/demo) to get a hands-on experience of our API in action.
+- **Support:** Have questions or need assistance? [Book a call](https://calendly.com/mayank-roundtable/30min?back=1&month=2024-01) with the founders
+- **API Reference:** Dive deep into the technical details with our comprehensive [API Reference](api-reference/v014) page.
 
 ## Integrations
 
-Embed our API within your survey programming software to use in a live study
+Roundtable Alias seamlessly integrates with various survey programming software. Explore our integrations:
 
 |  |  |
 |:---:|:---:|

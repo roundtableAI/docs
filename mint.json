@@ -39,27 +39,47 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "account", "api-reference/v014", "interpret-v014", "analyze-v014"],
+      "pages": ["introduction", "account", "interpret-v014", "analyze-v014"],
       "version": "v014"
     },
     {
       "group": "Get Started",
-      "pages": ["introduction", "account", "api-reference/v013", "interpret-v013"],
+      "pages": ["introduction", "account", "interpret-v013"],
       "version": "v013"
     },
     {
       "group": "Welcome",
-      "pages": ["introduction", "account", "api-reference/v012"],
+      "pages": ["introduction", "account"],
       "version": "v012"
     },
     {
       "group": "Welcome",
-      "pages": ["introduction", "account", "api-reference/v011"],
+      "pages": ["introduction", "account"],
       "version": "v011"
     },
     {
       "group": "Advanced",
-      "pages": ["integration", "languages"]
+      "pages": ["api-reference/v014", "integration"],
+      "version": "v014"
+    },
+    {
+      "group": "Advanced",
+      "pages": ["api-reference/v013", "integration"],
+      "version": "v013"
+    },
+    {
+      "group": "Advanced",
+      "pages": ["api-reference/v012", "integration"],
+      "version": "v012"
+    },
+    {
+      "group": "Advanced",
+      "pages": ["api-reference/v011", "integration"],
+      "version": "v011"
+    },
+    {
+      "group": "Miscellaneous",
+      "pages": ["languages"]
     },
     {
       "group": "Blog",
