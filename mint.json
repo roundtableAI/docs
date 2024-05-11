@@ -83,7 +83,7 @@
     },
     {
       "group": "Blog",
-      "pages": ["blog/v013", "blog/turing-test", "blog/turk", "blog/survey-bot-detection"]
+      "pages": ["blog/build-or-buy", "blog/v013", "blog/turing-test", "blog/turk", "blog/survey-bot-detection"]
     }
   ],
   "footerSocials": {
