@@ -334,6 +334,8 @@ heroku open                                                  # Opens the app in 
 
 For those with unique survey platforms or specific integration requirements, our API offers flexibility and adaptability. Follow our simple steps to integrate Roundtable Alias into your custom solution, allowing you to capture and analyze user behavior effectively.
 
+#### Javascript
+
 <Steps>
 <Step title="Setup tracker">
 
@@ -439,4 +441,89 @@ curl --request POST \
 ```
 
 </Step>
+</Steps>
+
+#### React
+
+<Steps>
+<Step title="Setup tracker">
+
+```js
+import { useState } from 'react';
+
+const useQuestionHistory = (maxCharactersForHistory = 25000) => {
+    const [history, setHistory] = useState([]);
+    const [textOverLength, setTextOverLength] = useState(false);
+    const [startTime, setStartTime] = useState(null);
+
+    const getTimeElapsed = () => {
+        const currentTime = Date.now();
+        if (!startTime) {
+            setStartTime(currentTime);
+            return 0;
+        }
+        return currentTime - startTime;
+    };
+
+    const addHistoryEntry = (newEntry) => {
+        if (textOverLength) return;
+
+        const updatedHistory = [...history, newEntry];
+        const lengthOfHistory = JSON.stringify(updatedHistory).length;
+
+        if (lengthOfHistory > maxCharactersForHistory) {
+            setTextOverLength(true);
+            return;
+        }
+
+        setHistory(updatedHistory);
+    };
+
+    const handleInput = (event) => {
+        const timeElapsed = getTimeElapsed();
+        const newEntry = {
+            s: event.target.value,
+            t: timeElapsed
+        };
+        addHistoryEntry(newEntry);
+    };
+
+    const handleCopy = (event) => {
+        const timeElapsed = getTimeElapsed();
+        const newEntry = {
+            s: event.target.value,
+            t: timeElapsed,
+            o: 'c',
+            ct: window.getSelection().toString()
+        };
+        addHistoryEntry(newEntry);
+    };
+
+    return { history, handleInput, handleCopy };
+};
+
+export default useQuestionHistory;
+```
+</Step>
+<Step title="Use it in an open-end component">
+
+```js
+import useQuestionHistory from './useQuestionHistory';
+const TextboxComponent = () => {
+    const { history, handleInput, handleCopy } = useQuestionHistory();
+    return (
+        <textarea
+            id="exampleTextarea"
+            onChange={handleInput}
+            onCopy={handleCopy}
+        />
+    );
+};
+export default TextboxComponent;
+```
+</Step>
+
+<Step title="Call the API">
+</Step>
+
 </Steps>
