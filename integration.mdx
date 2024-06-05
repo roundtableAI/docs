@@ -14,7 +14,7 @@ Integrate Roundtable Alias with your Forsta surveys to gain comprehensive insigh
 <Steps>
 <Step title="Contact Forsta Support">
 
-Contact [Forsta support](https://forstasurveys.zendesk.com/hc/en-us/articles/4409477119643-Technical-Support) and ask them to whitelist `https://www.roundtable.ai` for API calls.
+Contact [Forsta support](https://forstasurveys.zendesk.com/hc/en-us/articles/4409477119643-Technical-Support) and ask them to whitelist `https://api.roundtable.ai` for API calls.
 </Step>
 
 <Step title="Embed tracking code">
@@ -37,7 +37,7 @@ initializeClientDict(label, q);
 </Step>
 
 <Step title="Store data">
-Add the following lines of code to the end of your survey and set the `api_key` to your Alias API Key (you can generate keys on your [account](https://www.roundtable.ai/account)).
+Add the following lines of code to the end of your survey and set the `api_key` to your Alias API Key (you can generate keys on your [account](https://app.roundtable.ai/account)).
 This code will call the API on the page the code is embedded in. This generally takes a few seconds and must finish executing before the next page is loaded. Also note that the code *must* be placed after any open-ends you are tracking and on a separate page from any open-ends (i.e., after a `<suspend/>` in XML).
 
 ```xml
@@ -50,7 +50,7 @@ p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['q
 'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid }
 </exec>
 
-<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://roundtable.ai/api/alias/latest" uses="api.1"/>
+<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://api.roundtable.ai/alias/latest" uses="api.1"/>
 <exec>
 def checks_array_to_string(array):
     return ', '.join(map(str, array)) if array else "None"
@@ -188,7 +188,7 @@ p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['q
 'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid }
 </exec>
 
-<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://roundtable.ai/api/alias/latest" uses="api.1"/>
+<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://api.roundtable.ai/api/alias/latest" uses="api.1"/>
 <exec>
 def checks_array_to_string(array):
     return ', '.join(map(str, array)) if array else "None"
@@ -265,7 +265,7 @@ After running your survey, export your dataset from Qualtrics as a CSV.
 </Step>
 
 <Step title="Upload to the Dashboard">
-Upload the exported CSV to the [Alias Dashboard](https://roundtable.ai/dashboard). This will call the Alias API for every tracked question and merge the results with your dataset.
+Upload the exported CSV to the [Alias Dashboard](https://app.roundtable.ai/dashboard). This will call the Alias API for every tracked question and merge the results with your dataset.
 ![title](/images/upload-data.gif)
 </Step>
 
@@ -411,7 +411,7 @@ Substitute the `question_histories` below with the data collected from the track
 
 ```bash
 curl --request POST \
-  --url https://roundtable.ai/api/alias/latest \
+  --url https://api.roundtable.ai/alias/latest \
   --header 'Content-Type: application/json' \
   --header 'api_key: <api_key>' \
   --data '{

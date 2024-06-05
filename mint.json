@@ -23,7 +23,7 @@
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://roundtable.ai/dashboard"
+    "url": "https://app.roundtable.ai/dashboard"
   },
   "primaryTab": {
     "name": "Home"
@@ -92,7 +92,7 @@
     "linkedin": "https://www.linkedin.com/company/roundtable-ai"
   },
   "api": {
-    "baseUrl": "https://roundtable.ai/api/alias/",
+    "baseUrl": "https://api.roundtable.ai/alias/",
     "auth": {
       "method": "key"
     }
