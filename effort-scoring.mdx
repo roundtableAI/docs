@@ -41,7 +41,7 @@ To interpret effort scores effectively:
 
 By default, Alias calculates effort scores based on its trained machine learning models. However, you can customize the effort scoring behavior using the `low_effort_threshold` parameter in your API requests.
 
-The `low_effort_threshold` parameter accepts an integer value between 1 and 10, representing the minimum effort score required for a response to be considered acceptable. Responses below this threshold will be flagged with the "Automated test: Low-effort" check.
+The `low_effort_threshold` parameter accepts an integer value between 1 and 10, representing the minimum effort score required for a response to be considered acceptable. Responses below this threshold will be flagged with the "Low-effort" check.
 
 For example, setting `low_effort_threshold=5` will flag all responses with an effort score of 4 or lower as low-effort.
 
