@@ -1,0 +1,80 @@
+---
+title: 'Duplicate Detection'
+description: ''
+---
+
+### Overview
+
+Alias employs advanced text similarity algorithms to detect duplicate and near-duplicate responses. This helps identify participants who may be submitting copy-pasted or templated responses to multiple questions or across different surveys.
+
+There are two types of duplicate checks performed by Alias:
+
+1. Self-duplicate
+2. Cross-duplicate
+
+### Self-duplicate
+
+Self-duplicate detection identifies cases where a participant submits similar or identical responses to multiple questions within the same survey.
+
+Example:
+- **Question 1:** "Describe your typical day."
+- **Response 1**: "Yoga, healthy eating, focused work, regular breaks, evening reading."
+- **Question 2:** "What does your daily routine entail?"
+- **Response 2:** "Healthy eating, focused work, regular breaks, and evening reading."
+
+In this case, the responses to Questions 1 and 2 are nearly identical, triggering a "Self-duplicate response" flag.
+
+Self-duplicate checks have no minimum length requirement, so even short repeated responses can be flagged.
+
+### Cross-duplicate
+
+Cross-duplicate detection identifies cases where multiple participants submit similar or identical responses to the same question across different submissions.
+
+Example:
+- **Question:** "What drives you professionally?"
+- **Participant 1 Response:** "Challenge, learning, innovation, making an impact."
+- **Participant 2 Response:** "Challenge + learning + innovation + having an impact."
+
+Here, the responses from Participants 1 and 2 are nearly identical, triggering a "Cross-duplicate response" flag.
+
+To avoid flagging common short responses (e.g., "Yes", "No", "Maybe"), cross-duplicate checks only apply to responses with 20 characters or more.
+
+### Response Grouping
+
+In addition to flagging duplicate responses, Alias clusters similar responses into groups. The `response_groups` object in the API response assigns an integer to each question, representing the cluster its response belongs to.
+
+For example:
+
+```json
+"response_groups": {
+  "Q1": 1,
+  "Q2": 2,
+  "Q3": 1,
+  "Q4": 3
+}
+```
+
+This indicates that responses to Q1 and Q3 are similar and belong to group 1, while Q2 and Q4 belong to separate groups.
+
+Response grouping provides an easy way to identify and review clusters of duplicate or near-duplicate content across your survey data.
+
+### Interpreting Duplicate Detection Results
+
+When a duplicate is detected, the corresponding question's response is flagged in the `checks` object of the API response.
+
+For example:
+
+```json
+"checks": {
+  "Q1": ["Cross-duplicate response"],
+  "Q3": ["Self-duplicate response"]
+}
+```
+
+Use these flags to identify and investigate potential cases of copy-pasted, templated, or bot-generated responses.
+
+### Next Steps
+
+- Learn how [behavioral tracking](behavioral-tracking) can help detect fraudulent activity.
+- Understand how [effort scoring](effort-scoring) provides a more nuanced assessment of response quality.
+- Explore the [API reference](api-reference/v015) for details on the `checks` and `response_groups` objects.

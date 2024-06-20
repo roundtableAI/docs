@@ -1,0 +1,226 @@
+---
+title: 'Forsta'
+description: ''
+---
+
+#### Step 1. Contact Forsta Support
+
+Contact [Forsta support](https://forstasurveys.zendesk.com/hc/en-us/articles/4409477119643-Technical-Support) and ask them to whitelist `https://api.roundtable.ai` for API calls.
+
+#### Step 2. Embed Tracking Code
+
+In the XML for your survey, add the following lines of code to every "Text" or "Essay" questions you want to track (`text` and `textarea` elements in XML). This code embeds our Javascript tracker for the question and automatically extracts the question and response:
+
+```xml
+<style name="question.after"><![CDATA[<script src='https://roundtable.ai/js/forsta-tracker.js'></script>]]></style>
+<style name="question.after" wrap="ready"><![CDATA[
+const q = ${jsexport()};
+const label = q['label']
+const oes = document.querySelectorAll('input[type="text"], textarea');
+oes.forEach(el => {
+    el.addEventListener('input', e => handleChange(e, 'input', el, label, q));
+    el.addEventListener('copy', e => handleChange(e, 'copy', el, label, q));
+});
+initializeClientDict(label, q);
+]]></style>
+```
+
+
+#### Step 3. Store Data
+
+Add the following code to the end of your survey and set the `api_key` to your Alias API Key (generated on your account [account](https://app.roundtable.ai/account)).
+This code will call the API on the page the code is embedded in. It generally takes a few seconds and must finish executing before the next page is loaded. The code *must* be placed after any open-ends you are tracking and on a separate page fromthem (i.e., after a `<suspend/>` in XML).
+
+```xml
+<exec>
+survey_id = gv.survey.root.alt
+api_key = ''
+    
+p.headers = {'api_key': api_key, 'Content-Type': 'application/json'}
+p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['questions'], 
+'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid }
+</exec>
+
+<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://api.roundtable.ai/alias/latest" uses="api.1"/>
+<exec>
+def checks_array_to_string(array):
+    return ', '.join(map(str, array)) if array else "None"
+
+def format_checks(response, keys):
+    return {key: checks_array_to_string(response.r.get('checks', {}).get(key, [])) for key in keys}
+
+def format_response_groups(response, keys):
+    return {key: response.r.get('response_groups', {}).get(key, 0) for key in keys}
+        
+labels = p.client_dict['question_labels']
+
+alias_responses.r1.val = alias_api.r.get('flagged', False)
+alias_responses.r2.val = format_checks(alias_api, labels)
+alias_responses.r3.val = format_response_groups(alias_api,labels)
+alias_responses.r4.val = alias_api.r.get('num_checks_failed', 0)
+alias_responses.r5.val = alias_api.r.get('model', 'API not called')
+alias_responses.r6.val = alias_api.r.get('error', False)
+alias_responses.r7.val = alias_api.r.get('problem', 'None')
+</exec>
+
+
+<html label="h1">&lt;script&gt;
+sessionStorage.removeItem('client_dict');
+&lt;/script&gt;</html>
+
+<text 
+  label="alias_responses"
+  optional="0"
+  size="25"
+  translateable="0"
+  where="execute,survey,report">
+  <title>roundtable data holder</title>
+  <row label="r1">alias-flagged</row>
+  <row label="r2">alias-checks</row>
+  <row label="r3">alias-response_groups</row>
+  <row label="r4">alias-num_checks_failed</row>
+  <row label="r5">alias-model</row>
+  <row label="r6">alias-error</row>
+  <row label="r7">alias-problem</row>
+</text>
+```
+
+The Alias response will now be stored in your survey data in the `alias_responses` field. The keys of the `checks` and `response_groups` objects will match the labels of the questions being tracked.
+
+
+### Example XML Script
+
+Here is a example of a simple survey with all of the Alias code integrated:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<survey 
+  alt="test-survey-1"
+  autosave="0"
+  builder:wizardCompleted="1"
+  builderCompatible="1"
+  compat="153"
+  delphi="1"
+  extraVariables="source,record,decLang,list,userAgent"
+  fir="on"
+  html:showNumber="0"
+  mobile="compat"
+  mobileDevices="smartphone,tablet,desktop"
+  name="Survey"
+  secure="1"
+  setup="term,decLang,quota,time"
+  ss:disableBackButton="1"
+  ss:enableNavigation="1"
+  ss:hideProgressBar="0"
+  state="testing">
+
+<samplesources default="0">
+  <samplesource list="0">
+    <title>Open Survey</title>
+    <invalid>You are missing information in the URL. Please verify the URL with the original invite.</invalid>
+    <completed>It seems you have already entered this survey.</completed>
+    <exit cond="terminated">Thank you for taking our survey.</exit>
+    <exit cond="qualified">Thank you for taking our survey. Your efforts are greatly appreciated!</exit>
+    <exit cond="overquota">Thank you for taking our survey.</exit>
+  </samplesource>
+</samplesources>
+
+<suspend/>
+
+<text 
+  label="q1"
+  optional="1"
+  size="25">
+  <title>What do you do first in the morning?</title>
+  <comment>Be specific</comment>
+  <style name="question.after"><![CDATA[<script src='https://roundtable.ai/js/forsta-tracker.js'></script>]]></style>
+  <style name="question.after" wrap="ready"><![CDATA[
+  const q = ${jsexport()};
+  const label = q['label']
+  const oes = document.querySelectorAll('input[type="text"], textarea');
+  oes.forEach(el => {
+    el.addEventListener('input', e => handleChange(e, 'input', el, label, q));
+	  el.addEventListener('copy', e => handleChange(e, 'copy', el, label, q));
+	});
+	initializeClientDict(label, q);
+  ]]></style>
+</text>
+
+<suspend/>
+
+<textarea 
+  label="q2"
+  height="10"
+  optional="1"
+  width="50">
+  <title>Tell me about yourself</title>
+  <comment>Be specific</comment>
+  <style name="question.after"><![CDATA[
+  <script src='https://roundtable.ai/js/forsta-tracker.js'></script>]]></style>
+  <style name="question.after" wrap="ready"><![CDATA[
+  const q = ${jsexport()};
+  const label = q['label']
+  const oes = document.querySelectorAll('input[type="text"], textarea');
+  oes.forEach(el => {
+    el.addEventListener('input', e => handleChange(e, 'input', el, label, q));
+        el.addEventListener('copy', e => handleChange(e, 'copy', el, label, q));
+  });
+	initializeClientDict(label, q);
+  ]]></style>
+</textarea>
+
+<suspend/>
+
+<exec>
+survey_id = gv.survey.root.alt
+api_key = ''
+    
+p.headers = {'api_key': api_key, 'Content-Type': 'application/json'}
+p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['questions'], 
+'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid }
+</exec>
+
+<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://api.roundtable.ai/api/alias/latest" uses="api.1"/>
+<exec>
+def checks_array_to_string(array):
+    return ', '.join(map(str, array)) if array else "None"
+
+def format_checks(response, keys):
+    return {key: checks_array_to_string(response.r.get('checks', {}).get(key, [])) for key in keys}
+
+def format_response_groups(response, keys):
+    return {key: response.r.get('response_groups', {}).get(key, 0) for key in keys}
+        
+labels = p.client_dict['question_labels']
+
+alias_responses.r1.val = alias_api.r.get('flagged', False)
+alias_responses.r2.val = format_checks(alias_api, labels)
+alias_responses.r3.val = format_response_groups(alias_api,labels)
+alias_responses.r4.val = alias_api.r.get('num_checks_failed', 0)
+alias_responses.r5.val = alias_api.r.get('model', 'API not called')
+alias_responses.r6.val = alias_api.r.get('error', False)
+alias_responses.r7.val = alias_api.r.get('problem', 'None')
+</exec>
+
+
+<html label="h1">&lt;script&gt;
+sessionStorage.removeItem('client_dict');
+&lt;/script&gt;</html>
+
+<text 
+  label="alias_responses"
+  optional="0"
+  size="25"
+  translateable="0"
+  where="execute,survey,report">
+  <title>roundtable data holder</title>
+  <row label="r1">alias-flagged</row>
+  <row label="r2">alias-checks</row>
+  <row label="r3">alias-response_groups</row>
+  <row label="r4">alias-num_checks_failed</row>
+  <row label="r5">alias-model</row>
+  <row label="r6">alias-error</row>
+  <row label="r7">alias-problem</row>
+</text>
+</survey>
+```

@@ -1,0 +1,59 @@
+---
+title: 'jsPsych'
+description: ''
+---
+
+
+### Step 1. Setup Tracker
+
+The [Alias tracker](https://github.com/roundtableAI/alias-tracker/blob/main/public/alias-tracker.js) integrates with JsPsych `survey-text` trials to identify potential fraudelent, inattentive, or bot-like responses to open-ended questions. You can use this as a naturalistic captcha to identify participants to exclude from your analyses.
+
+The extension generates arrayss of all the change events to open-ended questions (called "question histories"), which you can pass to our API. To use it:
+
+1. Add a link to it in `index.html`
+2. Include it in the `initJsPsych` call
+3. Pass it as an extension to any `jsPsychSurveyText` questions you want to track (you must include at least one `survey-text` question with our extension)
+The Alias tracker takes an optional initialization argument `max_n_characters`, when specifies the max number of characters the JSON string of each `question_history` can be (by default, this is 50,000; we highly recommend setting it to at least 20,000). The extension also requires a `page_id` parameter on every trial where the extension is used. This allows you to easily compare responses across participants even if there are conditional timelines or repeated questions.
+
+We include a full example of using our extension in a JsPsych experiment in the [public/](https://github.com/roundtableAI/alias-tracker/blob/main/public) directory of our [GitHub repository](https://github.com/roundtableAI/alias-tracker). Here's a simplified example:
+
+```javascript
+const jsPsych = initJsPsych({
+  extensions: [
+    { type: jsPsychAliasTracker, params: { max_n_characters:55000 } }
+  ],
+});
+
+...
+
+const openEndsTrial = {
+  type: jsPsychSurveyText,
+  questions: [
+    { prompt: 'What do you think was the purpose of this experiment?', required: true, rows: 6 },
+  ],
+  extensions: [
+    { type: jsPsychAliasTracker, params: { page_id:'page1' } }
+  ]
+}
+
+...
+```
+
+
+### Step 2. Call the API
+
+Our tracker adds all data the Alias API needs to trial data with the `jsPsychAliasTracker` extension, stored as `alias_questions`, `alias_responses`, and `alias_question_histories`. This data can be passed to our API without any further modifications. See an example in [call-api.py](https://github.com/roundtableAI/alias-tracker/blob/main/call-api.py).
+
+### Step 3. Deploy on Heroku
+
+Deploy an Alias JsPsych experiment to Heroku, a cloud platform service.
+
+```bash
+git clone https://github.com/roundtableAI/alias-tracker.git  # Clones the repository
+cd alias-tracker/                                            # Navigates into the directory
+npm install                                                  # Installs all dependencies
+heroku create your-app-name                                  # Creates a new Heroku app
+git push heroku master                                       # Deploys the app to Heroku
+heroku open                                                  # Opens the app in a web browser
+```
+

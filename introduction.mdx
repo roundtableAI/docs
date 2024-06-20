@@ -1,72 +1,31 @@
 ---
-title: Introduction
-description: ''
+title: 'What is Roundtable Alias'
+'sidebarTitle': 'Welcome'
 ---
 
-# Roundtable Alias API
+Roundtable Alias is an AI-powered API that analyzes open-ended survey responses to identify fraudulent, low-quality, and bot-generated content.
 
-Welcome to the Roundtable Alias API documentation. Roundtable Alias is an API designed to analyze open-end survey response behavior.
+### Key Features
 
-## Quickstart
+- **Comprehensive Fraud Detection**: Alias employs a multi-layered approach to detect various types of fraudulent responses, including gibberish, off-topic, low-effort, and AI-generated content.
+- **Behavioral Analysis**: Advanced behavioral tracking capabilities monitor participants' typing patterns and keystroke dynamics to identify suspicious activities and bot-like behavior.
+- **Duplicate Detection**: Alias uses text similarity algorithms to flag duplicate and near-duplicate responses within and across participants.
+- **Effort Scoring**: Each response receives a granular effort score between 1 and 10, helping you assess the level of engagement and thoughtfulness in participant answers.
+- **Seamless Integration**: With a simple API endpoint and well-documented libraries, Alias can be easily integrated into any survey platform or custom data pipeline.
 
-Getting started with Roundtable Alias is straightforward. Use the following curl command to make API requests:
+### Getting Started
+To start using Roundtable Alias, follow these steps:
 
+1. **Sign up for an account**: Create your Roundtable Alias account to obtain your API key and access the dashboard.
+2. **Integrate the API**: Use the Alias API endpoint to send your survey data for analysis. Refer to the API Reference for detailed request and response formats.
+3. **Interpret the results**: Review the fraud signals, effort scores, and duplicate clusters returned by the API to identify and filter out low-quality responses.
+4. **Implement behavioral tracking (optional)**: For enhanced fraud detection, integrate the JavaScript tracker into your survey interface to capture behavioral data.
 
-``` bash
-curl --request POST \
-  --url https://api.roundtable.ai/alias/v014 \
-  --header 'Content-Type: application/json' \
-  --header 'api_key: <api_key>' \
-  --data '{
-  "participant_id": "participant_123",
-  "questions": {
-    "Q1": "How do you feel our software has impacted your daily workflow?"
-  },
-  "responses": {
-    "Q1": "I really like pineapple on pizza."
-  },
-  "survey_id": "survey_456"
-}'
-```
+### Next Steps
 
-<Tip>
-You can always call our most recent API endpoint at https://api.roundtable.ai/alias/latest
-</Tip>
+1. Check out our [Quickstart Guide](quickstart) for a walkthrough of the integration process.
+2. Learn about the [different types of fraud checks](Overview) performed by Alias.
+3. Explore the [API Reference](api-reference/v015) to understand the request and response formats.
+4. Review the [FAQ](faq) for answers to common questions about Alias.
 
-Don't forget to sign up for an [account](/account) to receive your unique API key.
-
-## Content vs. Behavioral Analyses
-When it comes to detecting survey fraud and bot activity, there are two primary approaches: content analyses and behavioral analyses.
-
-### Content Analyses
-Content analyses focus on the textual content of survey responses. They involve examining the language, grammar, and semantics of the responses to detect patterns indicative of fraudulent or bot-generated responses. Content analyses can identify:
-- Non-contextual or off-topic responses
-- Nonsensical or irrelevant answers
-- Identical responses and near-duplicates
-- GPT-generated responses
-
-### Behavioral Analyses
-Behavioral analyses concentrate on the behavioral patterns exhibited by respondents during survey completion. They can detect:
-- Unusual typing speed
-- Programmatically entered text
-- (Upcoming) Device fingerprinting and tracking
-- (Upcoming) IP address and geolocation inconsistencies
-
-By combining both content and behavioral analyses, Roundtable Alias provides comprehensive fraud detection capabilities, ensuring the integrity and accuracy of your survey data.
-
-## Key Features
-
-- **Real-time Fraud Detection:** Identify fraudulent responses to surveys in real-time.
-- **Customizable Thresholds:** Set custom thresholds based on your specific requirements. Available for enterprise customers only.
-- **Detailed Flagging:** Receive the reasons for each flagged response.
-- **API Integration:** Seamlessly integrate Roundtable Alias into your existing survey programming software.
-- **Comprehensive Reporting:** Visit our dashboard to generate reports on survey fraud metrics and trends.
-
-## Resources
-
-Explore our resources to make the most out of Roundtable Alias:
-
-- **Demo:** Stress test our [demo](https://app.roundtable.ai/demo) to get a hands-on experience of our API.
-- **Support:** Have questions or need assistance? [Book a call](https://calendly.com/mayank-roundtable/30min?back=1&month=2024-01) with the founders
-- **API Reference:** Dive deep into the technical details with our [API Reference](api-reference/v014) page.
-- **Integrations:** Visit our [Integrations](integration) page to connect with your (Forsta/Decipher, Qualtrics, and more) account.
+If you have any questions or need assistance, don't hesitate to reach out to our support team at support@roundtable.ai. We're here to help you get the most out of Roundtable Alias!

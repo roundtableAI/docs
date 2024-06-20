@@ -1,0 +1,98 @@
+---
+title: 'Behavioral Tracking'
+description: ''
+---
+
+### Overview
+
+Behavioral tracking is a powerful feature of Roundtable Alias that analyzes participants' typing patterns, keystroke dynamics, and other behavioral signals to identify suspicious activities that may indicate fraudulent responses.
+
+By monitoring how participants interact with the survey interface, Alias can detect abnormal behaviors that deviate from genuine human response patterns. This added layer of fraud detection complements the content-based checks and helps ensure the integrity of your survey data.
+
+### Behavioral Signals Monitored
+
+Alias tracks a range of behavioral signals throughout the survey response process, including:
+
+1. **Typing Speed**: Measures the average time between keystrokes and flags responses with abnormally fast or slow typing speeds.
+
+2. **Typing Rhythm**: Analyzes the consistency and variability of typing patterns to identify bot-like or scripted behaviors.
+
+3. **Pauses and Hesitations**: Detects unusual pauses or hesitations that may indicate copy-pasting, programmatic entry, or disengagement.
+
+4. **Keypress Sequences**: Monitors the order and frequency of specific keypresses to identify repetitive or unnatural typing patterns.
+
+5. **Revision Patterns**: Tracks how participants edit and revise their responses, flagging abnormal patterns such as lack of revisions or excessive backspacing.
+
+These behavioral signals, when combined with content-based checks, provide a comprehensive assessment of response authenticity and quality.
+
+### Enabling Behavioral Tracking
+
+To leverage Alias's behavioral tracking capabilities, you need to include the `question_histories` parameter in your API requests. This parameter captures the detailed typing data for each question response.
+
+To collect `question_histories` data:
+
+1. Integrate the Alias JavaScript tracker into your survey platform or custom survey interface. The tracker captures the necessary keystroke and timing data.
+
+2. When submitting survey responses to the Alias API, include the `question_histories` object, which contains the tracked typing data for each question.
+
+Example `question_histories` data:
+
+```json
+"question_histories": {
+  "Q1": [
+    [
+      {"s":"I","t":0},
+      {"s":"I ","t":253},
+      {"s":"I l","t":1290},
+      {"s":"I li","t":1563},
+      {"s":"I lik","t":1817},
+      ...
+    ]
+  ],
+  "Q2": [
+    [
+      {"s":"T","t":0},
+      {"s":"Th","t":180},
+      {"s":"The","t":450},
+      {"s":"The ","t":890},
+      ...
+    ]
+  ]
+}
+```
+
+Refer to the [JavaScript Tracker](custom-integration) documentation for detailed integration instructions.
+
+### Interpreting Behavioral Tracking Results
+
+When Alias detects suspicious behavioral patterns, it flags the corresponding responses in the `checks` object of the API response.
+
+Example `checks` object with behavioral flags:
+
+```json
+"checks": {
+  "Q1": [
+    "Unnatural typing",
+    "Response pasted"
+  ],
+  "Q2": [
+    "Programmatic entry"
+  ]
+}
+```
+
+In this example, the response to Q1 was flagged for unnatural typing patterns and pasting behavior, while Q2 was flagged for programmatic entry.
+
+Use these behavioral flags alongside content-based checks to make informed decisions about response validity and data quality.
+
+### Customizing Behavioral Thresholds
+
+Alias uses default thresholds for detecting abnormal behavioral patterns based on extensive research and data analysis. However, you can customize these thresholds to better suit your specific survey requirements.
+
+Contact our support team at support@roundtable.ai to discuss custom behavioral tracking configurations and thresholds.
+
+### Next Steps
+
+- Integrate the [JavaScript Tracker](custom-integration) into your survey platform to enable behavioral tracking.
+- Learn how behavioral tracking complements other fraud detection features like [basic checks](#basic-checks) and [duplicate detection](#duplicate-detection).
+- Reach out to support@roundtable.ai for assistance with custom behavioral tracking configurations.

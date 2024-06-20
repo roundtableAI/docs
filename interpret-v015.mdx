@@ -1,0 +1,87 @@
+---
+title: 'Interpreting Results'
+description: ''
+---
+
+Alias provides automated, real-time feedback on the quality of any survey open-end response. The API leverages advanced algorithms to evaluate the quality and relevance of each response through a `checks` object and organizes similar responses using a `response_groups` object. This dual-analysis ensures that responses are both individually scrutinized and collectively analyzed for coherence and consistency.
+
+
+For a video overview that summarizes the key points of this document, [click here](https://www.loom.com/share/0675523969754361ac2b993487645f3f).
+
+## Checks
+1. [Automated Test: Gibberish](#automated-test-gibberish)
+2. [Automated Test: Off-topic](#automated-test-off-topic)
+3. [Automated Test: Low-effort](#automated-test-low-effort)
+4. [Automated Test: GPT](#automated-test-gpt)
+5. [GPT Paste Artifacts](#gpt-paste-artifacts)
+6. [Programmatic Entry](#programmatic-entry)
+7. [Response Pasted](#response-pasted)
+8. [Self-duplicate Response](#self-duplicate-response)
+9. [Cross-duplicate Response](#cross-duplicate-response)
+
+### Automated Test: Gibberish
+- **Question:** "What is your favorite book and why?"
+- **Example Response:** "asdfghjkl"
+- **Interpretation:** Nonsensical responses devoid of semantic content.
+
+### Automated Test: Off-topic
+- **Question:** "How do you approach problem-solving?"
+- **Example Response:** "I love going to the beach on sunny days."
+- **Interpretation:** Responses unrelated to the question asked.
+
+### Automated Test: Low-effort
+- **Question:** "Describe a challenging project you worked on."
+- **Example Response:** "No."
+- **Interpretation:** Responses with minimal information.
+
+### Automated Test: GPT
+- **Question:** "What strategies do you use to manage stress?"
+- **Example Response:** "As a large language model, I do not experience stress."
+- **Interpretation:** Response content seems derived from GPT or another large language model (LLM).
+
+### GPT Paste Artifacts
+- **Interpretation:** Response formatting suggests content is pasted from GPT or another large language model (LLM).
+
+### Programmatic Entry
+- **Interpretation:** Responses entered programmatically into the textbox.
+
+### Response Pasted
+- **Interpretation:** Responses pasted (or entered all at once) into the textbox.
+
+### Self-duplicate Response
+- **Question 1:** "Describe your typical day."
+- **Example Response 1**: "Yoga, healthy eating, focused work, regular breaks, evening reading."
+- **Question 2:** "What does your daily routine entail?"
+- **Example Response 2:** "Healthy eating, focused work, regular breaks, and evening reading."
+- **Interpretation:** Near-duplicate responses (no minimum length) across multiple questions.
+
+### Cross-duplicate Response
+- **Question:** "What drives you professionally?"
+- **Example Response (Participant 1):** "Challenge, learning, innovation, making an impact."
+- **Example Response (Participant 2):** "Challenge + learning + innovation + having an impact."
+- **Interpretation:** Near-duplicate responses (20 characters or longer) across multiple participants.
+
+## Response Groups
+
+Alias returns an integer for each question in `response_groups`, where each integer corresponds to a specific cluster of similar responses.
+
+Below is an example table with responses clustered into different groups.
+
+| Group | Participant | Response                                                                         | Flag            |
+|-------|-------------|----------------------------------------------------------------------------------|-----------------|
+| 1     | Alice       | Driven by a deep passion for innovation and desire to make impact.               | None            |
+| 1     | Bob         | Drive is a deep passion for innovation and desire to make impact.                | Cross-duplicate |
+| 1     | Charlie     | Driven by a passion for innovation and desire to make impact.                    | Cross-duplicate |
+| 2     | Dana        | Complex problems are best.                                                        | None            |
+| 2     | Eve         | Complexity problems                                                              | None            |
+| 2     | Frank       | Complexity problems are best.                                                | Cross-duplicate |
+| 3     | Grace       | Always exploring new technologies.                                               | None            |
+| 4     | Helen       | Enthusiastic about learning programming languages.                           | None            |
+| 4     | Ian         | Enthusiastic about learning new programming languages.                        | Cross-duplicate            |
+
+
+
+
+The responses from Alice, Bob, and Charlie are clustered together in Group 1. Alice's response is not flagged because it is the first in the cluster, but any corresponding entries are flagged as 'Cross-duplicate'.
+
+The responses from Dana, Eve, and Frank are clustered together in Group 2. Eve's response is not flagged because it does not meet the minimum 20 character threshold for the 'Cross-duplicate' flag.

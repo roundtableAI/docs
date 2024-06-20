@@ -1,0 +1,124 @@
+---
+title: 'Tutorials'
+description: ''
+---
+
+## Basic Integration
+
+Follow these steps to start detecting fraudulent responses in your surveys using the Roundtable Alias API.
+
+### Step 1: Get Your API Key
+
+1. [Sign up](https://app.roundtable.ai/sign-up) for a Roundtable Alias account.
+2. Navigate to your [account dashboard](https://app.roundtable.ai/account).
+3. Copy your API key. You'll use this to authenticate your API requests.
+
+### Step 2: Implement Response Tracking
+
+To enable Alias's advanced fraud detection, you'll need to track participants' typing behavior using our JavaScript library.
+
+1. Include the Roundtable Alias tracker script on your survey pages:
+
+   ```html
+   <script src="https://cdn.roundtable.ai/alias/v1/tracker.js"></script>
+   ```
+
+2. Initialize the tracker for each open-ended question:
+
+   ```js
+   const questionId = 'Q1';
+   const textareaElement = document.getElementById('textarea-Q1');
+   
+   RoundtableAlias.initializeQuestionTracker(questionId, textareaElement);
+   ```
+
+   The tracker will record the participant's typing patterns, pauses, and revisions as they answer each question.
+
+### Step 3: Collect Survey Data
+
+When a participant submits their survey, gather the following data to send to the Alias API:
+
+- `participant_id`: A unique identifier for the participant
+- `survey_id`: A unique identifier for the survey
+- `questions`: An object mapping question IDs to the text of each question
+- `responses`: An object mapping question IDs to the participant's responses
+- `question_histories`: The typing data recorded by the tracker for each question
+
+### Step 4: Call the Alias API
+
+Send a POST request to the Alias API with your survey data:
+
+```bash
+curl -X POST https://api.roundtable.ai/alias/v015 \
+  -H 'Content-Type: application/json' \
+  -H 'api_key: YOUR_API_KEY' \
+  -d '{
+    "participant_id": "p123",
+    "survey_id": "s456",
+    "questions": {
+      "Q1": "How has our product improved your workflow?"
+    },
+    "responses": {
+      "Q1": "It has streamlined my daily tasks significantly."
+    },
+    "question_histories": {
+      "Q1": [...]
+    }
+  }'
+```
+
+### Step 5: Interpret the Results
+
+The API will respond with a JSON object containing fraud signals and effort scores for each response:
+
+```json
+{
+  "error": false,
+  "flagged": true,
+  "num_checks_failed": 1,
+  "response_groups": {
+    "Q1": 1
+  },
+  "effort_ratings": {
+    "Q1": 3
+  },
+  "checks": {
+    "Q1": [
+      "Automated test: Low-effort"
+    ]
+  },
+  "model": "alias-v015"
+}
+```
+
+Review the `flagged`, `effort_ratings`, and `checks` data to identify suspicious responses and decide which to remove or investigate further.
+
+## Advanced Integration
+
+Ready to do more with Alias? Check out our in-depth tutorials:
+
+- [Using the JavaScript Tracker Config](integration#javascript)
+- [Customizing Effort Thresholds](effort-thresholds) 
+- [Integrating with Qualtrics](integration#qualtrics)
+- [Integrating with Forsta](integration#forsta)
+- [Analyzing API Responses in Python](python-analysis)
+
+## FAQ
+
+### What API versions are available?
+
+Alias offers multiple API versions with varying feature sets. The latest version is v015, which includes effort ratings, unnatural typing detection, and customizable effort thresholds. 
+
+See the [API Reference](#api-reference) for details on all available versions.
+
+### How do I choose an effort threshold?
+
+The appropriate `low_effort_threshold` depends on your survey questions and data quality standards. We recommend starting with the default threshold (0) and adjusting based on your results. 
+
+A lower threshold will flag more suspicious responses, while a higher threshold will reduce false positives. See [Customizing Effort Thresholds](#effort-thresholds) for more tips.
+
+### Can I customize the fraud checks?
+
+Alias provides a comprehensive set of fraud detection checks based on our research and data from millions of survey responses. 
+
+If you have specific needs not met by our standard checks, contact us at support@roundtable.ai to discuss custom check development.

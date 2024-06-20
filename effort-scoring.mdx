@@ -1,0 +1,53 @@
+---
+title: 'Effort Scoring'
+description: ''
+---
+
+### Overview
+
+Effort scoring is a unique feature of Roundtable Alias that provides a granular assessment of the effort and engagement demonstrated in each survey response. By analyzing various linguistic and behavioral factors, Alias assigns an effort score between 1 and 10 to each response, where:
+
+- 1 indicates minimal effort or engagement
+- 10 indicates exceptional effort or engagement
+
+Effort scores enable you to quickly identify and prioritize high-quality responses for analysis while flagging low-effort responses for review or removal.
+
+### Interpreting Effort Scores
+
+Effort scores are returned in the `effort_ratings` object of the API response, with a score for each question:
+
+```json
+"effort_ratings": {
+  "Q1": 8,
+  "Q2": 3,
+  "Q3": 6,
+  "Q4": 9
+}
+```
+
+In this example, the response to Q1 received a high effort score of 8, while Q2 received a low score of 3, indicating minimal effort. Q3 and Q4 received moderate and high scores, respectively.
+
+To interpret effort scores effectively:
+
+1. **Set a threshold**: Determine a minimum effort score for responses to be considered high-quality or acceptable. This threshold may vary depending on your specific research goals and data quality standards.
+
+2. **Identify low-effort responses**: Flag responses with effort scores below your defined threshold for review or removal. These may include single-word answers, irrelevant responses, or copy-pasted content.
+
+3. **Prioritize high-effort responses**: Focus your analysis on responses with high effort scores, as they are more likely to provide valuable insights and meaningful data.
+
+4. **Analyze effort distribution**: Examine the distribution of effort scores across your survey to identify questions that consistently receive low-effort responses. This can help inform survey design improvements or participant screening criteria.
+
+### Customizing Effort Scoring
+
+By default, Alias calculates effort scores based on its trained machine learning models. However, you can customize the effort scoring behavior using the `low_effort_threshold` parameter in your API requests.
+
+The `low_effort_threshold` parameter accepts an integer value between 1 and 10, representing the minimum effort score required for a response to be considered acceptable. Responses below this threshold will be flagged with the "Automated test: Low-effort" check.
+
+For example, setting `low_effort_threshold=5` will flag all responses with an effort score of 4 or lower as low-effort.
+
+Customize the low-effort threshold based on your specific data quality requirements and tolerance for false positives.
+
+### Next Steps
+
+- Explore how effort scoring complements Alias's other fraud detection features, such as [basic checks](basic-checks) and [duplicate detection](duplicate-detection).
+- Learn how to customize effort scoring behavior using the `low_effort_threshold` parameter in the [API reference](api-reference/v015).

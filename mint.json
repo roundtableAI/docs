@@ -38,52 +38,88 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
-      "pages": ["introduction", "account", "interpret-v014", "analyze-v014"],
+      "group": "Getting Started",
+      "pages": ["introduction", "account", "quickstart"]
+    },
+    {
+      "group": "Using Roundtable Alias",
+      "pages": 
+      [
+        "overview",
+      {
+      "group": "Checks and Flags",
+      "pages": ["basic-checks", "duplicate-detection", "behavioral-tracking", "effort-scoring"]
+      }
+      ],
+      "version": "v015"
+    },
+    {
+      "group": "Developer Resources",
+      "pages": 
+      [
+        "api-reference/v015",
+      {
+        "group": "Integrations",
+        "pages": ["forsta", "qualtrics", "jspsych", "custom-integration"]
+      }    
+      ],
+      "version": "v015"
+    },
+    {
+      "group": "Developer Resources",
+      "pages": 
+      [
+        "api-reference/v014",
+      {
+        "group": "Integrations",
+        "pages": ["forsta", "qualtrics", "jspsych", "custom-integration"]
+      }    
+      ],
       "version": "v014"
     },
     {
-      "group": "Get Started",
-      "pages": ["introduction", "account", "interpret-v013"],
+      "group": "Developer Resources",
+      "pages": 
+      [
+        "api-reference/v013",
+      {
+        "group": "Integrations",
+        "pages": ["forsta", "qualtrics", "jspsych", "custom-integration"]
+      }    
+      ],
       "version": "v013"
     },
     {
-      "group": "Welcome",
-      "pages": ["introduction", "account"],
+      "group": "Developer Resources",
+      "pages": 
+      [
+        "api-reference/v012",
+      {
+        "group": "Integrations",
+        "pages": ["forsta", "qualtrics", "jspsych", "custom-integration"]
+      }    
+      ],
       "version": "v012"
     },
     {
-      "group": "Welcome",
-      "pages": ["introduction", "account"],
+      "group": "Developer Resources",
+      "pages": 
+      [
+        "api-reference/v011",
+      {
+        "group": "Integrations",
+        "pages": ["forsta", "qualtrics", "jspsych", "custom-integration"]
+      }    
+      ],
       "version": "v011"
     },
     {
-      "group": "For Developers",
-      "pages": ["api-reference/v014", "integration"],
-      "version": "v014"
-    },
-    {
-      "group": "For Developers",
-      "pages": ["api-reference/v013", "integration"],
-      "version": "v013"
-    },
-    {
-      "group": "For Developers",
-      "pages": ["api-reference/v012", "integration"],
-      "version": "v012"
-    },
-    {
-      "group": "For Developers",
-      "pages": ["api-reference/v011", "integration"],
-      "version": "v011"
-    },
-    {
-      "group": "Miscellaneous",
-      "pages": ["languages"]
+      "group": "Support Center",
+      "pages": ["faq", "languages", "changelog", "status"]
     },
     {
       "group": "Blog",
-      "pages": ["blog/build-or-buy", "blog/v013", "blog/turing-test", "blog/turk", "blog/survey-bot-detection"]
+      "pages": ["blog/v015-behavioral","blog/build-or-buy", "blog/v013", "blog/turing-test", "blog/turk", "blog/survey-bot-detection"]
     }
   ],
   "footerSocials": {
@@ -97,5 +133,5 @@
       "method": "key"
     }
   },
-  "versions": ["v014", "v013", "v012", "v011"]
+  "versions": ["v015", "v014", "v013", "v012", "v011"]
 }
