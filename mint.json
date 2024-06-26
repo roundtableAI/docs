@@ -119,7 +119,7 @@
     },
     {
       "group": "Blog",
-      "pages": ["blog/v015-behavioral","blog/build-or-buy", "blog/v013", "blog/turing-test", "blog/turk", "blog/survey-bot-detection"]
+      "pages": ["blog/v015-effort", "blog/v015-behavioral", "blog/build-or-buy", "blog/v013", "blog/turing-test", "blog/turk", "blog/survey-bot-detection"]
     }
   ],
   "footerSocials": {
