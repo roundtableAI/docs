@@ -7,7 +7,19 @@ description: ''
 
 Contact [Forsta support](https://forstasurveys.zendesk.com/hc/en-us/articles/4409477119643-Technical-Support) and ask them to whitelist `https://api.roundtable.ai` for API calls.
 
-#### Step 2. Embed Tracking Code
+#### Step 2. Initialize Variables
+
+Add this block to the start of the survey
+
+```xml
+<exec>
+survey_id = gv.survey.root.alt
+api_key = ''
+p.client_dict = {'responses': {}, 'questions': {}, 'question_histories': {}, 'survey_id': '', 'participant_id': '', 'num_non_empty': 0, 'question_labels': []}
+</exec>
+```
+
+#### Step 3. Embed Tracking Code for Every Question
 
 In the XML for your survey, add the following lines of code to every "Text" or "Essay" questions you want to track (`text` and `textarea` elements in XML). This code embeds our Javascript tracker for the question and automatically extracts the question and response:
 
@@ -26,7 +38,7 @@ initializeClientDict(label, q);
 ```
 
 
-#### Step 3. Store Data
+#### Step 4. Store Data
 
 Add the following code to the end of your survey and set the `api_key` to your Alias API Key (generated on your account [account](https://app.roundtable.ai/account)).
 This code will call the API on the page the code is embedded in. It generally takes a few seconds and must finish executing before the next page is loaded. The code *must* be placed after any open-ends you are tracking and on a separate page fromthem (i.e., after a `<suspend/>` in XML).
@@ -126,6 +138,12 @@ Here is a example of a simple survey with all of the Alias code integrated:
 </samplesources>
 
 <suspend/>
+
+<exec>
+survey_id = gv.survey.root.alt
+api_key = ''
+p.client_dict = {'responses': {}, 'questions': {}, 'question_histories': {}, 'survey_id': '', 'participant_id': '', 'num_non_empty': 0, 'question_labels': []}
+</exec>
 
 <text 
   label="q1"
