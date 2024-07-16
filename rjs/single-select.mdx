@@ -1,0 +1,156 @@
+---
+title: 'Single Select'
+description: ''
+---
+
+The SingleSelect question type presents users with a list of options from which they can select one answer.
+
+### Basic Usage
+
+```javascript
+const favoriteColorQuestion = new SingleSelect({
+    id: 'favorite_color',
+    text: 'What is your favorite color?',
+    options: ['Red', 'Blue', 'Green', 'Yellow'],
+    required: true
+});
+```
+
+### Parameters
+
+<ParamField path="id" type="string" required>
+  Unique identifier for the question.
+</ParamField>
+
+<ParamField path="text" type="string" required>
+  The main question text.
+</ParamField>
+
+<ParamField path="subText" type="string" default="">
+  Additional text to provide context or instructions.
+</ParamField>
+
+<ParamField path="options" type="array" required>
+  An array of strings representing the available options.
+</ParamField>
+
+<ParamField path="required" type="boolean" default="true">
+  Whether the question is required.
+</ParamField>
+
+<ParamField path="randomize" type="boolean" default="false">
+  Whether to randomize the order of options.
+</ParamField>
+
+<ParamField path="styles" type="object">
+  Custom styles to apply to the question. Available keys are:
+  - `root`
+  - `label`
+  - `subText`
+  - `optionsContainer`
+  - `option`
+  - `radio`
+  - `errorMessage`
+</ParamField>
+
+### Data
+
+**Response Format**
+
+The SingleSelect question type returns a string representing the selected option:
+
+```javascript
+"Blue"
+```
+
+**Validation**
+
+The SingleSelect question validates that an option has been selected when required is set to true. If validation fails, it displays the error message "Please select an option."
+
+### Advanced
+
+#### Methods
+
+The SingleSelect question type inherits methods from the base [Element](custom) class:
+
+<ParamField path="setResponse" type="function">
+  Set the response for the question.
+
+  Parameters:
+  - `value` (string): The selected option
+
+  ```javascript
+  singleSelectQuestion.setResponse('Blue');
+  ```
+</ParamField>
+
+<ParamField path="validate" type="function">
+  Validate the current response against the question's rules.
+
+  Parameters:
+  - `showError` (boolean): Whether to display error messages in the UI
+
+  Returns:
+  - `boolean`: True if valid, false otherwise
+
+  ```javascript
+  const isValid = singleSelectQuestion.validate(true);
+  ```
+</ParamField>
+
+<ParamField path="showValidationError" type="function">
+  Display a validation error message.
+
+  Parameters:
+  - `message` (string): The error message to display
+
+  ```javascript
+  singleSelectQuestion.showValidationError('Please select an option.');
+  ```
+</ParamField>
+
+#### Example
+
+Here's an example of how to create a customized single-select question:
+
+```javascript
+const customizedQuestion = new SingleSelect({
+    id: 'preferred_contact',
+    text: 'How would you prefer to be contacted?',
+    subText: 'Choose the method that works best for you',
+    options: ['Email', 'Phone', 'Text Message', 'Mail'],
+    randomize: true,
+    required: true,
+    styles: {
+        root: { 
+            backgroundColor: '#f0f8ff',
+            padding: '15px',
+            borderRadius: '8px',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        },
+        label: { 
+            color: '#2c3e50',
+            fontSize: '1.2em',
+            fontWeight: 'bold'
+        },
+        subText: {
+            fontStyle: 'italic',
+            color: '#7f8c8d'
+        },
+        optionsContainer: {
+            marginTop: '10px'
+        },
+        option: {
+            marginBottom: '10px'
+        },
+        radio: {
+            accentColor: '#3498db'
+        },
+        errorMessage: {
+            color: '#e74c3c',
+            fontWeight: 'bold',
+            marginTop: '5px'
+        }
+    }
+});
+```

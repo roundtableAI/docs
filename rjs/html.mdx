@@ -1,0 +1,97 @@
+---
+title: 'HTML'
+description: ''
+---
+
+The HTML component allows you to insert custom HTML content into your survey. This is useful for adding rich text, images, videos, or any other HTML elements that are not covered by the standard question types.
+
+### Basic Usage
+
+```javascript
+const welcomeMessage = new HTML({
+    id: 'welcome',
+    content: '<h2>Welcome to our survey!</h2><p>Thank you for participating.</p>'
+});
+```
+
+### Parameters
+
+<ParamField path="id" type="string" required>
+  Unique identifier for the HTML component.
+</ParamField>
+
+<ParamField path="content" type="string" required>
+  The HTML content to be inserted into the survey.
+</ParamField>
+
+<ParamField path="styles" type="object">
+  Custom styles to apply to the HTML container. Only the 'root' key is available for styling.
+</ParamField>
+
+### Data
+
+**Response Format**
+
+The HTML component does not collect any data, so it doesn't have a response format.
+
+**Validation**
+
+The HTML component always passes validation as it doesn't collect any data.
+
+### Advanced
+
+#### Methods
+
+The HTML component inherits methods from the base [Element](custom) class, but most are not applicable as it doesn't collect data:
+
+<ParamField path="validate" type="function">
+  Always returns true as HTML components don't require validation.
+
+  Returns:
+  - `boolean`: Always true
+
+  ```javascript
+  const isValid = htmlComponent.validate();
+  // isValid will always be true
+  ```
+</ParamField>
+
+<ParamField path="generateHTML" type="function">
+  Generates the HTML structure for the component.
+
+  Returns:
+  - `string`: The generated HTML
+
+  ```javascript
+  const htmlString = htmlComponent.generateHTML();
+  ```
+</ParamField>
+
+#### Example
+
+Here's an example of how to create a more complex HTML component:
+
+```javascript
+const complexContent = new HTML({
+    id: 'instructions',
+    content: `
+        <div class="instructions">
+            <h3>Survey Instructions</h3>
+            <ol>
+                <li>Read each question carefully</li>
+                <li>Answer honestly</li>
+                <li>Take your time</li>
+            </ol>
+            <img src="survey-image.jpg" alt="Survey illustration">
+        </div>
+    `,
+    styles: {
+        root: {
+            backgroundColor: '#f0f8ff',
+            padding: '15px',
+            borderRadius: '8px',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        }
+    }
+});
+```

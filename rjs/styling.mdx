@@ -1,0 +1,80 @@
+---
+title: 'Styling'
+description: ''
+---
+
+**RoundtableJS** provides a flexible styling system that allows you to customize the appearance of your survey elements. Each question type supports specific style keys that can be modified to match your desired design.
+
+---
+
+### Basic Usage
+
+You can apply custom styles to any question by passing a `styles` object in the constructor:
+
+```javascript
+const styledQuestion = new SingleSelect({
+    id: 'favorite_color',
+    text: 'What is your favorite color?',
+    options: ['Red', 'Blue', 'Green'],
+    styles: {
+        root: { 
+            backgroundColor: '#f0f8ff',
+            padding: '15px',
+            borderRadius: '8px'
+        },
+        label: { 
+            color: '#2c3e50',
+            fontSize: '1.2em'
+        }
+    }
+});
+```
+---
+
+### Style Keys
+
+Each question type has its own set of style keys that can be customized. Here are the common style keys:
+
+```javascript
+{
+    root: {},        // Styles for the main container
+    label: {},       // Styles for the question label
+    subText: {},     // Styles for additional instructional text
+    errorMessage: {} // Styles for validation error messages
+}
+```
+
+Specific question types may have additional keys. For example:
+
+- SingleSelect and MultiSelect: `optionsContainer`, `option`, `radio`/`checkbox`
+- NumberEntry: `input`, `unit`
+- OpenEnd: `textarea`
+- Grid: `table`, `headerRow`, `headerCell`, `row`, `rowLabel`, `cell`
+---
+
+### Applying Styles
+
+Styles are applied as CSS-in-JS objects. You can use any valid CSS property, using camelCase for property names:
+
+```javascript
+styles: {
+    root: {
+        backgroundColor: '#f0f8ff',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+        transition: 'all 0.3s ease'
+    },
+    label: {
+        color: '#2c3e50',
+        fontSize: '1.2em',
+        fontWeight: 'bold'
+    }
+}
+```
+
+---
+
+### Inheritance and Overriding
+
+Each question type has default styles that are automatically applied. When you provide custom styles, they are merged with the default styles, allowing you to override specific properties while keeping others.
+
+---

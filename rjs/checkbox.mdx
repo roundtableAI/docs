@@ -1,0 +1,136 @@
+---
+title: 'Check Box'
+description: ''
+---
+
+The CheckBox component provides a single checkbox for collecting binary (yes/no, true/false, agree/disagree) responses from users.
+
+### Basic Usage
+
+```javascript
+const agreementCheckbox = new CheckBox({
+    id: 'terms_agreement',
+    text: 'I agree to the terms and conditions',
+    required: true
+});
+```
+
+### Parameters
+
+<ParamField path="id" type="string" required>
+  Unique identifier for the checkbox.
+</ParamField>
+
+<ParamField path="text" type="string" required>
+  The label text for the checkbox.
+</ParamField>
+
+<ParamField path="required" type="boolean" default="false">
+  Whether the checkbox must be checked.
+</ParamField>
+
+<ParamField path="styles" type="object">
+  Custom styles to apply to the checkbox. Available keys are:
+  - `root`
+  - `label`
+  - `checkbox`
+  - `errorMessage`
+</ParamField>
+
+### Data
+
+**Response Format**
+
+The CheckBox component returns a boolean value:
+
+```javascript
+true  // when checked
+false // when unchecked
+```
+
+**Validation**
+
+The CheckBox component validates that:
+1. The checkbox is checked when required is true.
+
+If validation fails, it displays the error message "This checkbox is required."
+
+### Advanced
+
+#### Methods
+
+The CheckBox component inherits methods from the base [Element](custom) class:
+
+<ParamField path="setResponse" type="function">
+  Set the response for the checkbox.
+
+  Parameters:
+  - `value` (boolean): The checked state of the checkbox
+
+  ```javascript
+  checkboxQuestion.setResponse(true);
+  ```
+</ParamField>
+
+<ParamField path="validate" type="function">
+  Validate the current response against the checkbox's rules.
+
+  Parameters:
+  - `showError` (boolean): Whether to display error messages in the UI
+
+  Returns:
+  - `boolean`: True if valid, false otherwise
+
+  ```javascript
+  const isValid = checkboxQuestion.validate(true);
+  ```
+</ParamField>
+
+<ParamField path="showValidationError" type="function">
+  Display a validation error message.
+
+  Parameters:
+  - `message` (string): The error message to display
+
+  ```javascript
+  checkboxQuestion.showValidationError('This checkbox is required.');
+  ```
+</ParamField>
+
+#### Example
+
+Here's an example of how to create a more customized checkbox:
+
+```javascript
+const newsletterSubscription = new CheckBox({
+    id: 'newsletter_signup',
+    text: 'Subscribe to our newsletter',
+    required: false,
+    styles: {
+        root: { 
+            backgroundColor: '#f0f8ff',
+            padding: '15px',
+            borderRadius: '8px',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        },
+        label: { 
+            color: '#2c3e50',
+            fontSize: '1.2em',
+            fontWeight: 'normal',
+            marginLeft: '10px'
+        },
+        checkbox: {
+            width: '20px',
+            height: '20px',
+            accentColor: '#3498db'
+        },
+        errorMessage: {
+            color: '#e74c3c',
+            fontWeight: 'bold',
+            marginTop: '5px'
+        }
+    }
+});
+```
+
+This example demonstrates how to use custom styling to create a more visually appealing checkbox component.

@@ -7,12 +7,12 @@
   },
   "favicon": "/logo-no-text.svg",
   "colors": {
-    "primary": "#000000",
-    "light": "#d5b7b7",
-    "dark": "#d5b7b7",
+    "primary": "#8b5e5e",
+    "light": "#f0e5e5",
+    "dark": "#4c2f2f",
     "background": {
-      "light": "#f8f8f6",
-      "dark": "#000000"
+      "light": "#ffffff",
+      "dark": "#2c2c2c"
     }
   },
   "topbarLinks": [
@@ -26,12 +26,12 @@
     "url": "https://app.roundtable.ai/dashboard"
   },
   "primaryTab": {
-    "name": "Home"
+    "name": "Alias"
   },
   "tabs": [
     {
-        "name": "Blog",
-        "url": "blog"
+        "name": "RoundtableJS",
+        "url": "rjs"
     }
   ],
   "anchors": [
@@ -118,20 +118,37 @@
       "pages": ["faq", "languages", "changelog", "status"]
     },
     {
-      "group": "Blog",
-      "pages": ["blog/v015-effort", "blog/v015-behavioral", "blog/build-or-buy", "blog/v013", "blog/turing-test", "blog/turk", "blog/survey-bot-detection"]
+      "group": "Overview",
+      "pages": ["rjs/introduction", "rjs/installation"]
+    },
+    {
+      "group": "Core",
+      "pages": ["rjs/survey",
+      {
+        "group": "Elements",
+        "pages": ["rjs/multiple-select", "rjs/single-select", "rjs/grid", "rjs/openend", "rjs/number-entry", "rjs/html", "rjs/checkbox", "rjs/custom"]
+      },
+      "rjs/logic"]
+    },
+    {
+      "group": "Resources",
+      "pages": ["rjs/styling", "rjs/data", "rjs/examples"]
+    },
+    {
+      "group": "Support",
+      "pages": ["rjs/contribution", "rjs/community"]
     }
   ],
   "footerSocials": {
     "twitter": "https://twitter.com/RoundtableDotAI",
     "github": "https://github.com/roundtableAI",
     "linkedin": "https://www.linkedin.com/company/roundtable-ai"
-  },
-  "api": {
-    "baseUrl": "https://api.roundtable.ai/alias/",
-    "auth": {
-      "method": "key"
+  },  
+  "versions": ["v015", "v014", "v013", "v012", "v011"],
+  "redirects": [
+    {
+      "source": "http://docs.roundtable.ai/blog/*",
+      "destination": "https://roundtable.ai/blog/:splat 301!"
     }
-  },
-  "versions": ["v015", "v014", "v013", "v012", "v011"]
+  ]
 }

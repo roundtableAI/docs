@@ -1,0 +1,91 @@
+---
+title: 'Self-Hosting'
+description: ''
+---
+
+Welcome to the Getting Started guide for **RoundtableJS**. This guide covers development and the basics, but for more advanced features, be sure to explore the rest of our documentation.
+
+<Tip>If you have any questions, join and ask our [community](https://github.com/roundtableAI/roundtable-js?tab=readme-ov-file).</Tip>
+
+
+### Installation
+
+Use `npm` to install **RoundtableJS**
+
+```bash
+npm install roundtable-js
+```
+
+### Basic Usage
+
+First, import the necessary modules:
+
+```javascript
+import Survey from 'roundtable-js/core/survey.js';
+import SingleSelect from 'roundtable-js/question_types/singleSelect.js';
+```
+
+Create a simple survey by first defining the questions and then the logic.
+
+```javascript
+// Define an asynchronous function to run the survey
+async function runSurvey() {
+
+    // Create a new Survey instance with a specific participant ID
+    const survey = new Survey({ participantId: 'participant_123' });
+
+    // Define the first question as a single-select question with two options
+    const question1 = new SingleSelect({
+        id: 'question1',
+        text: 'A question',
+        options: ['Option 1', 'Option 2'],
+    });
+
+    // Define the second question as a single-select question with two options
+    const question2 = new SingleSelect({
+        id: 'question2',
+        text: 'A second question',
+        options: ['Option 1', 'Option 2'],
+    });
+    
+    // Show the first page with the first question and wait for it to be answered
+    await survey.showPage({ id: 'page1', elements: [question1] });
+    
+    // This code runs only after the first page is completed
+    console.log('Page 1 completed');
+    
+    // Show the next page with the second question and wait for it to be answered
+    await survey.showPage({ id: 'page2', elements: [question2] });
+    
+    // Finish the survey once all pages are completed
+    survey.finishSurvey();
+}
+
+// Start the survey by calling the runSurvey function
+runSurvey();
+```
+
+<Tip> Roundtable leverages JavaScript's ```await/async``` functionality for timeline management. For a deeper understanding why we did this, read our [Logic](logic) page. </Tip>
+
+### Deployment
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoundtableJS Survey</title>
+</head>
+<body>
+    <div id="survey-container"></div>
+    <script type="module" src="your-survey-script.js"></script>
+</body>
+</html>
+```
+
+Set up your HTML and deploy on a local server, e.g. `python3 -m http.server 8080`.
+
+---
+
+Congratulations on setting up your first survey in **RoundtableJS**. You have mastered the basics. The rest of this documentation is dedicated to exploring more advanced features.  

@@ -1,0 +1,164 @@
+---
+title: 'Custom Question Types'
+description: ''
+---
+
+### Overview
+
+The Element class serves as the foundation for all question types in **RoundtableJS.**
+
+### Constructor
+
+```javascript
+constructor({ id, type, store_data = false, required = false })
+```
+
+<ParamField path="id" type="string" required>
+  Unique identifier for the element.
+</ParamField>
+
+<ParamField path="type" type="string" required>
+  Type identifier for the element.
+</ParamField>
+
+<ParamField path="store_data" type="boolean" default={false}>
+  Whether to store data for this element.
+</ParamField>
+
+<ParamField path="required" type="boolean" default={false}>
+  Whether the element is required.
+</ParamField>
+
+### Properties
+
+- `id`: The unique identifier of the element.
+- `type`: The type of the element.
+- `store_data`: Whether the element stores data.
+- `required`: Whether the element is required.
+- `data`: Object containing the element's data structure.
+
+### Static Properties
+
+- `dataStructure`: The basic data structure for elements.
+- `styleKeys`: Array of style keys (to be overridden by subclasses).
+
+### Methods
+
+#### Core Methods
+
+<ParamField path="validate" type="function">
+  Validate the element's response.
+
+  Returns:
+  - `boolean`: True if valid, false otherwise
+</ParamField>
+
+<ParamField path="render" type="function">
+  Render the element in the DOM.
+</ParamField>
+
+<ParamField path="generateHTML" type="function">
+  Generate the HTML structure for the element (to be implemented by subclasses).
+</ParamField>
+
+<ParamField path="attachEventListeners" type="function">
+  Attach event listeners to the element (to be implemented by subclasses if needed).
+</ParamField>
+
+#### Data Handling Methods
+
+<ParamField path="collectData" type="function">
+  Collect the element's data.
+
+  Returns:
+  - `object | null`: The element's data or null if data storage is disabled
+</ParamField>
+
+<ParamField path="setResponse" type="function">
+  Set the element's response.
+
+  Parameters:
+  - `response` (any): The response value
+  - `responded` (boolean): Whether the element has been responded to
+</ParamField>
+
+<ParamField path="addData" type="function">
+  Add additional data to the element.
+
+  Parameters:
+  - `key` (string): The key for the new data
+  - `value` (any): The value to store
+</ParamField>
+
+#### Styling Methods
+
+<ParamField path="mergeStyles" type="function">
+  Merge default styles with custom styles.
+
+  Parameters:
+  - `defaultStyles` (object): The default styles
+  - `customStyles` (object): The custom styles to merge
+
+  Returns:
+  - `object`: The merged styles
+</ParamField>
+
+<ParamField path="generateStylesheet" type="function">
+  Generate a stylesheet for the element.
+
+  Returns:
+  - `string`: The generated stylesheet
+</ParamField>
+
+#### Utility Methods
+
+<ParamField path="showValidationError" type="function">
+  Display a validation error message.
+
+  Parameters:
+  - `message` (string): The error message to display
+</ParamField>
+
+<ParamField path="isValid" type="function">
+  Check if the element is valid.
+
+  Returns:
+  - `boolean`: True if valid, false otherwise
+</ParamField>
+
+### Static Methods
+
+<ParamField path="extendDataStructure" type="function">
+  Extend the base data structure.
+
+  Parameters:
+  - `extension` (object): Additional properties to add to the data structure
+
+  Returns:
+  - `object`: The extended data structure
+</ParamField>
+
+### Extending the Element Class
+
+To create a custom question type, extend the Element class and implement the necessary methods:
+
+```javascript
+class CustomQuestion extends Element {
+    static styleKeys = ['root', 'label', 'input', 'errorMessage'];
+
+    constructor(props) {
+        super({ ...props, type: 'custom-question' });
+        // Additional initialization
+    }
+
+    generateHTML() {
+        // Implement HTML generation
+    }
+
+    attachEventListeners() {
+        // Implement event listeners if needed
+    }
+
+    // Additional custom methods
+}
+```
