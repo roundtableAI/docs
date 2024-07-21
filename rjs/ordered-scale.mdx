@@ -1,18 +1,19 @@
 ---
 title: 'Ordered Scale'
-description: ''
+description: 'The OrderedScale question type presents users with a statement and asks them to rate their level of agreement or opinion.'
 ---
 
-The OrderedScale question type presents users with a list of options that they need to rank on a numeric scale, typically from 1 to a specified maximum value.
+The OrderedScale question type allows respondents to select a single rating on a scale, typically used to measure attitudes or opinions.
 
 ### Basic Usage
 
 ```javascript
-const movieRankingQuestion = new OrderedScale({
-    id: 'movie_ranking',
-    text: 'Rank these movies from your most favorite (1) to least favorite (5):',
-    options: ['The Godfather', 'Pulp Fiction', 'Inception', 'The Shawshank Redemption', 'Forrest Gump'],
-    maxRank: 5,
+const satisfactionQuestion = new OrderedScale({
+    id: 'customer_satisfaction',
+    text: 'How satisfied are you with our service?',
+    min: 1,
+    max: 5,
+    labels: ['Very Unsatisfied', 'Unsatisfied', 'Neutral', 'Satisfied', 'Very Satisfied'],
     required: true
 });
 ```
@@ -24,27 +25,27 @@ const movieRankingQuestion = new OrderedScale({
 </ParamField>
 
 <ParamField path="text" type="string" required>
-  The main question text.
+  The main question text or statement to be rated.
 </ParamField>
 
 <ParamField path="subText" type="string" default="">
   Additional text to provide context or instructions.
 </ParamField>
 
-<ParamField path="options" type="array" required>
-  An array of strings representing the items to be ranked.
-</ParamField>
-
-<ParamField path="maxRank" type="integer" required>
-  The highest rank value, typically equal to the number of options.
-</ParamField>
-
 <ParamField path="required" type="boolean" default="true">
   Whether the question is required.
 </ParamField>
 
-<ParamField path="randomize" type="boolean" default="false">
-  Whether to randomize the initial order of options.
+<ParamField path="min" type="number" default="1">
+  The minimum value on the scale.
+</ParamField>
+
+<ParamField path="max" type="number" default="7">
+  The maximum value on the scale.
+</ParamField>
+
+<ParamField path="labels" type="array">
+  An array of strings representing labels for each point on the scale. The number of labels should match the scale range (max - min + 1).
 </ParamField>
 
 <ParamField path="styles" type="object">
@@ -53,9 +54,11 @@ const movieRankingQuestion = new OrderedScale({
   - `innerContainer`
   - `label`
   - `subText`
-  - `optionsContainer`
-  - `option`
-  - `rankInput`
+  - `scaleContainer`
+  - `scaleItem`
+  - `scaleLabel`
+  - `scaleInput`
+  - `scaleNumber`
   - `errorMessage`
 </ParamField>
 
@@ -63,45 +66,31 @@ const movieRankingQuestion = new OrderedScale({
 
 **Response Format**
 
-The OrderedScale question type returns an array of objects representing the ranked options:
+The OrderedScale question type returns a single number representing the selected rating:
 
 ```javascript
-[
-  { option: "The Shawshank Redemption", rank: 1 },
-  { option: "Pulp Fiction", rank: 2 },
-  { option: "The Godfather", rank: 3 },
-  { option: "Inception", rank: 4 },
-  { option: "Forrest Gump", rank: 5 }
-]
+5
 ```
 
 **Validation**
 
 The OrderedScale question validates that:
-1. All options are ranked when required is true.
-2. Each rank is used only once.
-3. All ranks are between 1 and maxRank.
+1. A rating is selected when required is true.
 
 If validation fails, it displays an error message.
 
-### Advanced
+### Methods
 
-#### Methods
-
-The OrderedScale question type inherits methods from the base Element class and adds some specific methods:
+The OrderedScale question type inherits methods from the base Element class and implements some specific methods:
 
 <ParamField path="setResponse" type="function">
   Set the response for the question.
 
   Parameters:
-  - `value` (array): An array of objects with option and rank properties
+  - `value` (number): The selected rating
 
   ```javascript
-  orderedScaleQuestion.setResponse([
-    { option: "The Godfather", rank: 1 },
-    { option: "Pulp Fiction", rank: 2 },
-    // ... other options
-  ]);
+  OrderedScaleQuestion.setResponse(4);
   ```
 </ParamField>
 
@@ -115,43 +104,30 @@ The OrderedScale question type inherits methods from the base Element class and 
   - `boolean`: True if valid, false otherwise
 
   ```javascript
-  const isValid = orderedScaleQuestion.validate(true);
+  const isValid = OrderedScaleQuestion.validate(true);
   ```
 </ParamField>
 
-<ParamField path="updateResponse" type="function">
-  Update the response based on the current state of the rank inputs.
+### Example
 
-  This method is typically called internally when the user interacts with the question.
-
-  ```javascript
-  orderedScaleQuestion.updateResponse();
-  ```
-</ParamField>
-
-<ParamField path="showValidationError" type="function">
-  Display a validation error message.
-
-  Parameters:
-  - `message` (string): The error message to display
-
-  ```javascript
-  orderedScaleQuestion.showValidationError('Please rank all options.');
-  ```
-</ParamField>
-
-#### Example
-
-Here's an example of how to create a customized ordered scale question:
+Here's an example of how to create a customized Ordered scale question:
 
 ```javascript
 const customizedQuestion = new OrderedScale({
-    id: 'vacation_activities',
-    text: 'Rank these vacation activities from most preferred (1) to least preferred (6):',
-    subText: 'Drag and drop or use the number inputs to assign ranks',
-    options: ['Beach relaxation', 'City sightseeing', 'Mountain hiking', 'Cultural experiences', 'Adventure sports', 'Local cuisine exploration'],
-    maxRank: 6,
-    randomize: true,
+    id: 'work_life_balance',
+    text: 'I have a good work-life balance.',
+    subText: 'Please rate your level of agreement with this statement.',
+    min: 1,
+    max: 7,
+    labels: [
+        'Strongly Disagree',
+        'Disagree',
+        'Somewhat Disagree',
+        'Neither Agree nor Disagree',
+        'Somewhat Agree',
+        'Agree',
+        'Strongly Agree'
+    ],
     required: true,
     styles: {
         root: { 
@@ -169,17 +145,20 @@ const customizedQuestion = new OrderedScale({
             fontStyle: 'italic',
             color: '#7f8c8d'
         },
-        optionsContainer: {
-            marginTop: '10px'
+        scaleContainer: {
+            marginTop: '15px'
         },
-        option: {
-            marginBottom: '10px',
+        scaleItem: {
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center'
         },
-        rankInput: {
-            width: '50px',
-            marginRight: '10px'
+        scaleLabel: {
+            fontSize: '0.8em',
+            textAlign: 'center',
+            height: '40px',
+            display: 'flex',
+            alignItems: 'center'
         },
         errorMessage: {
             color: '#e74c3c',
