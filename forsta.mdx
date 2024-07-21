@@ -61,18 +61,22 @@ def checks_array_to_string(array):
 def format_checks(response, keys):
     return {key: checks_array_to_string(response.r.get('checks', {}).get(key, [])) for key in keys}
 
-def format_response_groups(response, keys):
-    return {key: response.r.get('response_groups', {}).get(key, 0) for key in keys}
+def format_response_groups(response, keys,type):
+    return {key: response.r.get(type, {}).get(key, 0) for key in keys}
+    
+def format_effort_ratings(response, keys,type):
+    return {key: response.r.get(type, {}).get(key, 'NA') for key in keys}
         
 labels = p.client_dict['question_labels']
 
 alias_responses.r1.val = alias_api.r.get('flagged', False)
 alias_responses.r2.val = format_checks(alias_api, labels)
-alias_responses.r3.val = format_response_groups(alias_api,labels)
-alias_responses.r4.val = alias_api.r.get('num_checks_failed', 0)
-alias_responses.r5.val = alias_api.r.get('model', 'API not called')
-alias_responses.r6.val = alias_api.r.get('error', False)
-alias_responses.r7.val = alias_api.r.get('problem', 'None')
+alias_responses.r3.val = format_response_groups(alias_api,labels,'response_groups')
+alias_responses.r4.val = format_effort_ratings(alias_api,labels,'effort_ratings')
+alias_responses.r5.val = alias_api.r.get('num_checks_failed', 0)
+alias_responses.r6.val = alias_api.r.get('model', 'API not called')
+alias_responses.r7.val = alias_api.r.get('error', False)
+alias_responses.r8.val = alias_api.r.get('problem', 'None')
 </exec>
 
 
@@ -206,18 +210,22 @@ def checks_array_to_string(array):
 def format_checks(response, keys):
     return {key: checks_array_to_string(response.r.get('checks', {}).get(key, [])) for key in keys}
 
-def format_response_groups(response, keys):
-    return {key: response.r.get('response_groups', {}).get(key, 0) for key in keys}
+def format_response_groups(response, keys,type):
+    return {key: response.r.get(type, {}).get(key, 0) for key in keys}
+    
+def format_effort_ratings(response, keys,type):
+    return {key: response.r.get(type, {}).get(key, 'NA') for key in keys}
         
 labels = p.client_dict['question_labels']
 
 alias_responses.r1.val = alias_api.r.get('flagged', False)
 alias_responses.r2.val = format_checks(alias_api, labels)
-alias_responses.r3.val = format_response_groups(alias_api,labels)
-alias_responses.r4.val = alias_api.r.get('num_checks_failed', 0)
-alias_responses.r5.val = alias_api.r.get('model', 'API not called')
-alias_responses.r6.val = alias_api.r.get('error', False)
-alias_responses.r7.val = alias_api.r.get('problem', 'None')
+alias_responses.r3.val = format_response_groups(alias_api,labels,'response_groups')
+alias_responses.r4.val = format_effort_ratings(alias_api,labels,'effort_ratings')
+alias_responses.r5.val = alias_api.r.get('num_checks_failed', 0)
+alias_responses.r6.val = alias_api.r.get('model', 'API not called')
+alias_responses.r7.val = alias_api.r.get('error', False)
+alias_responses.r8.val = alias_api.r.get('problem', 'None')
 </exec>
 
 
