@@ -1,0 +1,191 @@
+---
+title: 'Ordered Scale'
+description: ''
+---
+
+The OrderedScale question type presents users with a list of options that they need to rank on a numeric scale, typically from 1 to a specified maximum value.
+
+### Basic Usage
+
+```javascript
+const movieRankingQuestion = new OrderedScale({
+    id: 'movie_ranking',
+    text: 'Rank these movies from your most favorite (1) to least favorite (5):',
+    options: ['The Godfather', 'Pulp Fiction', 'Inception', 'The Shawshank Redemption', 'Forrest Gump'],
+    maxRank: 5,
+    required: true
+});
+```
+
+### Parameters
+
+<ParamField path="id" type="string" required>
+  Unique identifier for the question.
+</ParamField>
+
+<ParamField path="text" type="string" required>
+  The main question text.
+</ParamField>
+
+<ParamField path="subText" type="string" default="">
+  Additional text to provide context or instructions.
+</ParamField>
+
+<ParamField path="options" type="array" required>
+  An array of strings representing the items to be ranked.
+</ParamField>
+
+<ParamField path="maxRank" type="integer" required>
+  The highest rank value, typically equal to the number of options.
+</ParamField>
+
+<ParamField path="required" type="boolean" default="true">
+  Whether the question is required.
+</ParamField>
+
+<ParamField path="randomize" type="boolean" default="false">
+  Whether to randomize the initial order of options.
+</ParamField>
+
+<ParamField path="styles" type="object">
+  Custom styles to apply to the question. Available keys are:
+  - `root`
+  - `innerContainer`
+  - `label`
+  - `subText`
+  - `optionsContainer`
+  - `option`
+  - `rankInput`
+  - `errorMessage`
+</ParamField>
+
+### Data
+
+**Response Format**
+
+The OrderedScale question type returns an array of objects representing the ranked options:
+
+```javascript
+[
+  { option: "The Shawshank Redemption", rank: 1 },
+  { option: "Pulp Fiction", rank: 2 },
+  { option: "The Godfather", rank: 3 },
+  { option: "Inception", rank: 4 },
+  { option: "Forrest Gump", rank: 5 }
+]
+```
+
+**Validation**
+
+The OrderedScale question validates that:
+1. All options are ranked when required is true.
+2. Each rank is used only once.
+3. All ranks are between 1 and maxRank.
+
+If validation fails, it displays an error message.
+
+### Advanced
+
+#### Methods
+
+The OrderedScale question type inherits methods from the base Element class and adds some specific methods:
+
+<ParamField path="setResponse" type="function">
+  Set the response for the question.
+
+  Parameters:
+  - `value` (array): An array of objects with option and rank properties
+
+  ```javascript
+  orderedScaleQuestion.setResponse([
+    { option: "The Godfather", rank: 1 },
+    { option: "Pulp Fiction", rank: 2 },
+    // ... other options
+  ]);
+  ```
+</ParamField>
+
+<ParamField path="validate" type="function">
+  Validate the current response against the question's rules.
+
+  Parameters:
+  - `showError` (boolean): Whether to display error messages in the UI
+
+  Returns:
+  - `boolean`: True if valid, false otherwise
+
+  ```javascript
+  const isValid = orderedScaleQuestion.validate(true);
+  ```
+</ParamField>
+
+<ParamField path="updateResponse" type="function">
+  Update the response based on the current state of the rank inputs.
+
+  This method is typically called internally when the user interacts with the question.
+
+  ```javascript
+  orderedScaleQuestion.updateResponse();
+  ```
+</ParamField>
+
+<ParamField path="showValidationError" type="function">
+  Display a validation error message.
+
+  Parameters:
+  - `message` (string): The error message to display
+
+  ```javascript
+  orderedScaleQuestion.showValidationError('Please rank all options.');
+  ```
+</ParamField>
+
+#### Example
+
+Here's an example of how to create a customized ordered scale question:
+
+```javascript
+const customizedQuestion = new OrderedScale({
+    id: 'vacation_activities',
+    text: 'Rank these vacation activities from most preferred (1) to least preferred (6):',
+    subText: 'Drag and drop or use the number inputs to assign ranks',
+    options: ['Beach relaxation', 'City sightseeing', 'Mountain hiking', 'Cultural experiences', 'Adventure sports', 'Local cuisine exploration'],
+    maxRank: 6,
+    randomize: true,
+    required: true,
+    styles: {
+        root: { 
+            backgroundColor: '#f0f8ff',
+            padding: '15px',
+            borderRadius: '8px',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        },
+        label: { 
+            color: '#2c3e50',
+            fontSize: '1.2em',
+            fontWeight: 'bold'
+        },
+        subText: {
+            fontStyle: 'italic',
+            color: '#7f8c8d'
+        },
+        optionsContainer: {
+            marginTop: '10px'
+        },
+        option: {
+            marginBottom: '10px',
+            display: 'flex',
+            alignItems: 'center'
+        },
+        rankInput: {
+            width: '50px',
+            marginRight: '10px'
+        },
+        errorMessage: {
+            color: '#e74c3c',
+            fontWeight: 'bold',
+            marginTop: '5px'
+        }
+    }
+});
+```

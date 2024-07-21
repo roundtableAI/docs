@@ -126,9 +126,14 @@
       "pages": ["rjs/survey",
       {
         "group": "Elements",
-        "pages": ["rjs/multiple-select", "rjs/single-select", "rjs/grid", "rjs/openend", "rjs/number-entry", "rjs/html", "rjs/checkbox", "rjs/custom"]
+        "pages": ["rjs/multiple-select", "rjs/single-select", "rjs/grid", "rjs/openend", "rjs/number-entry", "rjs/html", "rjs/checkbox", "rjs/bounding-box", "rjs/ordered-scale", "rjs/custom"]
       },
-      "rjs/logic"]
+      "rjs/logic",
+      {
+        "group": "Plugins",
+        "pages": ["rjs/progress-bar", "rjs/plugin"]
+      }
+    ]
     },
     {
       "group": "Resources",
