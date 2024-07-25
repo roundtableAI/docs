@@ -1,0 +1,61 @@
+---
+title: 'Roundtable Cloud'
+description: ''
+---
+
+Welcome to the Getting Started guide for **RoundtableJS** using Roundtable Cloud.
+
+### Creating a New Survey
+
+1. Navigate to [surveys.roundtable.ai](https://surveys.roundtable.ai)
+2. Click on the `+ New Survey` button
+
+### Basic Usage
+
+In the Roundtable Cloud editor, you can create your survey using JavaScript. Here's a basic example:
+
+```javascript
+// Create a new Survey instance
+const survey = new Survey();
+
+// Define the first question as a single-select question
+const question1 = new SingleSelect({
+    id: 'question1',
+    text: 'A question',
+    options: ['Option 1', 'Option 2'],
+});
+
+// Define the second question as a single-select question
+const question2 = new SingleSelect({
+    id: 'question2',
+    text: 'A second question',
+    options: ['Option 1', 'Option 2'],
+});
+
+// Define the survey logic
+async function runSurvey() {
+    // Show the first page with the first question
+    await survey.showPage({ id: 'page1', elements: [question1] });
+    
+    console.log('Page 1 completed');
+    
+    // Show the next page with the second question
+    await survey.showPage({ id: 'page2', elements: [question2] });
+    
+    // Finish the survey
+    survey.finishSurvey();
+}
+
+// Start the survey
+runSurvey();
+```
+
+<Tip>Roundtable Cloud automatically handles participant IDs and survey deployment for you.</Tip>
+
+### Deployment
+
+Once you've created your survey in the Roundtable Cloud editor:
+
+1. Click `Publish survey` to make your survey live
+
+Roundtable Cloud will provide you with a unique URL for your survey, which you can share with participants.

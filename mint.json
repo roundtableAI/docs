@@ -119,7 +119,7 @@
     },
     {
       "group": "Overview",
-      "pages": ["rjs/introduction", "rjs/installation"]
+      "pages": ["rjs/introduction", "rjs/installation", "rjs/cloud"]
     },
     {
       "group": "Core",
