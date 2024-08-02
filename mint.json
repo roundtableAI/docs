@@ -126,12 +126,12 @@
       "pages": ["rjs/survey",
       {
         "group": "Elements",
-        "pages": ["rjs/multiple-select", "rjs/single-select", "rjs/grid", "rjs/openend", "rjs/number-entry", "rjs/html", "rjs/checkbox", "rjs/bounding-box", "rjs/ordered-scale", "rjs/custom"]
+        "pages": ["rjs/custom", "rjs/bounding-box", "rjs/checkbox", "rjs/grid", "rjs/html", "rjs/multiple-select", "rjs/number-entry", "rjs/openend", "rjs/ordered-scale", "rjs/single-select", "rjs/text-input"]
       },
       "rjs/logic",
       {
         "group": "Plugins",
-        "pages": ["rjs/progress-bar", "rjs/plugin"]
+        "pages": ["rjs/plugin", "rjs/progress-bar"]
       }
     ]
     },

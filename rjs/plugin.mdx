@@ -1,13 +1,11 @@
 ---
-title: 'Custom Plugins'
+title: 'Overview'
 description: ''
 ---
 
-### Overview
+The Plugin class serves as the foundation for all plugins in **RoundtableJS**. It provides a structure for creating plugins that can interact with the survey at various lifecycle stages, allowing you to extend the functionality of your surveys by adding global behaviors, modifying survey flow, or implementing complex logic that spans multiple pages.
 
-The Plugin class serves as the foundation for all plugins in **RoundtableJS**. It provides a structure for creating plugins that can interact with the survey at various lifecycle stages.
-
-### Constructor
+#### Constructor
 
 ```javascript
 constructor({ styles = {} } = {})
@@ -17,19 +15,17 @@ constructor({ styles = {} } = {})
   Custom styles to apply to the plugin.
 </ParamField>
 
-### Static Properties
+#### Static Properties
 
 - `styleKeys`: Array of style keys (to be overridden by subclasses).
 - `defaultStyles`: Object containing default styles for the plugin.
 
-### Properties
+#### Properties
 
 - `styles`: The merged styles (default and custom) for the plugin.
 - `survey`: Reference to the survey instance (set during initialization).
 
-### Methods
-
-#### Core Methods
+#### Methods
 
 <ParamField path="initialize" type="function">
   Initialize the plugin with a survey instance.
@@ -60,8 +56,6 @@ constructor({ styles = {} } = {})
   Clean up the plugin when it's no longer needed.
 </ParamField>
 
-#### Styling Methods
-
 <ParamField path="mergeStyles" type="function">
   Merge default styles with custom styles.
 
@@ -90,50 +84,184 @@ constructor({ styles = {} } = {})
   - `string`: The CSS selector
 </ParamField>
 
-### Extending the Plugin Class
+### Creating a Custom Plugin
 
-To create a custom plugin, extend the Plugin class and implement the necessary methods:
+To create a custom plugin, you'll extend the Plugin class and implement specific methods. Here's a step-by-step guide:
+
+1. **Extend the Plugin Class**
+
+   Start by creating a new class that extends Plugin:
+
+   ```javascript
+   class CustomPlugin extends Plugin {
+       // Your custom code here
+   }
+   ```
+
+2. **Define Static Properties**
+
+   Specify the style keys and default styles for your custom plugin:
+
+   ```javascript
+   static styleKeys = ['root', 'customElement'];
+
+   static defaultStyles = {
+       root: {
+           margin: '10px 0',
+       },
+       customElement: {
+           color: 'blue',
+       }
+   };
+   ```
+
+3. **Implement the Constructor**
+
+   In the constructor, call the parent constructor and initialize any custom properties:
+
+   ```javascript
+   constructor(props) {
+       super(props);
+       // Initialize custom properties
+       this.customProperty = props.customProperty;
+   }
+   ```
+
+4. **Implement Lifecycle Methods**
+
+   Override the lifecycle methods to add your custom logic:
+
+   ```javascript
+   initialize(survey) {
+       super.initialize(survey);
+       // Custom initialization logic
+   }
+
+   beforePageRender(page) {
+       // Logic to run before each page is rendered
+   }
+
+   afterPageRender(page) {
+       // Logic to run after each page is rendered
+   }
+
+   beforeSurveyFinish() {
+       // Logic to run before the survey finishes
+   }
+
+   destroy() {
+       // Custom cleanup logic
+       super.destroy();
+   }
+   ```
+
+5. **Add Custom Methods**
+
+   Include any additional methods specific to your plugin:
+
+   ```javascript
+   customMethod() {
+       // Your custom functionality
+   }
+   ```
+
+### Example: Survey Timer Plugin
+
+This plugin adds a timer to each page of the survey and tracks the total time spent on the survey:
 
 ```javascript
-class CustomPlugin extends Plugin {
-    static styleKeys = ['root', 'customElement'];
+class SurveyTimerPlugin extends Plugin {
+    static styleKeys = ['timer'];
 
     static defaultStyles = {
-        root: {
-            margin: '10px 0',
-        },
-        customElement: {
-            color: 'blue',
+        timer: {
+            position: 'fixed',
+            top: '10px',
+            right: '10px',
+            padding: '5px 10px',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            color: 'white',
+            borderRadius: '5px',
+            fontSize: '14px',
         }
     };
 
     constructor(props) {
         super(props);
-        // Additional initialization
+        this.surveyStartTime = null;
+        this.pageStartTime = null;
+        this.timerInterval = null;
+        this.pageTimes = {};
     }
 
     initialize(survey) {
         super.initialize(survey);
-        // Custom initialization logic
+        this.surveyStartTime = new Date();
+        this.createTimerElement();
+    }
+
+    createTimerElement() {
+        const timerElement = document.createElement('div');
+        timerElement.id = 'survey-timer';
+        document.body.appendChild(timerElement);
     }
 
     beforePageRender(page) {
-        // Logic to run before each page is rendered
+        this.pageStartTime = new Date();
+        this.updateTimer();
+        this.startTimerInterval();
     }
 
     afterPageRender(page) {
-        // Logic to run after each page is rendered
+        if (this.pageStartTime) {
+            const pageEndTime = new Date();
+            const pageTime = (pageEndTime - this.pageStartTime) / 1000; // in seconds
+            this.pageTimes[page.id] = pageTime;
+        }
     }
 
     beforeSurveyFinish() {
-        // Logic to run before the survey finishes
+        this.stopTimerInterval();
+        const totalTime = (new Date() - this.surveyStartTime) / 1000; // in seconds
+        this.survey.addData('totalSurveyTime', totalTime);
+        this.survey.addData('pageTimings', this.pageTimes);
+    }
+
+    updateTimer() {
+        const timerElement = document.getElementById('survey-timer');
+        if (timerElement) {
+            const currentTime = new Date();
+            const pageTime = Math.round((currentTime - this.pageStartTime) / 1000);
+            const totalTime = Math.round((currentTime - this.surveyStartTime) / 1000);
+            timerElement.textContent = `Page: ${this.formatTime(pageTime)} | Total: ${this.formatTime(totalTime)}`;
+        }
+    }
+
+    startTimerInterval() {
+        this.stopTimerInterval(); // Clear any existing interval
+        this.timerInterval = setInterval(() => this.updateTimer(), 1000);
+    }
+
+    stopTimerInterval() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+    }
+
+    formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     }
 
     destroy() {
-        // Custom cleanup logic
+        this.stopTimerInterval();
+        const timerElement = document.getElementById('survey-timer');
+        if (timerElement) {
+            timerElement.remove();
+        }
         super.destroy();
     }
-
-    // Additional custom methods
 }
 ```
