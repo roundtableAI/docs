@@ -1,0 +1,112 @@
+---
+title: 'Overview'
+description: ''
+---
+
+## Philosophy
+
+The core philosophy of RoundtableJS revolves around three main principles:
+
+1. **Modularity**: The library is designed with a component-based architecture, allowing you to build complex surveys from simple, reusable parts. Alternatively, leverage our customized copilot in our [cloud offering](surveys.roundtable.ai) to program in natural language.
+
+2. **Ease of Styling**: Every aspect of your survey can be styled using intuitive CSS-like objects, giving you complete control over the look and feel of your surveys. Design is an underrated part of the survey experience that can greatly enhance data quality.
+
+3. **Intuitive Timeline Management**: RoundtableJS uses an asynchronous approach to page rendering, making it easy to create complex survey flows and logic. In other libraries survey logic is determined via callbacks that trigger when a page is submitted, which quickly becomes a nightmare to manage and debug.
+
+## How RoundtableJS Works
+
+### Survey Constructor
+
+The foundation of every RoundtableJS survey is the Survey constructor. This JavaScript class is used to create new survey instances:
+
+```javascript
+const { Survey } = RoundtableJS;
+
+const survey = new Survey({
+    condition: 'control',
+    participant_id: 'user123',
+    styles: {
+        container: {
+            maxWidth: '800px',
+            padding: '20px',
+        },
+        button: {
+            backgroundColor: 'blue',
+            color: 'white',
+        }
+    }
+});
+```
+
+### Elements
+
+Elements in RoundtableJS define different question types. These are also JavaScript classes, each representing a specific type of survey question or content:
+
+```javascript
+const { TextInput, SingleSelect, HTML } = RoundtableJS;
+
+const nameQuestion = new TextInput({
+    id: 'name',
+    text: 'What is your name?',
+    required: true,
+    placeholder: 'Enter your name',
+});
+
+const colorQuestion = new SingleSelect({
+    id: 'favoriteColor',
+    text: 'What is your favorite color?',
+    options: ['Red', 'Blue', 'Green', 'Yellow'],
+});
+
+const welcomeMessage = new HTML({
+    id: 'welcome',
+    content: '<h1>Welcome to our survey!</h1>'
+});
+```
+
+### Pages
+
+Pages in RoundtableJS are built out of arrays of elements. They are shown asynchronously, allowing for complex survey logic:
+
+```javascript
+await survey.showPage({
+    id: 'introPage',
+    elements: [
+        welcomeMessage,
+        nameQuestion,
+        colorQuestion
+    ]
+});
+```
+
+### Plugins
+
+Plugins allow you to modify the logic or content of the survey across pages. They provide a way to add global functionality to your survey:
+
+```javascript
+const myPlugin = new MyCustomPlugin({
+    // plugin configuration
+});
+
+survey.use(myPlugin);
+```
+
+### Styling
+
+All surveys, elements, and plugins in RoundtableJS accept an optional `styles` dictionary. This allows you to modify the CSS of any part of the survey using a JavaScript object:
+
+```javascript
+const styledQuestion = new TextInput({
+    id: 'email',
+    text: 'What is your email address?',
+    styles: {
+        question: {
+            color: 'darkblue',
+            fontSize: '18px'
+        },
+        input: {
+            borderColor: 'lightblue'
+        }
+    }
+});
+```
