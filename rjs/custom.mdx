@@ -1,164 +1,171 @@
 ---
-title: 'Custom ELements'
+title: 'Overview'
 description: ''
 ---
 
-### Overview
+The Element class is the foundation for all question types in RoundtableJS. It provides a flexible structure for creating various survey elements, handling data, managing styles, and implementing validation. By extending this class, you can create custom question types tailored to your specific survey needs.
 
-The Element class serves as the foundation for all question types in **RoundtableJS.**
+### Element Class Structure
 
-### Constructor
+The Element class includes:
+- Core properties like `id`, `type`, `store_data`, and `required`
+- Data handling methods for responses and additional data
+- Styling methods for merging and applying custom styles
+- Utility methods for validation and error handling
+- Static properties and methods for data structure and style management
 
-```javascript
-constructor({ id, type, store_data = false, required = false })
-```
+### Creating a Custom Element
 
-<ParamField path="id" type="string" required>
-  Unique identifier for the element.
-</ParamField>
+To create a custom element, you'll extend the Element class and implement specific methods. Here's a step-by-step guide:
 
-<ParamField path="type" type="string" required>
-  Type identifier for the element.
-</ParamField>
+1. **Extend the Element Class**
 
-<ParamField path="store_data" type="boolean" default={false}>
-  Whether to store data for this element.
-</ParamField>
+   Start by creating a new class that extends Element:
 
-<ParamField path="required" type="boolean" default={false}>
-  Whether the element is required.
-</ParamField>
+   ```javascript
+   class CustomQuestion extends Element {
+       // Your custom code here
+   }
+   ```
 
-### Properties
+2. **Define Static Properties**
 
-- `id`: The unique identifier of the element.
-- `type`: The type of the element.
-- `store_data`: Whether the element stores data.
-- `required`: Whether the element is required.
-- `data`: Object containing the element's data structure.
+   Specify the style keys for your custom element:
 
-### Static Properties
+   ```javascript
+   static styleKeys = ['root', 'label', 'input', 'errorMessage'];
+   ```
 
-- `dataStructure`: The basic data structure for elements.
-- `styleKeys`: Array of style keys (to be overridden by subclasses).
+3. **Implement the Constructor**
 
-### Methods
+   In the constructor, call the parent constructor and initialize any custom properties:
 
-#### Core Methods
+   ```javascript
+   constructor({ id, text, options, ...otherProps }) {
+       super({ id, type: 'custom-question', ...otherProps });
+       this.text = text;
+       this.options = options;
+       // Initialize other custom properties
+   }
+   ```
 
-<ParamField path="validate" type="function">
-  Validate the element's response.
+4. **Implement generateHTML Method**
 
-  Returns:
-  - `boolean`: True if valid, false otherwise
-</ParamField>
+   This method should return the HTML structure for your custom element:
 
-<ParamField path="render" type="function">
-  Render the element in the DOM.
-</ParamField>
+   ```javascript
+   generateHTML() {
+       return `
+           <div class="custom-question" id="${this.id}-container">
+               <label for="${this.id}">${this.text}</label>
+               <!-- Add your custom HTML here -->
+               <div id="${this.id}-error" class="error-message"></div>
+           </div>
+       `;
+   }
+   ```
 
-<ParamField path="generateHTML" type="function">
-  Generate the HTML structure for the element (to be implemented by subclasses).
-</ParamField>
+5. **Implement attachEventListeners Method**
 
-<ParamField path="attachEventListeners" type="function">
-  Attach event listeners to the element (to be implemented by subclasses if needed).
-</ParamField>
+   If your element needs to respond to user interactions, implement this method:
 
-#### Data Handling Methods
+   ```javascript
+   attachEventListeners() {
+       const element = document.getElementById(this.id);
+       this.addEventListenerWithTracking(element, 'change', this.handleChange.bind(this));
+   }
 
-<ParamField path="collectData" type="function">
-  Collect the element's data.
+   handleChange(e) {
+       // Handle the change event
+       this.setResponse(e.target.value);
+   }
+   ```
 
-  Returns:
-  - `object | null`: The element's data or null if data storage is disabled
-</ParamField>
+6. **Implement Custom Validation (Optional)**
 
-<ParamField path="setResponse" type="function">
-  Set the element's response.
+   If your element requires custom validation, override the validate method:
 
-  Parameters:
-  - `response` (any): The response value
-  - `responded` (boolean): Whether the element has been responded to
-</ParamField>
+   ```javascript
+   validate(showError = false) {
+       // Implement your custom validation logic
+       const isValid = /* your validation logic */;
+       if (showError && !isValid) {
+           this.showValidationError('Your custom error message');
+       }
+       return isValid;
+   }
+   ```
 
-<ParamField path="addData" type="function">
-  Add additional data to the element.
+7. **Add Any Additional Custom Methods**
 
-  Parameters:
-  - `key` (string): The key for the new data
-  - `value` (any): The value to store
-</ParamField>
+   Include any other methods specific to your custom element:
 
-#### Styling Methods
+   ```javascript
+   customMethod() {
+       // Your custom functionality
+   }
+   ```
 
-<ParamField path="mergeStyles" type="function">
-  Merge default styles with custom styles.
+### Example: Custom Rating Question
 
-  Parameters:
-  - `defaultStyles` (object): The default styles
-  - `customStyles` (object): The custom styles to merge
-
-  Returns:
-  - `object`: The merged styles
-</ParamField>
-
-<ParamField path="generateStylesheet" type="function">
-  Generate a stylesheet for the element.
-
-  Returns:
-  - `string`: The generated stylesheet
-</ParamField>
-
-#### Utility Methods
-
-<ParamField path="showValidationError" type="function">
-  Display a validation error message.
-
-  Parameters:
-  - `message` (string): The error message to display
-</ParamField>
-
-<ParamField path="isValid" type="function">
-  Check if the element is valid.
-
-  Returns:
-  - `boolean`: True if valid, false otherwise
-</ParamField>
-
-### Static Methods
-
-<ParamField path="extendDataStructure" type="function">
-  Extend the base data structure.
-
-  Parameters:
-  - `extension` (object): Additional properties to add to the data structure
-
-  Returns:
-  - `object`: The extended data structure
-</ParamField>
-
-### Extending the Element Class
-
-To create a custom question type, extend the Element class and implement the necessary methods:
+Here's an example of a custom rating question that extends the Element class:
 
 ```javascript
-class CustomQuestion extends Element {
-    static styleKeys = ['root', 'label', 'input', 'errorMessage'];
+class RatingQuestion extends Element {
+    static styleKeys = ['root', 'label', 'ratingContainer', 'ratingButton', 'selectedRating', 'errorMessage'];
 
-    constructor(props) {
-        super({ ...props, type: 'custom-question' });
-        // Additional initialization
+    constructor({ id, text, maxRating = 5, ...otherProps }) {
+        super({ id, type: 'rating-question', ...otherProps });
+        this.text = text;
+        this.maxRating = maxRating;
     }
 
     generateHTML() {
-        // Implement HTML generation
+        const buttons = Array.from({ length: this.maxRating }, (_, i) => 
+            `<button class="rating-button" data-rating="${i + 1}">${i + 1}</button>`
+        ).join('');
+
+        return `
+            <div class="rating-question" id="${this.id}-container">
+                <label for="${this.id}">${this.text}</label>
+                <div class="rating-container">${buttons}</div>
+                <div id="${this.id}-error" class="error-message"></div>
+            </div>
+        `;
     }
 
     attachEventListeners() {
-        // Implement event listeners if needed
+        const container = document.querySelector(`#${this.id}-container .rating-container`);
+        this.addEventListenerWithTracking(container, 'click', this.handleRatingClick.bind(this));
     }
 
-    // Additional custom methods
+    handleRatingClick(e) {
+        if (e.target.classList.contains('rating-button')) {
+            const rating = parseInt(e.target.dataset.rating);
+            this.setResponse(rating);
+            this.updateSelectedRating(rating);
+        }
+    }
+
+    updateSelectedRating(rating) {
+        const buttons = document.querySelectorAll(`#${this.id}-container .rating-button`);
+        buttons.forEach(button => {
+            if (parseInt(button.dataset.rating) <= rating) {
+                button.classList.add('selected');
+            } else {
+                button.classList.remove('selected');
+            }
+        });
+    }
+
+    validate(showError = false) {
+        const isValid = this.data.response !== undefined;
+        if (showError && !isValid) {
+            this.showValidationError('Please select a rating');
+        }
+        return isValid;
+    }
 }
 ```
+
+This custom RatingQuestion element creates a rating scale with clickable buttons, handles user interactions, and implements custom validation.
