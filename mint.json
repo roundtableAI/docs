@@ -123,7 +123,7 @@
     },
     {
       "group": "Core",
-      "pages": ["rjs/survey",
+      "pages": ["rjs/overview", "rjs/survey",
       {
         "group": "Elements",
         "pages": ["rjs/custom", "rjs/bounding-box", "rjs/checkbox", "rjs/grid", "rjs/html", "rjs/multiple-select", "rjs/number-entry", "rjs/openend", "rjs/ordered-scale", "rjs/single-select", "rjs/text-input"]
