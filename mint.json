@@ -48,7 +48,7 @@
         "overview",
       {
       "group": "Checks and Flags",
-      "pages": ["basic-checks", "duplicate-detection", "behavioral-tracking", "effort-scoring"]
+      "pages": ["basic-checks-v016", "duplicate-detection", "behavioral-tracking", "effort-scoring"]
       }
       ],
       "version": "v016"
@@ -60,7 +60,7 @@
         "overview",
       {
       "group": "Checks and Flags",
-      "pages": ["basic-checks", "duplicate-detection", "behavioral-tracking", "effort-scoring"]
+      "pages": ["basic-checks-v015", "duplicate-detection", "behavioral-tracking", "effort-scoring"]
       }
       ],
       "version": "v015"
