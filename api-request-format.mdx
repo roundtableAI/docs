@@ -1,0 +1,33 @@
+---
+title: 'API Request Format'
+description: ''
+---
+
+```bash
+curl --request POST \
+  --url https://api.roundtable.ai/alias/<version> \
+  --header 'Content-Type: application/json' \
+  --header 'api_key: <api_key>' \
+  --data '{
+  "participant_id": "participant_123",
+  "question_histories": {
+    "Q1": [
+        {
+          "s": "I",
+          "t": 0
+        },
+        {
+          "s": "Im",
+          "t": 429
+        }
+    ]
+  },
+  "questions": {
+    "Q1": "How do you feel our software has impacted your daily workflow?"
+  },
+  "responses": {
+    "Q1": "I really like pineapple on pizza."
+  },
+  "survey_id": "survey_456"
+}'
+```
