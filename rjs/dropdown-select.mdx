@@ -1,0 +1,161 @@
+---
+title: 'Dropdown Select'
+description: ''
+---
+
+The DropdownSelect question type presents users with a dropdown list from which they can select one answer.
+
+### Basic Usage
+
+```javascript
+const countryQuestion = new DropdownSelect({
+    id: 'country',
+    text: 'What is your country of residence?',
+    options: ['USA', 'Canada', 'UK', 'Australia', 'Other'],
+    required: true
+});
+```
+
+### Parameters
+
+<ParamField path="id" type="string" required>
+  Unique identifier for the question.
+</ParamField>
+
+<ParamField path="text" type="string" required>
+  The main question text.
+</ParamField>
+
+<ParamField path="subText" type="string" default="">
+  Additional text to provide context or instructions.
+</ParamField>
+
+<ParamField path="options" type="array" required>
+  An array of strings representing the available options.
+</ParamField>
+
+<ParamField path="required" type="boolean" default="true">
+  Whether the question is required.
+</ParamField>
+
+<ParamField path="placeholder" type="string" default="Select an option">
+  The placeholder text displayed when no option is selected.
+</ParamField>
+
+<ParamField path="customValidation" type="function">
+  A custom validation function that takes the response as input and returns true if valid, or an error message string if invalid.
+</ParamField>
+
+<ParamField path="styles" type="object">
+  Custom styles to apply to the question. Available keys are:
+  - `root`
+  - `innerContainer`
+  - `textContainer`
+  - `text`
+  - `subText`
+  - `select`
+  - `option`
+  - `errorMessage`
+</ParamField>
+
+### Data
+
+**Response Format**
+
+The DropdownSelect question type returns a string representing the selected option:
+
+```javascript
+"Canada"
+```
+
+**Validation**
+
+The DropdownSelect question validates that:
+1. An option has been selected when required is set to true.
+2. The selected option is valid (exists in the options array).
+3. Any custom validation provided in the `customValidation` function passes.
+
+If validation fails, it displays an appropriate error message.
+
+### Methods
+
+The DropdownSelect question type inherits methods from the base Element class and includes some specific methods:
+
+<ParamField path="setResponse" type="function">
+  Set the response for the question.
+
+  Parameters:
+  - `value` (string): The selected option
+
+  ```javascript
+  dropdownSelectQuestion.setResponse('Canada');
+  ```
+</ParamField>
+
+<ParamField path="validate" type="function">
+  Validate the current response against the question's rules.
+
+  Returns:
+  - An object with `isValid` (boolean) and `errorMessage` (string) properties.
+
+  ```javascript
+  const { isValid, errorMessage } = dropdownSelectQuestion.validate();
+  ```
+</ParamField>
+
+### Example
+
+Here's an example of how to create a customized dropdown select question:
+
+```javascript
+const educationQuestion = new DropdownSelect({
+    id: 'education_level',
+    text: 'What is your highest level of education?',
+    subText: 'Please select the option that best describes your educational background',
+    options: ['High School', 'Associate Degree', 'Bachelor\'s Degree', 'Master\'s Degree', 'Doctorate', 'Other'],
+    required: true,
+    placeholder: 'Choose your education level',
+    customValidation: (response) => {
+        if (response === 'Other') {
+            return 'Please specify your education level in the next question.';
+        }
+        return true;
+    },
+    styles: {
+        root: { 
+            backgroundColor: '#f0f8ff',
+            padding: '15px',
+            borderRadius: '8px',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        },
+        text: { 
+            color: '#2c3e50',
+            fontSize: '1.2em',
+            fontWeight: 'bold'
+        },
+        subText: {
+            fontStyle: 'italic',
+            color: '#7f8c8d'
+        },
+        select: {
+            border: '2px solid #3498db',
+            borderRadius: '4px',
+            fontSize: '1.1em',
+            padding: '10px',
+            transition: 'border-color 0.3s ease',
+            '&:focus': {
+                borderColor: '#2980b9',
+                outline: 'none'
+            }
+        },
+        option: {
+            padding: '10px'
+        },
+        errorMessage: {
+            color: '#e74c3c',
+            fontWeight: 'bold',
+            marginTop: '5px'
+        }
+    }
+});
+```

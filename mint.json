@@ -150,7 +150,7 @@
       "pages": ["rjs/overview", "rjs/survey",
       {
         "group": "Elements",
-        "pages": ["rjs/element", "rjs/bounding-box", "rjs/checkbox", "rjs/grid", "rjs/html", "rjs/multiple-select", "rjs/number-entry", "rjs/number-scale", "rjs/openend", "rjs/single-select", "rjs/text-input"]
+        "pages": ["rjs/element", "rjs/bounding-box", "rjs/checkbox", "rjs/dropdown-select", "rjs/grid", "rjs/html", "rjs/multiple-select", "rjs/number-entry", "rjs/number-scale", "rjs/openend", "rjs/single-select", "rjs/text-input"]
       },
       "rjs/logic",
       {
