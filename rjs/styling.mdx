@@ -1,47 +1,56 @@
----
-title: 'Styling'
-description: ''
----
+# RoundtableJS Styling Overview
 
-**RoundtableJS** provides a flexible styling system that allows you to customize the appearance of your survey elements. Each question type supports specific style keys that can be modified to match your desired design.
+**RoundtableJS** provides a flexible styling system that allows you to customize the appearance of your survey elements. This overview covers the basics of styling, including how to apply styles at both the survey and element levels.
 
----
+## Basic Usage
 
-### Basic Usage
+### Survey-Level Styling
 
-You can apply custom styles to any question by passing a `styles` object in the constructor:
+You can apply styles to all elements in a survey by passing a `styles` object during survey initialization:
 
 ```javascript
-const styledQuestion = new SingleSelect({
-    id: 'favorite_color',
-    text: 'What is your favorite color?',
-    options: ['Red', 'Blue', 'Green'],
+const survey = new Survey({
     styles: {
-        root: { 
-            backgroundColor: '#f0f8ff',
-            padding: '15px',
-            borderRadius: '8px'
-        },
-        label: { 
-            color: '#2c3e50',
-            fontSize: '1.2em'
+        Element: {
+            root: {
+                background: 'gray',
+            }
         }
     }
 });
 ```
----
 
-### Style Keys
+### Element-Level Styling
+
+For individual elements, you can pass a `styles` object in the constructor:
+
+```javascript
+const openEnd = new OpenEnd({
+    id: 'feedback',
+    text: 'Please provide any additional feedback you may have',
+    styles: {
+        root: {
+            background: 'white', // Overrides the gray background set in the survey styles
+        },
+        textarea: {
+            borderRadius: '0px', // Removes the default border radius only on the textarea
+        }
+    }
+});
+```
+
+## Style Keys
 
 Each question type has its own set of style keys that can be customized. Here are the common style keys:
 
 ```javascript
 {
-    root: {},        // Styles for the main container
-    innerContainer: {}, // Styles for the inner container (if applicable)
-    label: {},       // Styles for the question label
-    subText: {},     // Styles for additional instructional text
-    errorMessage: {} // Styles for validation error messages
+    root: {},            // Styles for the main container
+    innerContainer: {},  // Styles for the inner container (if applicable)
+    textContainer: {},   // Styles for the container holding text elements
+    text: {},            // Styles for the main text (usually the question text)
+    subText: {},         // Styles for additional instructional text
+    errorMessage: {}     // Styles for validation error messages
 }
 ```
 
@@ -51,9 +60,8 @@ Specific question types may have additional keys. For example:
 - NumberEntry: `input`, `unit`
 - OpenEnd: `textarea`
 - Grid: `table`, `headerRow`, `headerCell`, `row`, `rowLabel`, `cell`
----
 
-### Applying Styles
+## Applying Styles
 
 Styles are applied as CSS-in-JS objects. You can use any valid CSS property, using camelCase for property names:
 
@@ -64,7 +72,7 @@ styles: {
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
         transition: 'all 0.3s ease'
     },
-    label: {
+    text: {
         color: '#2c3e50',
         fontSize: '1.2em',
         fontWeight: 'bold'
@@ -72,10 +80,24 @@ styles: {
 }
 ```
 
----
+## Inheritance and Overriding
 
-### Inheritance and Overriding
+Each question type has default styles that are automatically applied. When you provide custom styles, they are merged with the default styles, allowing you to override specific properties while keeping others. Element-specific styling can override default styles set at the survey level.
 
-Each question type has default styles that are automatically applied. When you provide custom styles, they are merged with the default styles, allowing you to override specific properties while keeping others.
+## Custom Elements and Styling
 
----
+When creating custom elements by extending the Element class, you can define your own style keys and implement custom styling. Here's an example of how to set up styling for a custom element:
+
+```javascript
+class CustomQuestion extends Element {
+    static styleKeys = ['root', 'label', 'input', 'errorMessage'];
+
+    constructor({ id, text, options, styles, ...otherProps }) {
+        super({ id, type: 'custom-question', styles, ...otherProps });
+        this.text = text;
+        this.options = options;
+    }
+
+    // Implement other methods as needed
+}
+```
