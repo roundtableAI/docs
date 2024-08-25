@@ -52,15 +52,21 @@ const foodPreferencesQuestion = new MultiSelect({
   The maximum number of options that can be selected. If null, there is no maximum.
 </ParamField>
 
+<ParamField path="customValidation" type="function">
+  A custom validation function that takes the response as input and returns true if valid, or an error message string if invalid.
+</ParamField>
+
 <ParamField path="styles" type="object">
   Custom styles to apply to the question. Available keys are:
   - `root`
   - `innerContainer`
-  - `label`
+  - `textContainer`
+  - `text`
   - `subText`
   - `optionsContainer`
   - `option`
   - `checkbox`
+  - `label`
   - `errorMessage`
 </ParamField>
 
@@ -80,6 +86,7 @@ The MultiSelect question validates that:
 1. At least one option is selected when required is true.
 2. The number of selected options is at least minSelected (if specified).
 3. The number of selected options does not exceed maxSelected (if specified).
+4. Any custom validation provided in the `customValidation` function passes.
 
 If validation fails, it displays an error message.
 
@@ -87,7 +94,7 @@ If validation fails, it displays an error message.
 
 #### Methods
 
-The MultiSelect question type inherits methods from the base [Element](custom) class:
+The MultiSelect question type inherits methods from the base Element class and includes some specific methods:
 
 <ParamField path="setResponse" type="function">
   Set the response for the question.
@@ -103,14 +110,11 @@ The MultiSelect question type inherits methods from the base [Element](custom) c
 <ParamField path="validate" type="function">
   Validate the current response against the question's rules.
 
-  Parameters:
-  - `showError` (boolean): Whether to display error messages in the UI
-
   Returns:
-  - `boolean`: True if valid, false otherwise
+  - An object with `isValid` (boolean) and `errorMessage` (string) properties.
 
   ```javascript
-  const isValid = multiSelectQuestion.validate(true);
+  const { isValid, errorMessage } = multiSelectQuestion.validate();
   ```
 </ParamField>
 
@@ -121,17 +125,6 @@ The MultiSelect question type inherits methods from the base [Element](custom) c
 
   ```javascript
   multiSelectQuestion.updateResponse();
-  ```
-</ParamField>
-
-<ParamField path="showValidationError" type="function">
-  Display a validation error message.
-
-  Parameters:
-  - `message` (string): The error message to display
-
-  ```javascript
-  multiSelectQuestion.showValidationError('Please select at least one option.');
   ```
 </ParamField>
 
@@ -149,6 +142,12 @@ const customizedQuestion = new MultiSelect({
     minSelected: 2,
     maxSelected: 4,
     required: true,
+    customValidation: (response) => {
+        if (!response.includes('Beach Vacation') && !response.includes('Mountain Hiking')) {
+            return 'Please select at least one nature-related option.';
+        }
+        return true;
+    },
     styles: {
         root: { 
             backgroundColor: '#f0f8ff',
@@ -156,7 +155,7 @@ const customizedQuestion = new MultiSelect({
             borderRadius: '8px',
             boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
         },
-        label: { 
+        text: { 
             color: '#2c3e50',
             fontSize: '1.2em',
             fontWeight: 'bold'
@@ -169,10 +168,16 @@ const customizedQuestion = new MultiSelect({
             marginTop: '10px'
         },
         option: {
-            marginBottom: '10px'
+            marginBottom: '10px',
+            '&:hover': {
+                backgroundColor: '#e0e0e0'
+            }
         },
         checkbox: {
             accentColor: '#3498db'
+        },
+        label: {
+            marginLeft: '10px'
         },
         errorMessage: {
             color: '#e74c3c',

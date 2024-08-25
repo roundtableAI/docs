@@ -51,11 +51,16 @@ const ageQuestion = new NumberEntry({
   Whether the question is required.
 </ParamField>
 
+<ParamField path="customValidation" type="function">
+  A custom validation function that takes the response as input and returns true if valid, or an error message string if invalid.
+</ParamField>
+
 <ParamField path="styles" type="object">
   Custom styles to apply to the question. Available keys are:
   - `root`
   - `innerContainer`
-  - `label`
+  - `textContainer`
+  - `text`
   - `subText`
   - `input`
   - `unit`
@@ -84,6 +89,7 @@ The NumberEntry question validates that:
 1. A value is entered when required is true.
 2. The entered value is a valid number.
 3. The value is within the specified min and max range (if set).
+4. Any custom validation provided in the `customValidation` function passes.
 
 If validation fails, it displays an appropriate error message.
 
@@ -91,7 +97,7 @@ If validation fails, it displays an appropriate error message.
 
 #### Methods
 
-The NumberEntry question type inherits methods from the base [Element](custom) class:
+The NumberEntry question type inherits methods from the base Element class and includes some specific methods:
 
 <ParamField path="setResponse" type="function">
   Set the response for the question.
@@ -107,25 +113,11 @@ The NumberEntry question type inherits methods from the base [Element](custom) c
 <ParamField path="validate" type="function">
   Validate the current response against the question's rules.
 
-  Parameters:
-  - `showError` (boolean): Whether to display error messages in the UI
-
   Returns:
-  - `boolean`: True if valid, false otherwise
+  - An object with `isValid` (boolean) and `errorMessage` (string) properties.
 
   ```javascript
-  const isValid = numberEntryQuestion.validate(true);
-  ```
-</ParamField>
-
-<ParamField path="showValidationError" type="function">
-  Display a validation error message.
-
-  Parameters:
-  - `message` (string): The error message to display
-
-  ```javascript
-  numberEntryQuestion.showValidationError('Please enter a valid number.');
+  const { isValid, errorMessage } = numberEntryQuestion.validate();
   ```
 </ParamField>
 
@@ -143,6 +135,13 @@ const temperatureQuestion = new NumberEntry({
     step: 0.5,
     unit: '°F',
     required: true,
+    customValidation: (response) => {
+        const value = parseFloat(response);
+        if (value % 1 !== 0.5 && value % 1 !== 0) {
+            return 'Please enter a whole number or half degree (e.g., 72 or 72.5)';
+        }
+        return true;
+    },
     styles: {
         root: { 
             backgroundColor: '#f0f8ff',
@@ -150,7 +149,7 @@ const temperatureQuestion = new NumberEntry({
             borderRadius: '8px',
             boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
         },
-        label: { 
+        text: { 
             color: '#2c3e50',
             fontSize: '1.2em',
             fontWeight: 'bold'

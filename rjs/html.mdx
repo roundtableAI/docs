@@ -21,11 +21,11 @@ const welcomeMessage = new HTML({
 </ParamField>
 
 <ParamField path="content" type="string" required>
-  The HTML content to be inserted into the survey.
+  The HTML content to be inserted into the survey. Must be a non-empty string.
 </ParamField>
 
 <ParamField path="styles" type="object">
-  Custom styles to apply to the HTML container. Only the 'root' key is available for styling.
+  Custom styles to apply to the HTML container. All style keys from the base Element class are available for styling.
 </ParamField>
 
 ### Data
@@ -42,17 +42,17 @@ The HTML component always passes validation as it doesn't collect any data.
 
 #### Methods
 
-The HTML component inherits methods from the base [Element](custom) class, but most are not applicable as it doesn't collect data:
+The HTML component inherits methods from the base Element class, but most are not applicable as it doesn't collect data. Here are some key methods:
 
 <ParamField path="validate" type="function">
-  Always returns true as HTML components don't require validation.
+  Always returns an object indicating valid status as HTML components don't require validation.
 
   Returns:
-  - `boolean`: Always true
+  - An object with `isValid` (boolean) set to true and an empty `errorMessage` string.
 
   ```javascript
-  const isValid = htmlComponent.validate();
-  // isValid will always be true
+  const { isValid, errorMessage } = htmlComponent.validate();
+  // isValid will always be true, errorMessage will be an empty string
   ```
 </ParamField>
 
@@ -64,6 +64,25 @@ The HTML component inherits methods from the base [Element](custom) class, but m
 
   ```javascript
   const htmlString = htmlComponent.generateHTML();
+  ```
+</ParamField>
+
+<ParamField path="render" type="function">
+  Renders the HTML content or updates it if already rendered.
+
+  Parameters:
+  - `surveyElementStyles` (object): Styles to be applied from the survey level
+
+  ```javascript
+  htmlComponent.render(surveyStyles);
+  ```
+</ParamField>
+
+<ParamField path="destroy" type="function">
+  Removes the HTML content from the DOM.
+
+  ```javascript
+  htmlComponent.destroy();
   ```
 </ParamField>
 
@@ -91,7 +110,8 @@ const complexContent = new HTML({
             padding: '15px',
             borderRadius: '8px',
             boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        }
+        },
+        // Other style keys inherited from Element class can be used here
     }
 });
 ```

@@ -25,16 +25,21 @@ const agreementCheckbox = new CheckBox({
   The label text for the checkbox.
 </ParamField>
 
-<ParamField path="required" type="boolean" default="false">
+<ParamField path="required" type="boolean" default="true">
   Whether the checkbox must be checked.
+</ParamField>
+
+<ParamField path="customValidation" type="function">
+  A custom validation function that takes the response as input and returns true if valid, or an error message string if invalid.
 </ParamField>
 
 <ParamField path="styles" type="object">
   Custom styles to apply to the checkbox. Available keys are:
   - `root`
   - `innerContainer`
-  - `label`
+  - `checkboxFlexContainer`
   - `checkbox`
+  - `checkboxLabel`
   - `errorMessage`
 </ParamField>
 
@@ -53,14 +58,15 @@ false // when unchecked
 
 The CheckBox component validates that:
 1. The checkbox is checked when required is true.
+2. Any custom validation provided in the `customValidation` function passes.
 
-If validation fails, it displays the error message "This checkbox is required."
+If validation fails, it displays an error message.
 
 ### Advanced
 
 #### Methods
 
-The CheckBox component inherits methods from the base [Element](custom) class:
+The CheckBox component inherits methods from the base Element class and includes some specific methods:
 
 <ParamField path="setResponse" type="function">
   Set the response for the checkbox.
@@ -76,25 +82,11 @@ The CheckBox component inherits methods from the base [Element](custom) class:
 <ParamField path="validate" type="function">
   Validate the current response against the checkbox's rules.
 
-  Parameters:
-  - `showError` (boolean): Whether to display error messages in the UI
-
   Returns:
-  - `boolean`: True if valid, false otherwise
+  - An object with `isValid` (boolean) and `errorMessage` (string) properties.
 
   ```javascript
-  const isValid = checkboxQuestion.validate(true);
-  ```
-</ParamField>
-
-<ParamField path="showValidationError" type="function">
-  Display a validation error message.
-
-  Parameters:
-  - `message` (string): The error message to display
-
-  ```javascript
-  checkboxQuestion.showValidationError('This checkbox is required.');
+  const { isValid, errorMessage } = checkboxQuestion.validate();
   ```
 </ParamField>
 
@@ -107,6 +99,10 @@ const newsletterSubscription = new CheckBox({
     id: 'newsletter_signup',
     text: 'Subscribe to our newsletter',
     required: false,
+    customValidation: (response) => {
+        // Custom validation logic here
+        return true; // or return an error message string
+    },
     styles: {
         root: { 
             backgroundColor: '#f0f8ff',
@@ -114,11 +110,16 @@ const newsletterSubscription = new CheckBox({
             borderRadius: '8px',
             boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
         },
-        label: { 
+        checkboxFlexContainer: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            gap: '10px',
+        },
+        checkboxLabel: { 
             color: '#2c3e50',
             fontSize: '1.2em',
             fontWeight: 'normal',
-            marginLeft: '10px'
         },
         checkbox: {
             width: '20px',
@@ -134,4 +135,4 @@ const newsletterSubscription = new CheckBox({
 });
 ```
 
-This example demonstrates how to use custom styling to create a more visually appealing checkbox component.
+This example demonstrates how to use custom styling and validation to create a more tailored checkbox component.

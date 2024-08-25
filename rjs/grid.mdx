@@ -52,15 +52,21 @@ const satisfactionGrid = new Grid({
   Whether to randomize the order of columns.
 </ParamField>
 
+<ParamField path="customValidation" type="function">
+  A custom validation function that takes the response as input and returns true if valid, or an error message string if invalid.
+</ParamField>
+
 <ParamField path="styles" type="object">
   Custom styles to apply to the question. Available keys are:
   - `root`
   - `innerContainer`
-  - `label`
+  - `textContainer`
+  - `text`
   - `subText`
   - `table`
   - `headerRow`
   - `headerCell`
+  - `rowWrapper`
   - `row`
   - `rowLabel`
   - `cell`
@@ -85,13 +91,17 @@ The Grid question type returns an object where keys are row labels and values ar
 
 **Validation**
 
-The Grid question validates that all rows have a selected option when required is set to true. If validation fails, it displays an error message listing the unanswered rows.
+The Grid question validates that:
+1. All rows have a selected option when required is set to true.
+2. Any custom validation provided in the `customValidation` function passes.
+
+If validation fails, it displays an error message listing the unanswered rows.
 
 ### Advanced
 
 #### Methods
 
-The Grid question type inherits methods from the base [Element](custom) class:
+The Grid question type inherits methods from the base Element class and includes some specific methods:
 
 <ParamField path="setResponse" type="function">
   Set the response for the question.
@@ -110,14 +120,11 @@ The Grid question type inherits methods from the base [Element](custom) class:
 <ParamField path="validate" type="function">
   Validate the current response against the question's rules.
 
-  Parameters:
-  - `showError` (boolean): Whether to display error messages in the UI
-
   Returns:
-  - `boolean`: True if valid, false otherwise
+  - An object with `isValid` (boolean) and `errorMessage` (string) properties.
 
   ```javascript
-  const isValid = gridQuestion.validate(true);
+  const { isValid, errorMessage } = gridQuestion.validate();
   ```
 </ParamField>
 
@@ -128,17 +135,6 @@ The Grid question type inherits methods from the base [Element](custom) class:
 
   ```javascript
   gridQuestion.updateResponse();
-  ```
-</ParamField>
-
-<ParamField path="showValidationError" type="function">
-  Display a validation error message.
-
-  Parameters:
-  - `message` (string): The error message to display
-
-  ```javascript
-  gridQuestion.showValidationError('Please provide a response for all rows.');
   ```
 </ParamField>
 
@@ -156,13 +152,17 @@ const customizedGrid = new Grid({
     randomizeRows: true,
     randomizeColumns: false,
     required: true,
+    customValidation: (response) => {
+        // Custom validation logic here
+        return true; // or return an error message string
+    },
     styles: {
         root: { 
             backgroundColor: '#f0f8ff',
             padding: '15px',
             borderRadius: '8px'
         },
-        label: { 
+        text: { 
             color: '#2c3e50',
             fontSize: '1.2em'
         },

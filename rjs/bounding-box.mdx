@@ -3,7 +3,7 @@ title: 'Bounding Box'
 description: ''
 ---
 
-The BoundingBox question type presents users with an image on which they can draw, move, and resize rectangular bounding boxes.
+The BoundingBox question type allows users to draw, move, and resize rectangular bounding boxes on an image. It's useful for tasks such as object detection, image annotation, or any scenario where you need users to identify specific regions in an image.
 
 ### Basic Usage
 
@@ -29,6 +29,10 @@ const animalIdentificationQuestion = new BoundingBox({
   The main question text.
 </ParamField>
 
+<ParamField path="subText" type="string" default="">
+  Additional text to display below the main question text.
+</ParamField>
+
 <ParamField path="imageUrl" type="string" required>
   URL of the image on which boxes will be drawn.
 </ParamField>
@@ -49,11 +53,17 @@ const animalIdentificationQuestion = new BoundingBox({
   Whether the question is required.
 </ParamField>
 
+<ParamField path="customValidation" type="function">
+  A custom validation function that takes the response as input and returns true if valid, or an error message string if invalid.
+</ParamField>
+
 <ParamField path="styles" type="object">
   Custom styles to apply to the question. Available keys are:
   - `root`
   - `innerContainer`
-  - `label`
+  - `textContainer`
+  - `text`
+  - `subText`
   - `canvas`
   - `controls`
   - `controlPoint`
@@ -89,7 +99,8 @@ Each box's coordinates and dimensions are represented as percentages of the imag
 **Validation**
 
 The BoundingBox question validates that:
-1. At least one box is drawn when required is true.
+1. At least one box is drawn when `required` is true.
+2. Any custom validation provided in the `customValidation` function passes.
 
 If validation fails, it displays an error message.
 
@@ -126,14 +137,11 @@ The BoundingBox question type inherits methods from the base Element class and a
 <ParamField path="validate" type="function">
   Validate the current response against the question's rules.
 
-  Parameters:
-  - `showError` (boolean): Whether to display error messages in the UI
-
   Returns:
-  - `boolean`: True if valid, false otherwise
+  - An object with `isValid` (boolean) and `errorMessage` (string) properties.
 
   ```javascript
-  const isValid = boundingBoxQuestion.validate(true);
+  const { isValid, errorMessage } = boundingBoxQuestion.validate();
   ```
 </ParamField>
 
@@ -145,11 +153,18 @@ Here's an example of how to create a customized bounding box question:
 const customizedQuestion = new BoundingBox({
     id: 'face_detection',
     text: 'Draw boxes around all faces in this image.',
+    subText: 'Be sure to include all visible faces, including those in the background.',
     imageUrl: 'https://example.com/group-photo.jpg',
     boxColor: '#00FF00',
     boxOpacity: 0.5,
     maxBoxes: 10,
     required: true,
+    customValidation: (response) => {
+        if (response.length < 2) {
+            return 'Please identify at least two faces in the image.';
+        }
+        return true;
+    },
     styles: {
         root: { 
             backgroundColor: '#f0f8ff',
@@ -157,10 +172,15 @@ const customizedQuestion = new BoundingBox({
             borderRadius: '8px',
             boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
         },
-        label: { 
+        text: { 
             color: '#2c3e50',
             fontSize: '1.2em',
             fontWeight: 'bold'
+        },
+        subText: {
+            color: '#7f8c8d',
+            fontSize: '0.9em',
+            marginTop: '5px'
         },
         canvas: {
             border: '1px solid #3498db'
@@ -182,3 +202,5 @@ const customizedQuestion = new BoundingBox({
     }
 });
 ```
+
+This example creates a face detection question with custom styling, a maximum of 10 boxes, and custom validation to ensure at least two faces are identified.
