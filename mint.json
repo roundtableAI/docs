@@ -155,7 +155,7 @@
       "rjs/logic",
       {
         "group": "Plugins",
-        "pages": ["rjs/plugin", "rjs/progress-bar"]
+        "pages": ["rjs/plugin", "rjs/pageHTML", "rjs/progress-bar"]
       }
     ]
     },
