@@ -32,7 +32,14 @@ An object containing custom details and styles for the survey.
 
 <Tip>Good styling is an underrated way to enhance the participant experience</Tip>
 
-The Survey constructor allows you to define global styles that will be applied to the entire survey. 
+The Survey constructor allows you to define global styles that will be applied to the entire survey. There are two main categories of styles you can set:
+
+1. Survey-level styles: Applied to the overall survey structure.
+2. Element-level styles: Applied to all elements within the survey.
+
+#### Survey-level Styling
+
+These styles are applied to the overall survey structure:
 
 ```javascript
 const mySurvey = new Survey({
@@ -53,10 +60,33 @@ const mySurvey = new Survey({
 });
 ```
 
-These styles can be overridden by individual element styles.
+#### Element-level Styling
+
+You can also define styles that will be applied to all elements within the survey:
+
+```javascript
+const mySurvey = new Survey({
+    styles: {
+        Element: {
+            root: {
+                background: 'gray',
+                padding: '20px',
+                borderRadius: '5px'
+            },
+            text: {
+                color: 'white',
+                fontSize: '16px'
+            }
+        }
+    }
+});
+```
+
+These styles will be applied to all elements in the survey, but can be overridden by individual element styles.
 
 #### Available Style Keys
 
+Survey-level style keys:
 - `body`: Styles for the survey body
 - `container`: Styles for the main survey container
 - `navigation`: Styles for the navigation container
@@ -65,9 +95,19 @@ These styles can be overridden by individual element styles.
 - `nextButtonError`: Styles for the error message next to the 'Next' button
 - `finishMessage`: Styles for the survey completion message
 
-For details on the styling syntax that **RoundtableJS** follows, consult our [Styling](styling) page.
+Element-level style keys:
+- `root`: Styles for the main container of each element
+- `innerContainer`: Styles for the inner container of elements (if applicable)
+- `textContainer`: Styles for the container holding text elements
+- `text`: Styles for the main text (usually the question text)
+- `subText`: Styles for additional instructional text
+- `errorMessage`: Styles for validation error messages
+
+For details on the styling syntax and more advanced styling options that **RoundtableJS** follows, consult our [Styling](styling) page.
 
 ### Methods
+
+[The rest of the document remains the same...]
 
 After creating a Survey instance, you can use various methods to interact with it:
 
