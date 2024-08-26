@@ -191,3 +191,38 @@ Retrieve all survey data, including survey details and responses.
 ```javascript
 const surveyData = survey.getAllSurveyData();
 ```
+
+#### addPlugin(plugin)
+
+Add a plugin to the survey.
+
+- Parameters:
+  - `plugin` (object): The plugin object to add
+
+```javascript
+const myPlugin = {
+    initialize: (survey) => {
+        // Plugin initialization logic
+    },
+    // Other plugin methods
+};
+survey.addPlugin(myPlugin);
+```
+
+#### removePlugin(plugin)
+
+Remove a plugin from the survey.
+
+- Parameters:
+  - `plugin` (object): The plugin object to remove
+- Returns:
+  - `true` if the plugin was successfully removed, `false` otherwise
+
+```javascript
+const removed = survey.removePlugin(myPlugin);
+if (removed) {
+    console.log('Plugin removed successfully');
+} else {
+    console.log('Plugin not found');
+}
+```
