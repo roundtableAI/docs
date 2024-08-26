@@ -3,6 +3,8 @@ info:
   title: Fraud Detection API - Detailed
   version: v016
   description: Detailed API specification for survey response analysis for fraudulent activity detection.
+servers:
+  - url: https://api.roundtable.ai/alias/
 paths:
   /v016:
       post:
@@ -96,13 +98,13 @@ paths:
                         type: array
                         items:
                           type: string
-                      example: {"Q1": ["Automated test: Profane"]}
+                      example: {"Q1": ["Automated test: Off-topic"]}
                     effort_ratings:
                       type: object
                       description: Dictionary where key corresponds to question_id and value is an effort score from 1-10, with 1 being minimal effort and 10 being high effort.
                       additionalProperties:
                         type: integer
-                      example: {"Q1": 3}
+                      example: {"Q1": 4}
                     model:
                       type: string
                       description: String specifying the model type.
