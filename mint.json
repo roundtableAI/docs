@@ -150,12 +150,12 @@
       "pages": ["rjs/overview", "rjs/survey",
       {
         "group": "Elements",
-        "pages": ["rjs/custom", "rjs/bounding-box", "rjs/checkbox", "rjs/grid", "rjs/html", "rjs/multiple-select", "rjs/number-entry", "rjs/openend", "rjs/ordered-scale", "rjs/single-select", "rjs/text-input"]
+        "pages": ["rjs/element", "rjs/bounding-box", "rjs/checkbox", "rjs/dropdown-select", "rjs/grid", "rjs/html", "rjs/multiple-select", "rjs/number-entry", "rjs/number-scale", "rjs/openend", "rjs/single-select", "rjs/text-input"]
       },
       "rjs/logic",
       {
         "group": "Plugins",
-        "pages": ["rjs/plugin", "rjs/progress-bar"]
+        "pages": ["rjs/plugin", "rjs/pageHTML", "rjs/progress-bar"]
       }
     ]
     },

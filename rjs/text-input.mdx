@@ -48,11 +48,16 @@ const nameQuestion = new TextInput({
   Whether the question is required.
 </ParamField>
 
+<ParamField path="customValidation" type="function">
+  A custom validation function that takes the response as input and returns true if valid, or an error message string if invalid.
+</ParamField>
+
 <ParamField path="styles" type="object">
   Custom styles to apply to the question. Available keys are:
   - `root`
   - `innerContainer`
-  - `label`
+  - `textContainer`
+  - `text`
   - `subText`
   - `input`
   - `errorMessage`
@@ -68,20 +73,22 @@ The TextInput question type returns a string containing the user's text input:
 "John Doe"
 ```
 
+Additional data stored includes:
+- `responseLength`: The length of the response.
+
 **Validation**
 
 The TextInput question validates that:
 1. The response is not empty when required is true.
 2. The response length is at least minLength (if specified).
 3. The response length does not exceed maxLength (if specified).
+4. Any custom validation provided in the `customValidation` function passes.
 
 If validation fails, it displays an appropriate error message.
 
-### Advanced
+### Methods
 
-#### Methods
-
-The TextInput question type inherits methods from the base [Element](custom) class:
+The TextInput question type inherits methods from the base Element class and includes some specific methods:
 
 <ParamField path="setResponse" type="function">
   Set the response for the question.
@@ -97,29 +104,15 @@ The TextInput question type inherits methods from the base [Element](custom) cla
 <ParamField path="validate" type="function">
   Validate the current response against the question's rules.
 
-  Parameters:
-  - `showError` (boolean): Whether to display error messages in the UI
-
   Returns:
-  - `boolean`: True if valid, false otherwise
+  - An object with `isValid` (boolean) and `errorMessage` (string) properties.
 
   ```javascript
-  const isValid = textInputQuestion.validate(true);
+  const { isValid, errorMessage } = textInputQuestion.validate();
   ```
 </ParamField>
 
-<ParamField path="showValidationError" type="function">
-  Display a validation error message.
-
-  Parameters:
-  - `message` (string): The error message to display
-
-  ```javascript
-  textInputQuestion.showValidationError('Please enter your name.');
-  ```
-</ParamField>
-
-#### Example
+### Example
 
 Here's an example of how to create a customized text input question:
 
@@ -132,6 +125,13 @@ const emailQuestion = new TextInput({
     maxLength: 100,
     placeholder: 'example@domain.com',
     required: true,
+    customValidation: (response) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(response)) {
+            return 'Please enter a valid email address.';
+        }
+        return true;
+    },
     styles: {
         root: {
             backgroundColor: '#f0f8ff',
@@ -139,7 +139,7 @@ const emailQuestion = new TextInput({
             borderRadius: '8px',
             boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
         },
-        label: {
+        text: {
             color: '#2c3e50',
             fontSize: '1.2em',
             fontWeight: 'bold'
@@ -153,7 +153,11 @@ const emailQuestion = new TextInput({
             borderRadius: '4px',
             fontSize: '1.1em',
             padding: '10px',
-            transition: 'border-color 0.3s ease'
+            transition: 'border-color 0.3s ease',
+            '&:focus': {
+                borderColor: '#2980b9',
+                outline: 'none'
+            }
         },
         errorMessage: {
             color: '#e74c3c',
