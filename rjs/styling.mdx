@@ -1,12 +1,25 @@
-# RoundtableJS Styling Overview
+---
+title: 'Styling'
+description: ''
+---
 
 **RoundtableJS** provides a flexible styling system that allows you to customize the appearance of your survey elements. This overview covers the basics of styling, including how to apply styles at both the survey and element levels.
 
-## Basic Usage
+RoundtableJS offers two levels of styling: survey-level and element-level. Understanding the difference between these two is crucial for effective customization of your surveys.
 
-### Survey-Level Styling
+#### Survey-Level Styling
 
-You can apply styles to all elements in a survey by passing a `styles` object during survey initialization:
+Survey-level styles are applied globally to all elements within a survey. These styles serve as default styles for all elements and can be overridden by element-level styles.
+
+#### Element-Level Styling
+
+Element-level styles are applied to individual elements and take precedence over survey-level styles. This allows for fine-grained control over the appearance of specific elements.
+
+### Basic Usage
+
+#### Survey-Level Styling
+
+Apply styles to all elements in a survey by passing a `styles` object during survey initialization:
 
 ```javascript
 const survey = new Survey({
@@ -15,14 +28,22 @@ const survey = new Survey({
             root: {
                 background: 'gray',
             }
+        },
+        body: {
+            fontFamily: 'Arial, sans-serif',
+        },
+        container: {
+            maxWidth: '800px',
         }
     }
 });
 ```
 
-### Element-Level Styling
+In this example, all elements will have a gray background by default, and the survey body will use Arial font. The survey container will have a maximum width of 800px.
 
-For individual elements, you can pass a `styles` object in the constructor:
+#### Element-Level Styling
+
+For individual elements, pass a `styles` object in the element's constructor:
 
 ```javascript
 const openEnd = new OpenEnd({
@@ -33,15 +54,17 @@ const openEnd = new OpenEnd({
             background: 'white', // Overrides the gray background set in the survey styles
         },
         textarea: {
-            borderRadius: '0px', // Removes the default border radius only on the textarea
+            borderRadius: '0px', // Removes the default border radius only on this textarea
         }
     }
 });
 ```
 
-## Style Keys
+This example overrides the survey-level gray background for this specific element and customizes the textarea's border radius.
 
-Each question type has its own set of style keys that can be customized. Here are the common style keys:
+### Style Keys
+
+Each element type has its own set of style keys that can be customized. Here are the common style keys:
 
 ```javascript
 {
@@ -54,14 +77,14 @@ Each question type has its own set of style keys that can be customized. Here ar
 }
 ```
 
-Specific question types may have additional keys. For example:
+Specific element types may have additional keys. For example:
 
 - SingleSelect and MultiSelect: `optionsContainer`, `option`, `radio`/`checkbox`
 - NumberEntry: `input`, `unit`
 - OpenEnd: `textarea`
 - Grid: `table`, `headerRow`, `headerCell`, `row`, `rowLabel`, `cell`
 
-## Applying Styles
+### Applying Styles
 
 Styles are applied as CSS-in-JS objects. You can use any valid CSS property, using camelCase for property names:
 
@@ -80,13 +103,17 @@ styles: {
 }
 ```
 
-## Inheritance and Overriding
+### Inheritance and Overriding
 
-Each question type has default styles that are automatically applied. When you provide custom styles, they are merged with the default styles, allowing you to override specific properties while keeping others. Element-specific styling can override default styles set at the survey level.
+1. Default Styles: Each element type has built-in default styles.
+2. Survey-Level Styles: These override the default styles for all elements in the survey.
+3. Element-Level Styles: These have the highest priority and override both default and survey-level styles for the specific element.
 
-## Custom Elements and Styling
+This hierarchy allows for flexible and efficient styling across your survey.
 
-When creating custom elements by extending the Element class, you can define your own style keys and implement custom styling. Here's an example of how to set up styling for a custom element:
+### Custom Elements and Styling
+
+When creating custom elements by extending the Element class, you can define your own style keys and implement custom styling. Here's an example:
 
 ```javascript
 class CustomQuestion extends Element {
@@ -101,3 +128,5 @@ class CustomQuestion extends Element {
     // Implement other methods as needed
 }
 ```
+
+By defining `styleKeys`, you specify which style properties can be customized for your custom element.

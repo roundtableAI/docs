@@ -1,5 +1,5 @@
 ---
-title: 'Overview'
+title: 'Plugin Class'
 description: ''
 ---
 
@@ -33,63 +33,154 @@ constructor({ targetId = 'survey-container', position = 'top', styles = {} })
 
 ### Methods
 
-<ParamField path="initialize" type="function">
-  Initialize the plugin with a survey instance and inject it into the DOM.
+#### initialize(survey)
 
-  Parameters:
+Initialize the plugin with a survey instance and inject it into the DOM.
+
+- Parameters:
   - `survey` (Survey): The survey instance
-</ParamField>
 
-<ParamField path="injectPlugin" type="function">
-  Inject the plugin element into the DOM.
-</ParamField>
+```javascript
+initialize(survey) {
+    this.survey = survey;
+    this.injectPlugin();
+}
+```
 
-<ParamField path="getOrCreatePluginContainer" type="function">
-  Get or create the container for plugins.
+#### injectPlugin()
 
-  Parameters:
+Inject the plugin element into the DOM.
+
+```javascript
+injectPlugin() {
+    const targetContainer = document.getElementById(this.targetId);
+    if (!targetContainer) {
+        console.warn(`Target container with id "${this.targetId}" not found`);
+        return;
+    }
+
+    let pluginContainer = this.getOrCreatePluginContainer(targetContainer);
+    
+    const pluginElement = this.createPluginElement();
+    pluginContainer.appendChild(pluginElement);
+}
+```
+
+#### getOrCreatePluginContainer(targetContainer)
+
+Get or create the container for plugins.
+
+- Parameters:
   - `targetContainer` (HTMLElement): The target container element
-
-  Returns:
+- Returns:
   - `HTMLElement`: The plugin container
-</ParamField>
 
-<ParamField path="createPluginElement" type="function">
-  Create the plugin's DOM element.
+```javascript
+getOrCreatePluginContainer(targetContainer) {
+    const containerId = `${this.targetId}-${this.position}-plugins`;
+    let pluginContainer = document.getElementById(containerId);
 
-  Returns:
+    if (!pluginContainer) {
+        pluginContainer = document.createElement('div');
+        pluginContainer.id = containerId;
+        
+        if (this.position === 'top') {
+            targetContainer.insertBefore(pluginContainer, targetContainer.firstChild);
+        } else {
+            targetContainer.appendChild(pluginContainer);
+        }
+    }
+
+    return pluginContainer;
+}
+```
+
+#### createPluginElement()
+
+Create the plugin's DOM element.
+
+- Returns:
   - `HTMLElement`: The created plugin element
-</ParamField>
 
-<ParamField path="generateContent" type="function">
-  Generate the content for the plugin. This method should be implemented by subclasses.
+```javascript
+createPluginElement() {
+    const element = document.createElement('div');
+    element.id = this.pluginId;
+    element.innerHTML = this.generateContent();
+    this.applyStyles(element);
+    return element;
+}
+```
 
-  Returns:
+#### generateContent()
+
+Generate the content for the plugin. This method should be implemented by subclasses.
+
+- Returns:
   - `string`: The HTML content for the plugin
-</ParamField>
 
-<ParamField path="applyStyles" type="function">
-  Apply styles to the plugin element.
+```javascript
+generateContent() {
+    // To be implemented by subclasses
+    throw new Error('generateContent method must be implemented by subclasses');
+}
+```
 
-  Parameters:
+#### applyStyles(element)
+
+Apply styles to the plugin element.
+
+- Parameters:
   - `element` (HTMLElement): The element to style
-</ParamField>
 
-<ParamField path="beforePageRender" type="function">
-  Hook called before a page is rendered. To be implemented by subclasses if needed.
-</ParamField>
+```javascript
+applyStyles(element) {
+    Object.assign(element.style, this.styles.root || {});
+}
+```
 
-<ParamField path="afterPageRender" type="function">
-  Hook called after a page is rendered. To be implemented by subclasses if needed.
-</ParamField>
+#### beforePageRender()
 
-<ParamField path="beforeSurveyFinish" type="function">
-  Hook called before the survey finishes. To be implemented by subclasses if needed.
-</ParamField>
+Hook called before a page is rendered. To be implemented by subclasses if needed.
 
-<ParamField path="destroy" type="function">
-  Remove the plugin from the DOM.
-</ParamField>
+```javascript
+beforePageRender() {
+    // This method is intentionally left empty
+}
+```
+
+#### afterPageRender()
+
+Hook called after a page is rendered. To be implemented by subclasses if needed.
+
+```javascript
+afterPageRender() {
+    // This method is intentionally left empty
+}
+```
+
+#### beforeSurveyFinish()
+
+Hook called before the survey finishes. To be implemented by subclasses if needed.
+
+```javascript
+beforeSurveyFinish() {
+    // This method is intentionally left empty
+}
+```
+
+#### destroy()
+
+Remove the plugin from the DOM.
+
+```javascript
+destroy() {
+    const element = document.getElementById(this.pluginId);
+    if (element) {
+        element.remove();
+    }
+}
+```
 
 ### Creating a Custom Plugin
 

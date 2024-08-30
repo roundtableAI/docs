@@ -18,29 +18,28 @@ const mySurvey = new Survey({
 
 The Survey constructor accepts a single optional parameter that stores any metadata and custom styles.
 
-<ParamField body="customSurveyDetails" type="object">
-  An object containing custom details and styles for the survey.
-</ParamField>
+#### customSurveyDetails
 
-#### Example Custom Survey Details
+An object containing custom details and styles for the survey.
 
-<ParamField body="participantId" type="string">
-  A unique identifier for the survey participant.
-</ParamField>
+**Example Custom Survey Details**
 
-<ParamField body="condition" type="string">
-  The experimental condition or group for the survey.
-</ParamField>
-
-<ParamField body="styles" type="object">
-  Custom styles to be applied globally to the survey.
-</ParamField>
+- `participantId` (string): A unique identifier for the survey participant.
+- `condition` (string): The experimental condition or group for the survey.
+- `styles` (object): Custom styles to be applied globally to the survey.
 
 ### Styling
 
 <Tip>Good styling is an underrated way to enhance the participant experience</Tip>
 
-The Survey constructor allows you to define global styles that will be applied to the entire survey. 
+The Survey constructor allows you to define global styles that will be applied to the entire survey. There are two main categories of styles you can set:
+
+1. Survey-level styles: Applied to the overall survey structure.
+2. Element-level styles: Applied to all elements within the survey.
+
+#### Survey-level Styling
+
+These styles are applied to the overall survey structure:
 
 ```javascript
 const mySurvey = new Survey({
@@ -61,109 +60,169 @@ const mySurvey = new Survey({
 });
 ```
 
-These styles can be overridden by individual question styles.
+#### Element-level Styling
+
+You can also define styles that will be applied to all elements within the survey:
+
+```javascript
+const mySurvey = new Survey({
+    styles: {
+        Element: {
+            root: {
+                background: 'gray',
+                padding: '20px',
+                borderRadius: '5px'
+            },
+            text: {
+                color: 'white',
+                fontSize: '16px'
+            }
+        }
+    }
+});
+```
+
+These styles will be applied to all elements in the survey, but can be overridden by individual element styles.
 
 #### Available Style Keys
 
+Survey-level style keys:
 - `body`: Styles for the survey body
 - `container`: Styles for the main survey container
-- `question`: Styles applied to all question containers
+- `navigation`: Styles for the navigation container
 - `button`: Styles for survey navigation buttons
 - `errorMessage`: Styles for error messages
 - `nextButtonError`: Styles for the error message next to the 'Next' button
+- `finishMessage`: Styles for the survey completion message
 
-For details on the styling syntax that **RoundtableJS** follows, consult our [Styling](styling) page.
+Element-level style keys:
+- `root`: Styles for the main container of each element
+- `innerContainer`: Styles for the inner container of elements (if applicable)
+- `textContainer`: Styles for the container holding text elements
+- `text`: Styles for the main text (usually the question text)
+- `subText`: Styles for additional instructional text
+- `errorMessage`: Styles for validation error messages
 
----
+For details on the styling syntax and more advanced styling options that **RoundtableJS** follows, consult our [Styling](styling) page.
 
 ### Methods
 
-After creating a Survey instance, you can use various methods to interact with it:
+#### setSurveyDetail(key, value)
 
-<ParamField path="setSurveyDetail" type="function">
-  Set a custom survey detail.
+Set a custom survey detail.
 
-  Parameters:
+- Parameters:
   - `key` (string): The key for the survey detail
   - `value` (any): The value to set for the survey detail
 
-  ```javascript
-  survey.setSurveyDetail('language', 'en-US');
-  ```
-</ParamField>
+```javascript
+survey.setSurveyDetail('language', 'en-US');
+```
 
-<ParamField path="getSurveyDetail" type="function">
-  Retrieve a custom survey detail.
+#### getSurveyDetail(key)
 
-  Parameters:
+Retrieve a custom survey detail.
+
+- Parameters:
   - `key` (string): The key of the survey detail to retrieve
-
-  Returns:
+- Returns:
   - The value of the specified survey detail
 
-  ```javascript
-  const language = survey.getSurveyDetail('language');
-  ```
-</ParamField>
+```javascript
+const language = survey.getSurveyDetail('language');
+```
 
-<ParamField path="showPage" type="function">
-  Display a specific page of the survey.
+#### showPage(page)
 
-  Parameters:
+Display a specific page of the survey.
+
+- Parameters:
   - `page` (object): The page object to display
-
-  Returns:
+- Returns:
   - A Promise that resolves when the page is completed
 
-  ```javascript
-  await survey.showPage({ id: 'page1', elements: [question1, question2] });
-  ```
-</ParamField>
+```javascript
+await survey.showPage({ id: 'page1', elements: [question1, question2] });
+```
 
-<ParamField path="finishSurvey" type="function">
-  Complete the survey and display a finishing message.
+#### finishSurvey(options)
 
-  Parameters:
+Complete the survey and display a finishing message.
+
+- Parameters:
   - `options` (object): An object containing the finishing options
     - `message` (string): The message to display upon survey completion
 
-  ```javascript
-  survey.finishSurvey({ message: 'Thank you for completing the survey!' });
-  ```
-</ParamField>
+```javascript
+survey.finishSurvey({ message: 'Thank you for completing the survey!' });
+```
 
-<ParamField path="getResponse" type="function">
-  Retrieve the most recent response for a specific question.
+#### getResponse(questionId)
 
-  Parameters:
+Retrieve the most recent response for a specific question.
+
+- Parameters:
   - `questionId` (string): The ID of the question
-
-  Returns:
+- Returns:
   - The most recent response for the specified question, or null if not found
 
-  ```javascript
-  const response = survey.getResponse('age');
-  ```
-</ParamField>
+```javascript
+const response = survey.getResponse('age');
+```
 
-<ParamField path="getAllResponses" type="function">
-  Retrieve all responses collected in the survey.
+#### getAllResponses()
 
-  Returns:
+Retrieve all responses collected in the survey.
+
+- Returns:
   - An array of all response objects
 
-  ```javascript
-  const allResponses = survey.getAllResponses();
-  ```
-</ParamField>
+```javascript
+const allResponses = survey.getAllResponses();
+```
 
-<ParamField path="getAllSurveyData" type="function">
-  Retrieve all survey data, including survey details and responses.
+#### getAllSurveyData()
 
-  Returns:
+Retrieve all survey data, including survey details and responses.
+
+- Returns:
   - An object containing surveyDetails and responses
 
-  ```javascript
-  const surveyData = survey.getAllSurveyData();
-  ```
-</ParamField>
+```javascript
+const surveyData = survey.getAllSurveyData();
+```
+
+#### addPlugin(plugin)
+
+Add a plugin to the survey.
+
+- Parameters:
+  - `plugin` (object): The plugin object to add
+
+```javascript
+const myPlugin = {
+    initialize: (survey) => {
+        // Plugin initialization logic
+    },
+    // Other plugin methods
+};
+survey.addPlugin(myPlugin);
+```
+
+#### removePlugin(plugin)
+
+Remove a plugin from the survey.
+
+- Parameters:
+  - `plugin` (object): The plugin object to remove
+- Returns:
+  - `true` if the plugin was successfully removed, `false` otherwise
+
+```javascript
+const removed = survey.removePlugin(myPlugin);
+if (removed) {
+    console.log('Plugin removed successfully');
+} else {
+    console.log('Plugin not found');
+}
+```
