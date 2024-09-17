@@ -1,5 +1,5 @@
 {
-  "openapi": "api-reference/openapi.yaml",
+  "openapi": "api-reference/openapi.json",
   "name": "Roundtable",
   "logo": {
     "dark": "/images/png-logo-black.png",
