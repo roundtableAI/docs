@@ -147,8 +147,8 @@
                       }
                     },
                     "typing_url": {
-                      "type": "object",
-                      "description": "Dictionary where key corresponds to question_id and value is a URL for visualizing the typing behavior. None that you need to be logged in to view these histories."
+                      "type": "string",
+                      "description": "String specifying a URL for visualizing the typing behavior. Note that you need to be logged in to view these histories."
                     },
                     "model": {
                       "type": "string",
