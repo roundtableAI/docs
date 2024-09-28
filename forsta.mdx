@@ -82,6 +82,7 @@ alias_responses.r8.val = alias_api.r.get('problem', 'None')
 
 <html label="h1">&lt;script&gt;
 sessionStorage.removeItem('client_dict');
+sessionStorage.removeItem('initialized');
 &lt;/script&gt;</html>
 
 <text 
@@ -203,7 +204,7 @@ p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['q
 'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid }
 </exec>
 
-<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://api.roundtable.ai/api/alias/latest" uses="api.1"/>
+<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://api.roundtable.ai/alias/latest" uses="api.1"/>
 <exec>
 def checks_array_to_string(array):
     return ', '.join(map(str, array)) if array else "None"
@@ -232,6 +233,7 @@ alias_responses.r8.val = alias_api.r.get('problem', 'None')
 
 <html label="h1">&lt;script&gt;
 sessionStorage.removeItem('client_dict');
+sessionStorage.removeItem('initialized');
 &lt;/script&gt;</html>
 
 <text 
