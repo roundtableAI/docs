@@ -25,21 +25,21 @@ In the XML for your survey, add the following lines of code to every "Text" or "
 
 ```xml
 <row label="response"/>
-  <row label="d1" cond="False">alias-flagged</row>
-  <row label="d2" cond="False">alias-checks</row>
-  <row label="d3" cond="False">alias-group</row>
-  <row label="d4" cond="False">alias-effort</row>
-  <style name="question.after"><![CDATA[<script src='https:/roundtable.ai/js/forsta-tracker-v1.js'></script>]]></style>
-  <style name="question.after" wrap="ready"><![CDATA[
-    const q = ${jsexport()};
-    const label = q['label']
-    const oes = document.querySelectorAll('input[type="text"], textarea');
-    oes.forEach(el => {
-      el.addEventListener('input', e => handleChange(e, 'input', el, label, q));
-	    el.addEventListener('copy', e => handleChange(e, 'copy', el, label, q));
-	  });
-	  initializeClientDict(label, q);
-  ]]></style>
+<row label="d1" cond="False">alias-flagged</row>
+<row label="d2" cond="False">alias-checks</row>
+<row label="d3" cond="False">alias-group</row>
+<row label="d4" cond="False">alias-effort</row>
+<style name="question.after"><![CDATA[<script src='https:/roundtable.ai/js/forsta-tracker-v1.js'></script>]]></style>
+<style name="question.after" wrap="ready"><![CDATA[
+  const q = ${jsexport()};
+  const label = q['label']
+  const oes = document.querySelectorAll('input[type="text"], textarea');
+  oes.forEach(el => {
+    el.addEventListener('input', e => handleChange(e, 'input', el, label, q));
+	  el.addEventListener('copy', e => handleChange(e, 'copy', el, label, q));
+	});
+	initializeClientDict(label, q);
+]]></style>
 ```
 
 
@@ -95,11 +95,6 @@ for label in labels:
 	allQuestions[label].d4.val = alias_api.r.get('effort_ratings',{}).get(label,'NA')
 </exec>
 
-<html label="h1">&lt;script&gt;
-sessionStorage.removeItem('client_dict');
-sessionStorage.removeItem('initialized');
-&lt;/script&gt;</html>
-
 <text 
   label="alias_data"
   optional="0"
@@ -116,6 +111,11 @@ sessionStorage.removeItem('initialized');
   <row label="d7">alias-typing_url</row>
   <row label="d8">alias-error</row>
   <row label="d9">alias-problem</row>
+  <style name="question.after" wrap="ready"><![CDATA[
+    // For debugging and test mode
+    sessionStorage.removeItem('client_dict');
+    sessionStorage.removeItem('initialized');
+  ]]></style>
 </text>
 ```
 
@@ -272,11 +272,6 @@ for label in labels:
 	allQuestions[label].d4.val = alias_api.r.get('effort_ratings',{}).get(label,'NA')
 </exec>
 
-<html label="h1">&lt;script&gt;
-sessionStorage.removeItem('client_dict');
-sessionStorage.removeItem('initialized');
-&lt;/script&gt;</html>
-
 <text 
   label="alias_data"
   optional="0"
@@ -293,6 +288,11 @@ sessionStorage.removeItem('initialized');
   <row label="d7">alias-typing_url</row>
   <row label="d8">alias-error</row>
   <row label="d9">alias-problem</row>
+  <style name="question.after" wrap="ready"><![CDATA[
+    // For debugging and test mode
+    sessionStorage.removeItem('client_dict');
+    sessionStorage.removeItem('initialized');
+  ]]></style>
 </text>
 </survey>
 ```
