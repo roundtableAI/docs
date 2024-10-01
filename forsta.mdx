@@ -14,47 +14,43 @@ Add this block to the start of the survey
 ```xml
 <exec>
 survey_id = gv.survey.root.alt
-api_key = ''
+api_key = '' # Leave this empty
 p.client_dict = {'responses': {}, 'questions': {}, 'question_histories': {}, 'survey_id': '', 'participant_id': '', 'num_non_empty': 0, 'question_labels': []}
 </exec>
 ```
 
 #### Step 3. Embed Tracking Code for Every Question
 
-In the XML for your survey, add the following lines of code to every "Text" or "Essay" questions you want to track (`text` and `textarea` elements in XML). This code embeds our Javascript tracker for the question and automatically extracts the question and response:
+In the XML for your survey, add the following lines of code to every "Text" or "Essay" questions you want to track (`text` and `textarea` elements in XML). This code embeds our Javascript tracker for the question, automatically extracts the question and response, and sets up hidden rows to store the Alias API data for the question when it is later called. The actual response is stored in the shown "response" row.
 
 ```xml
-<style name="question.after"><![CDATA[<script src='https://roundtable.ai/js/forsta-tracker.js'></script>]]></style>
-<style name="question.after" wrap="ready"><![CDATA[
-const q = ${jsexport()};
-const label = q['label']
-const oes = document.querySelectorAll('input[type="text"], textarea');
-oes.forEach(el => {
-    el.addEventListener('input', e => handleChange(e, 'input', el, label, q));
-    el.addEventListener('copy', e => handleChange(e, 'copy', el, label, q));
-});
-initializeClientDict(label, q);
-]]></style>
+<row label="response"/>
+  <row label="d1" cond="False">alias-flagged</row>
+  <row label="d2" cond="False">alias-checks</row>
+  <row label="d3" cond="False">alias-group</row>
+  <row label="d4" cond="False">alias-effort</row>
+  <style name="question.after"><![CDATA[<script src='https:/roundtable.ai/js/forsta-tracker-v1.js'></script>]]></style>
+  <style name="question.after" wrap="ready"><![CDATA[
+    const q = ${jsexport()};
+    const label = q['label']
+    const oes = document.querySelectorAll('input[type="text"], textarea');
+    oes.forEach(el => {
+      el.addEventListener('input', e => handleChange(e, 'input', el, label, q));
+	    el.addEventListener('copy', e => handleChange(e, 'copy', el, label, q));
+	  });
+	  initializeClientDict(label, q);
+  ]]></style>
 ```
 
 
-#### Step 4. Store Data
+#### Step 4. Call API and Store Data
 
 Add the following code to the end of your survey and set the `api_key` to your Alias API Key (generated on your account [account](https://app.roundtable.ai/account)).
-This code will call the API on the page the code is embedded in. It generally takes a few seconds and must finish executing before the next page is loaded. The code *must* be placed after any open-ends you are tracking and on a separate page fromthem (i.e., after a `<suspend/>` in XML).
+This code will call the API on the page the code is embedded in. It generally takes a few seconds and must finish executing before the next page is loaded. The code *must* be placed after any open-ends you are tracking and on a separate page from them (i.e., after a `<suspend/>` in XML).
 
 ```xml
 <exec>
-survey_id = gv.survey.root.alt
-api_key = ''
-    
-p.headers = {'api_key': api_key, 'Content-Type': 'application/json'}
-p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['questions'], 
-'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid }
-</exec>
-
-<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://api.roundtable.ai/alias/latest" uses="api.1"/>
-<exec>
+# Define functions
 def checks_array_to_string(array):
     return ', '.join(map(str, array)) if array else "None"
 
@@ -67,18 +63,28 @@ def format_response_groups(response, keys,type):
 def format_effort_ratings(response, keys,type):
     return {key: response.r.get(type, {}).get(key, 'NA') for key in keys}
         
+
+# Add all API data to hidden question
 labels = p.client_dict['question_labels']
+alias_data.d1.val = alias_api.r.get('flagged', False)
+alias_data.d2.val = format_checks(alias_api, labels)
+alias_data.d3.val = format_response_groups(alias_api,labels,'response_groups')
+alias_data.d4.val = format_effort_ratings(alias_api,labels,'effort_ratings')
+alias_data.d5.val = alias_api.r.get('num_checks_failed', 0)
+alias_data.d6.val = alias_api.r.get('model', 'API not called')
+alias_data.d7.val = alias_api.r.get('typing_url', 'None')
+alias_data.d8.val = alias_api.r.get('error', False)
+alias_data.d9.val = alias_api.r.get('problem', 'None')
 
-alias_responses.r1.val = alias_api.r.get('flagged', False)
-alias_responses.r2.val = format_checks(alias_api, labels)
-alias_responses.r3.val = format_response_groups(alias_api,labels,'response_groups')
-alias_responses.r4.val = format_effort_ratings(alias_api,labels,'effort_ratings')
-alias_responses.r5.val = alias_api.r.get('num_checks_failed', 0)
-alias_responses.r6.val = alias_api.r.get('model', 'API not called')
-alias_responses.r7.val = alias_api.r.get('error', False)
-alias_responses.r8.val = alias_api.r.get('problem', 'None')
+# Add question-specific data to hidden rows of tracked questions
+for label in labels:
+	flag_array = alias_api.r.get('checks',{}).get(label,[])
+	flag_str = checks_array_to_string(flag_array)
+	allQuestions[label].d1.val = flag_str != "None"
+	allQuestions[label].d2.val = flag_str
+	allQuestions[label].d3.val = alias_api.r.get('response_groups',{}).get(label,0)
+	allQuestions[label].d4.val = alias_api.r.get('effort_ratings',{}).get(label,'NA')
 </exec>
-
 
 <html label="h1">&lt;script&gt;
 sessionStorage.removeItem('client_dict');
@@ -86,34 +92,34 @@ sessionStorage.removeItem('initialized');
 &lt;/script&gt;</html>
 
 <text 
-  label="alias_responses"
+  label="alias_data"
   optional="0"
   size="25"
   translateable="0"
   where="execute,survey,report">
   <title>roundtable data holder</title>
-  <row label="r1">alias-flagged</row>
-  <row label="r2">alias-checks</row>
-  <row label="r3">alias-response_groups</row>
-  <row label="r4">alias-effort_scores</row>
-  <row label="r5">alias-num_checks_failed</row>
-  <row label="r6">alias-model</row>
-  <row label="r7">alias-error</row>
-  <row label="r8">alias-problem</row>
+  <row label="d1">alias-flagged</row>
+  <row label="d2">alias-checks</row>
+  <row label="d3">alias-response_groups</row>
+  <row label="d4">alias-effort_scores</row>
+  <row label="d5">alias-num_checks_failed</row>
+  <row label="d6">alias-model</row>
+  <row label="d7">alias-typing_url</row>
+  <row label="d8">alias-error</row>
+  <row label="d9">alias-problem</row>
 </text>
 ```
 
-The Alias response will now be stored in your survey data in the `alias_responses` field. The keys of the `checks` and `response_groups` objects will match the labels of the questions being tracked.
-
+The Alias response will now be stored in your survey data in the `alias_data` question, and flags - note that the flags, response groups, and effort scores for each tracked question will stil be stored in row variables next to the response.
 
 ### Example XML Script
 
-Here is a example of a simple survey with all of the Alias code integrated:
+Here is a example of a simple survey with all of the Alias code integrated. Make sure to set your API key for the script to work when testing:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <survey 
-  alt="test-survey-1"
+  alt="roundtable-example-survey"
   autosave="0"
   builder:wizardCompleted="1"
   builderCompatible="1"
@@ -130,7 +136,8 @@ Here is a example of a simple survey with all of the Alias code integrated:
   ss:disableBackButton="1"
   ss:enableNavigation="1"
   ss:hideProgressBar="0"
-  state="testing">
+  state="testing"
+  >
 
 <samplesources default="0">
   <samplesource list="0">
@@ -141,33 +148,46 @@ Here is a example of a simple survey with all of the Alias code integrated:
     <exit cond="qualified">Thank you for taking our survey. Your efforts are greatly appreciated!</exit>
     <exit cond="overquota">Thank you for taking our survey.</exit>
   </samplesource>
+
+  <samplesource list="1">
+    <title>Generic survey link</title>
+    <invalid>You are missing information in the URL. Please verify the URL with the original invite.</invalid>
+    <completed>It seems you have already completed this survey.</completed>
+    <exit cond="terminated">Thank you for taking our survey.</exit>
+    <exit cond="overquota">Thank you for taking our survey.</exit>
+    <exit cond="qualified">Thank you for taking our survey.</exit>
+  </samplesource>
 </samplesources>
 
 <suspend/>
 
 <exec>
 survey_id = gv.survey.root.alt
-api_key = ''
+api_key = '' # Leave this empty
 p.client_dict = {'responses': {}, 'questions': {}, 'question_histories': {}, 'survey_id': '', 'participant_id': '', 'num_non_empty': 0, 'question_labels': []}
 </exec>
 
 <text 
   label="q1"
-  optional="1"
   size="25">
   <title>What do you do first in the morning?</title>
   <comment>Be specific</comment>
-  <style name="question.after"><![CDATA[<script src='https://roundtable.ai/js/forsta-tracker.js'></script>]]></style>
+  <row label="response"/>
+  <row label="d1" cond="False">alias-flagged</row>
+  <row label="d2" cond="False">alias-checks</row>
+  <row label="d3" cond="False">alias-group</row>
+  <row label="d4" cond="False">alias-effort</row>
+  <style name="question.after"><![CDATA[<script src='https://roundtable.ai/js/forsta-tracker-v1.js'></script>]]></style>
   <style name="question.after" wrap="ready"><![CDATA[
-  const q = ${jsexport()};
-  const label = q['label']
-  const oes = document.querySelectorAll('input[type="text"], textarea');
-  oes.forEach(el => {
-    el.addEventListener('input', e => handleChange(e, 'input', el, label, q));
-	  el.addEventListener('copy', e => handleChange(e, 'copy', el, label, q));
-	});
-	initializeClientDict(label, q);
-  ]]></style>
+    const q = ${jsexport()};
+    const label = q['label']
+    const oes = document.querySelectorAll('input[type="text"], textarea');
+    oes.forEach(el => {
+      el.addEventListener('input', e => handleChange(e, 'input', el, label, q));
+      el.addEventListener('copy', e => handleChange(e, 'copy', el, label, q));
+    });
+    initializeClientDict(label, q);
+    ]]></style>
 </text>
 
 <suspend/>
@@ -175,21 +195,24 @@ p.client_dict = {'responses': {}, 'questions': {}, 'question_histories': {}, 'su
 <textarea 
   label="q2"
   height="10"
-  optional="1"
   width="50">
   <title>Tell me about yourself</title>
   <comment>Be specific</comment>
-  <style name="question.after"><![CDATA[
-  <script src='https://roundtable.ai/js/forsta-tracker.js'></script>]]></style>
+  <row label="response"/>
+  <row label="d1" cond="False">alias-flagged</row>
+  <row label="d2" cond="False">alias-checks</row>
+  <row label="d3" cond="False">alias-group</row>
+  <row label="d4" cond="False">alias-effort</row>
+  <style name="question.after"><![CDATA[<script src='https://roundtable.ai/js/forsta-tracker-v1.js'></script>]]></style>
   <style name="question.after" wrap="ready"><![CDATA[
-  const q = ${jsexport()};
-  const label = q['label']
-  const oes = document.querySelectorAll('input[type="text"], textarea');
-  oes.forEach(el => {
-    el.addEventListener('input', e => handleChange(e, 'input', el, label, q));
-        el.addEventListener('copy', e => handleChange(e, 'copy', el, label, q));
-  });
-	initializeClientDict(label, q);
+    const q = ${jsexport()};
+    const label = q['label']
+    const oes = document.querySelectorAll('input[type="text"], textarea');
+    oes.forEach(el => {
+      el.addEventListener('input', e => handleChange(e, 'input', el, label, q));
+	    el.addEventListener('copy', e => handleChange(e, 'copy', el, label, q));
+	  });
+	  initializeClientDict(label, q);
   ]]></style>
 </textarea>
 
@@ -197,15 +220,15 @@ p.client_dict = {'responses': {}, 'questions': {}, 'question_histories': {}, 'su
 
 <exec>
 survey_id = gv.survey.root.alt
-api_key = ''
-    
+api_key = '' # Set your API key here
 p.headers = {'api_key': api_key, 'Content-Type': 'application/json'}
-p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['questions'], 
-'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid }
+p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['questions'],'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid}
 </exec>
 
-<logic cond="p.client_dict['num_non_empty'] != 0" label="alias_api" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://api.roundtable.ai/alias/latest" uses="api.1"/>
+<logic label="alias_api" cond="p.client_dict['num_non_empty'] != 0" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://api.roundtable.ai/alias/latest" uses="api.1"/>
+
 <exec>
+# Define functions
 def checks_array_to_string(array):
     return ', '.join(map(str, array)) if array else "None"
 
@@ -217,19 +240,28 @@ def format_response_groups(response, keys,type):
     
 def format_effort_ratings(response, keys,type):
     return {key: response.r.get(type, {}).get(key, 'NA') for key in keys}
-        
+
+# Add all API data to hidden question
 labels = p.client_dict['question_labels']
+alias_data.d1.val = alias_api.r.get('flagged', False)
+alias_data.d2.val = format_checks(alias_api, labels)
+alias_data.d3.val = format_response_groups(alias_api,labels,'response_groups')
+alias_data.d4.val = format_effort_ratings(alias_api,labels,'effort_ratings')
+alias_data.d5.val = alias_api.r.get('num_checks_failed', 0)
+alias_data.d6.val = alias_api.r.get('model', 'API not called')
+alias_data.d7.val = alias_api.r.get('typing_url', 'None')
+alias_data.d8.val = alias_api.r.get('error', False)
+alias_data.d9.val = alias_api.r.get('problem', 'None')
 
-alias_responses.r1.val = alias_api.r.get('flagged', False)
-alias_responses.r2.val = format_checks(alias_api, labels)
-alias_responses.r3.val = format_response_groups(alias_api,labels,'response_groups')
-alias_responses.r4.val = format_effort_ratings(alias_api,labels,'effort_ratings')
-alias_responses.r5.val = alias_api.r.get('num_checks_failed', 0)
-alias_responses.r6.val = alias_api.r.get('model', 'API not called')
-alias_responses.r7.val = alias_api.r.get('error', False)
-alias_responses.r8.val = alias_api.r.get('problem', 'None')
+# Add question-specific data to hidden rows of tracked questions
+for label in labels:
+	flag_array = alias_api.r.get('checks',{}).get(label,[])
+	flag_str = checks_array_to_string(flag_array)
+	allQuestions[label].d1.val = flag_str != "None"
+	allQuestions[label].d2.val = flag_str
+	allQuestions[label].d3.val = alias_api.r.get('response_groups',{}).get(label,0)
+	allQuestions[label].d4.val = alias_api.r.get('effort_ratings',{}).get(label,'NA')
 </exec>
-
 
 <html label="h1">&lt;script&gt;
 sessionStorage.removeItem('client_dict');
@@ -237,20 +269,21 @@ sessionStorage.removeItem('initialized');
 &lt;/script&gt;</html>
 
 <text 
-  label="alias_responses"
+  label="alias_data"
   optional="0"
   size="25"
   translateable="0"
   where="execute,survey,report">
   <title>roundtable data holder</title>
-  <row label="r1">alias-flagged</row>
-  <row label="r2">alias-checks</row>
-  <row label="r3">alias-response_groups</row>
-  <row label="r4">alias-effort_scores</row>
-  <row label="r5">alias-num_checks_failed</row>
-  <row label="r6">alias-model</row>
-  <row label="r7">alias-error</row>
-  <row label="r8">alias-problem</row>
+  <row label="d1">alias-flagged</row>
+  <row label="d2">alias-checks</row>
+  <row label="d3">alias-response_groups</row>
+  <row label="d4">alias-effort_scores</row>
+  <row label="d5">alias-num_checks_failed</row>
+  <row label="d6">alias-model</row>
+  <row label="d7">alias-typing_url</row>
+  <row label="d8">alias-error</row>
+  <row label="d9">alias-problem</row>
 </text>
 </survey>
 ```
