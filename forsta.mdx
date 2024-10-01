@@ -49,6 +49,16 @@ Add the following code to the end of your survey and set the `api_key` to your A
 This code will call the API on the page the code is embedded in. It generally takes a few seconds and must finish executing before the next page is loaded. The code *must* be placed after any open-ends you are tracking and on a separate page from them (i.e., after a `<suspend/>` in XML).
 
 ```xml
+
+<exec>
+survey_id = gv.survey.root.alt
+api_key = '' # Set your API key here
+p.headers = {'api_key': api_key, 'Content-Type': 'application/json'}
+p.data = {'responses': p.client_dict['responses'], 'questions': p.client_dict['questions'],'question_histories': p.client_dict['question_histories'], 'survey_id': survey_id, 'participant_id': uuid}
+</exec>
+
+<logic label="alias_api" cond="p.client_dict['num_non_empty'] != 0" api:data="p.data" api:headers="p.headers" api:method="POST" api:url="https://api.roundtable.ai/alias/latest" uses="api.1"/>
+
 <exec>
 # Define functions
 def checks_array_to_string(array):
