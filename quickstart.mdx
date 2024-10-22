@@ -18,6 +18,7 @@ To use Roundtable Alias, you'll need to collect the following data for each surv
 - `questions`: An object mapping question IDs to the text of each question
 - `responses`: An object mapping question IDs to the respondent's answers
 - `question_histories` (optional): Typing data for each question, collected using the [JavaScript tracker](custom-integration)
+- `fingerprint_id` (optional): A unique identifier for the device session, collected using the [fingerprinting script](device-fingerprinting)
 
 Ensure your data is formatted correctly before sending it to the API.
 
@@ -26,10 +27,11 @@ Ensure your data is formatted correctly before sending it to the API.
 Send a POST request to the Roundtable Alias API with your survey data:
 
 ```bash
-curl -X POST https://api.roundtable.ai/alias/v015 \
+curl -X POST https://api.roundtable.ai/alias/v020 \
   -H 'Content-Type: application/json' \
   -H 'api_key: YOUR_API_KEY' \
   -d '{
+    "fingerprint_id": "fp_789xyz",
     "participant_id": "p123",
     "survey_id": "s456",
     "questions": {
@@ -65,15 +67,21 @@ The API will respond with a JSON object containing fraud signals and effort scor
   "response_groups": {
     "Q1": 1
   },
-  "effort_ratings": {
-    "Q1": 5
-  },
   "checks": {
     "Q1": [
       "Automated test: Off-topic"
     ]
   },
-  "model": "alias-v015"
+  "effort_ratings": {
+    "Q1": 4
+  },
+  "typing_url": "<string>",
+  "model": "alias-v020",
+  "fingerprint_checks": {
+    "device_id": "3pzig2Tu5GtqHY1Kh1p3",
+    "duplicate": true,
+    "error": false
+  }
 }
 ```
 
@@ -82,13 +90,14 @@ Review the `flagged`, `effort_ratings`, and `checks` fields to identify suspicio
 - `flagged`: `true` if the response failed any fraud checks, `false` otherwise
 - `effort_ratings`: An object with effort scores (1-10) for each question, where 1 is low effort and 10 is high effort
 - `checks`: An object listing the specific fraud checks failed for each question
+- `fingerprint_checks`: An object listing the specific device fingerprinting checks for each session
 
 Use this data to decide which responses to remove or investigate further.
 
 ### Next Steps
 
 - Learn more about the [JavaScript tracker](custom-integration) for enhanced fraud detection.
-- Explore the [API reference](api-reference/v015) for details on request and response formats.
+- Explore the [API reference](api-reference/v020) for details on request and response formats.
 - Read the [FAQ](faq) for answers to common questions.
 
 ### Support

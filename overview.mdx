@@ -13,6 +13,8 @@ Roundtable Alias performs a series of automated checks on each survey response t
 
 4. **Effort Scoring**: Assigns a granular effort score to each response based on factors like length, complexity, relevance, and engagement.
 
+5. **Device Fingerprinting**: Monitors participants' device characteristics to track duplicate usage.
+
 When a response fails one or more checks, Alias flags it in the `checks` object of the API response, providing detailed information about the specific issues detected.
 
 ### Basic Checks
@@ -39,7 +41,7 @@ Alias uses advanced text similarity algorithms to identify duplicate and near-du
 
 Duplicate detection helps uncover copy-pasted, templated, or bot-generated responses that undermine data quality.
 
-## Behavioral Tracking
+### Behavioral Tracking (optional)
 
 By monitoring participants' typing patterns and keystroke dynamics, Alias can identify suspicious behaviors that deviate from genuine human responses:
 
@@ -69,6 +71,18 @@ Alias assigns an effort score between 1 and 10 to each response based on various
 
 Effort scores provide a quick way to assess the overall quality and thoughtfulness of each response.
 
+### Device Fingerprinting (optional)
+
+Alias uses device fingerprinting to identify unique devices and detect potential survey fraud:
+
+- **Browser Characteristics**: Collects standard browser data like user agent, screen resolution, supported fonts, and language settings.
+- **Hardware Identifiers**: Generates anonymous device identifiers based on system specifications and capabilities.
+- **Connection Data**: Analyzes network attributes including IP ranges and request headers.
+- **Usage Patterns**: Tracks submission frequency and session characteristics across surveys.
+
+Device fingerprinting helps prevent multiple submissions from the same device and identifies potential farming operations while maintaining user privacy through data anonymization and strict retention policies. The module can be enabled or disabled based on survey requirements.
+
+
 ### Next Steps
 
 Dive deeper into each type of check:
@@ -76,5 +90,7 @@ Dive deeper into each type of check:
 - [Duplicate Detection](duplicate-detection)
 - [Behavioral Tracking](behavioral-tracking)
 - [Effort Scoring](effort-scoring)
+- [Device Fingerprinting](device-fingerprinting)
 
-Explore the [API Reference](api-reference/v015) for details on the `checks` object and other response fields.
+
+Explore the [API Reference](api-reference/v020) for details on the `checks` object and other response fields.

@@ -48,6 +48,18 @@
         "overview",
       {
       "group": "Checks and Flags",
+      "pages": ["basic-checks-v016", "duplicate-detection", "behavioral-tracking", "effort-scoring", "device-fingerprinting"]
+      }
+      ],
+      "version": "v020"
+    },
+    {
+      "group": "Using Roundtable Alias",
+      "pages": 
+      [
+        "overview",
+      {
+      "group": "Checks and Flags",
       "pages": ["basic-checks-v016", "duplicate-detection", "behavioral-tracking", "effort-scoring"]
       }
       ],
@@ -76,6 +88,18 @@
       }
       ],
       "version": "v015"
+    },
+    {
+      "group": "Developer Resources",
+      "pages": 
+      [
+        "api-reference/v020",
+      {
+        "group": "Integrations",
+        "pages": ["forsta-v020", "qualtrics-v020", "jspsych-v020", "custom-integration-v020"]
+      }    
+      ],
+      "version": "v020"
     },
     {
       "group": "Developer Resources",
@@ -185,7 +209,7 @@
     "github": "https://github.com/roundtableAI",
     "linkedin": "https://www.linkedin.com/company/roundtable-ai"
   },  
-  "versions": ["v017", "v016", "v015", "v014", "v013", "v012"],
+  "versions": ["v020", "v017", "v016", "v015", "v014", "v013", "v012"],
   "redirects": [
     {
       "source": "http://docs.roundtable.ai/blog/*",
