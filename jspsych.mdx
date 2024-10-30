@@ -6,9 +6,9 @@ description: ''
 
 ### Step 1. Setup Tracker
 
-The [Alias tracker](https://github.com/roundtableAI/alias-tracker/blob/main/public/alias-tracker.js) integrates with JsPsych `survey-text` trials to identify potential fraudelent, inattentive, or bot-like responses to open-ended questions. You can use this as a naturalistic captcha to identify participants to exclude from your analyses.
+The [Alias tracker](https://github.com/roundtableAI/alias-tracker/blob/main/public/alias-tracker.js) integrates with JsPsych `survey-text` trials to identify potential fraudelent, inattentive, or bot-like responses to open-ended questions. You can use this as a naturalistic captcha to identify participants to exclude from your analyses. The API also does digital fingerprinting for additional security and duplicate detection.
 
-The extension generates arrayss of all the change events to open-ended questions (called "question histories"), which you can pass to our API. To use it:
+The extension generates arrays of all the change events to open-ended questions (the "question histories") as well as a fingerprint id, both of which you pass to our API. To use it:
 
 1. Add a link to it in `index.html`
 2. Include it in the `initJsPsych` call
@@ -39,10 +39,9 @@ const openEndsTrial = {
 ...
 ```
 
-
 ### Step 2. Call the API
 
-Our tracker adds all data the Alias API needs to trial data with the `jsPsychAliasTracker` extension, stored as `alias_questions`, `alias_responses`, and `alias_question_histories`. This data can be passed to our API without any further modifications. See an example in [call-api.py](https://github.com/roundtableAI/alias-tracker/blob/main/call-api.py).
+Our tracker adds all data the Alias API needs to trial data with the `jsPsychAliasTracker` extension, stored as `alias_questions`, `alias_responses`, `alias_question_histories`, and `alias_fingerprint_id`. This data can be passed to our API without any further modifications. See an example in [call-api.py](https://github.com/roundtableAI/alias-tracker/blob/main/call-api.py).
 
 ### Step 3. Deploy on Heroku
 
