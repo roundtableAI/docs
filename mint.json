@@ -48,6 +48,18 @@
         "overview",
       {
       "group": "Checks and Flags",
+      "pages": ["basic-checks-v016", "duplicate-detection", "behavioral-tracking", "effort-scoring", "device-fingerprinting-v021"]
+      }
+      ],
+      "version": "v021"
+    },
+    {
+      "group": "Using Roundtable Alias",
+      "pages": 
+      [
+        "overview",
+      {
+      "group": "Checks and Flags",
       "pages": ["basic-checks-v016", "duplicate-detection", "behavioral-tracking", "effort-scoring", "device-fingerprinting"]
       }
       ],
@@ -209,7 +221,7 @@
     "github": "https://github.com/roundtableAI",
     "linkedin": "https://www.linkedin.com/company/roundtable-ai"
   },  
-  "versions": ["v020", "v017", "v016", "v015", "v014", "v013", "v012"],
+  "versions": ["v021", "v020", "v017", "v016", "v015", "v014", "v013", "v012"],
   "redirects": [
     {
       "source": "http://docs.roundtable.ai/blog/*",
