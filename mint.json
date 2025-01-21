@@ -117,6 +117,18 @@
       "group": "Developer Resources",
       "pages": 
       [
+        "api-reference/v021",
+      {
+        "group": "Integrations",
+        "pages": ["forsta-v021", "qualtrics-v020", "jspsych-v020", "custom-integration-v020"]
+      }    
+      ],
+      "version": "v021"
+    },
+    {
+      "group": "Developer Resources",
+      "pages": 
+      [
         "api-reference/v017",
       {
         "group": "Integrations",
