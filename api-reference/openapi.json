@@ -158,7 +158,7 @@
                     "model": {
                       "type": "string",
                       "description": "String specifying the model type.",
-                      "example": "alias-v020"
+                      "example": "alias-v021"
                     },
                     "fingerprint_checks": {
                       "type": "object",
@@ -175,7 +175,7 @@
                           "example": false
                         },
                         "bot": {
-                          "type": "bool",
+                          "type": "boolean",
                           "description": "Indicates if the response appears to be from an automated script or bot.",
                           "example": false
                         },
