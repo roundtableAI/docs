@@ -172,7 +172,7 @@
                         "ip_country": {
                           "type": "string",
                           "description": "Name of country where IP address is located.", 
-                          "example": false
+                          "example": "United States"
                         },
                         "bot": {
                           "type": "boolean",
