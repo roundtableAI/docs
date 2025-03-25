@@ -1,0 +1,52 @@
+This guide explains how to retrieve session data from the Roundtable API. There are two primary methods to access your data: by specific session ID or by user ID. For more detailed information on the API specification, see the [API Reference](api-reference).
+
+## Authentication
+
+All API requests require authentication using your private API key:
+
+```
+Authorization: Bearer YOUR_PRIVATE_KEY
+```
+
+If you don't have a private key yet, contact support@roundtable.ai to generate one.
+
+There are two methods to retrieve Roundtable's flags, session logs, and replay links:
+
+## Method 1: Retrieve a Specific Session
+
+When you need data from a specific session, use the session ID to retrieve detailed information:
+
+```
+GET https://api.roundtable.ai/v0.0/sessions/{sessionId}/report
+```
+
+### Example Request
+
+```bash
+curl -X GET https://api.roundtable.ai/v0.0/sessions/abc123def456/report \
+  -H "Authorization: Bearer YOUR_PRIVATE_KEY"
+```
+
+This returns comprehensive data for the specified session, including automatically generated user logs, failed security checks, and a link to a session replay. The session ID can be found in session storage (`rtSessionId`) or captured when needed for later reference. 
+
+## Method 2: Retrieve All Sessions for a User
+
+To retrieve all sessions associated with a specific user:
+
+```
+GET https://api.roundtable.ai/v0.0/users/{userId}/sessions
+```
+
+### Example Request
+
+```bash
+curl -X GET https://api.roundtable.ai/v0.0/users/user-123/sessions \
+  -H "Authorization: Bearer YOUR_PRIVATE_KEY"
+```
+
+This returns an array of session data for the specified user. Each entry is an object consisting of the session data for that user. Note that while in beta, this endpoint is limited to the most recent 100 sessions.
+
+## Next Steps
+
+- Contact support@roundtable.ai to generate a private key.
+- Review our [API Reference](api-reference) for detailed endpoint specifications

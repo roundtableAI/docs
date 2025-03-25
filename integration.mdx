@@ -1,0 +1,132 @@
+---
+title: 'Integrating Roundtable'
+'sidebarTitle': 'Integrating Roundtable'
+---
+
+This guide explains how to integrate Roundtable's behavioral biometrics and session replay platform into your web application.
+
+## Quick Start
+
+Add our tracking script to your website by inserting this single line of code in the `<head>` section of your HTML:
+
+```html
+<script src="https://cdn.roundtable.ai/v0.0/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
+```
+
+Replace `YOUR_SITE_KEY` with the site key found in your Roundtable dashboard. The `data-user-id` attribute is an optional but recommended for tracking users across multiple sessions. This can help you identify whether a user's activity is anamolous relative to their historical activity.
+
+## Code placement:
+
+For optimal performance:
+
+1. **Place the script in the `<head>` section** of your HTML document
+2. Position it as early as possible in the `<head>` to ensure maximum capture of user interactions
+3. If possible, make sure it loads before other JavaScript that might modify the DOM
+
+## Implementation Options
+
+### Standard Website Implementation
+
+For traditional websites, add the script to your base HTML template:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Your Website</title>
+    
+    <!-- Roundtable Tracker (place as early as possible) -->
+    <script src="https://cdn.roundtable.ai/v0.0/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
+    
+    <!-- Other head elements -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Your website content -->
+</body>
+</html>
+```
+
+### Single Page Application (SPA) Implementation
+
+For React, Angular, Vue.js, or other SPAs, add the script to your main HTML file:
+
+#### React (public/index.html)
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Roundtable Tracker -->
+    <script src="https://cdn.roundtable.ai/v0.0/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
+    
+    <title>React App</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
+```
+
+#### Vue.js (index.html)
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    
+    <!-- Roundtable Tracker -->
+    <script src="https://cdn.roundtable.ai/v0.0/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
+    
+    <title>Vue App</title>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+</html>
+```
+
+## User Identification
+
+If included, the `data-user-id` attribute should be a string. This allows you to associate session data with specific users.
+
+Make sure to use a consistent identifier across sessions and devices. For example, this ID could be an email hash, account number hash, etc. We recommend anonymizing this ID before passing it to our script.
+
+If the user ID isn't available when the HTML is initially rendered (e.g., after login or API call), you'll need to dynamically add the script:
+
+```js
+// Define function to get user ID (from your auth system, localStorage, etc.)
+function getUserId() {
+    // Your logic to retrieve user ID
+    return 'user-123';
+}
+
+// Once user ID is available, dynamically add the tracking script
+const userScript = document.createElement('script');
+userScript.src = "https://cdn.roundtable.ai/v0.0/tracker.js";
+userScript.setAttribute('data-site-key', 'YOUR_SITE_KEY');
+userScript.setAttribute('data-user-id', getUserId());
+document.head.appendChild(userScript);
+```
+
+## Using a Session ID
+
+Our Javascript tracker generates a session ID which is stored in session storage under the key `rtSessionId`. This ID can be used to retrieve data for a specific session later.
+
+You can access the session ID in your code at any time:
+
+```javascript
+const sessionId = sessionStorage.getItem('rtSessionId');
+```
+
+
+## Next Steps
+
+- Visit your [Roundtable Dashboard](https://app.roundtable.ai) to view collected data
+- Learn how to [Access Session Data](accessing-session-data) to retrieve user actions and replay recordings
+- Explore our [API Reference](api-reference) for more details
