@@ -22,218 +22,46 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://app.roundtable.ai/dashboard"
+    "name": "Account",
+    "url": "https://app.roundtable.ai/account"
   },
   "primaryTab": {
-    "name": "Alias"
+    "name": "Behavioral Tracking"
   },
-  "tabs": [
-    {
-        "name": "RoundtableJS",
-        "url": "rjs"
-    }
-  ],
-  "anchors": [
-  ],
+  "tabs": [],
+  "anchors": [],
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "account", "quickstart"]
+      "pages": ["introduction"]
     },
     {
-      "group": "Using Roundtable Alias",
-      "pages": 
-      [
-        "overview",
-      {
-      "group": "Checks and Flags",
-      "pages": ["basic-checks-v016", "duplicate-detection", "behavioral-tracking", "effort-scoring", "device-fingerprinting-v021"]
-      }
-      ],
-      "version": "v021"
-    },
-    {
-      "group": "Using Roundtable Alias",
-      "pages": 
-      [
-        "overview",
-      {
-      "group": "Checks and Flags",
-      "pages": ["basic-checks-v016", "duplicate-detection", "behavioral-tracking", "effort-scoring", "device-fingerprinting"]
-      }
-      ],
-      "version": "v020"
-    },
-    {
-      "group": "Using Roundtable Alias",
-      "pages": 
-      [
-        "overview",
-      {
-      "group": "Checks and Flags",
-      "pages": ["basic-checks-v016", "duplicate-detection", "behavioral-tracking", "effort-scoring"]
-      }
-      ],
-      "version": "v017"
-    },
-    {
-      "group": "Using Roundtable Alias",
-      "pages": 
-      [
-        "overview",
-      {
-      "group": "Checks and Flags",
-      "pages": ["basic-checks-v016", "duplicate-detection", "behavioral-tracking", "effort-scoring"]
-      }
-      ],
-      "version": "v016"
-    },
-    {
-      "group": "Using Roundtable Alias",
-      "pages": 
-      [
-        "overview",
-      {
-      "group": "Checks and Flags",
-      "pages": ["basic-checks-v015", "duplicate-detection", "behavioral-tracking", "effort-scoring"]
-      }
-      ],
-      "version": "v015"
+      "group": "Using Roundtable",
+      "pages": [
+        "integration",
+        "accessing-session-data"
+      ]
     },
     {
       "group": "Developer Resources",
       "pages": 
       [
-        "api-reference/v020",
-      {
-        "group": "Integrations",
-        "pages": ["forsta-v020", "qualtrics-v020", "jspsych-v020", "custom-integration-v020"]
-      }    
+        "api-reference/session-data",
+        "api-reference/user-data"
       ],
-      "version": "v020"
+      "version": "v0.0"
     },
-    {
-      "group": "Developer Resources",
-      "pages": 
-      [
-        "api-reference/v021",
-      {
-        "group": "Integrations",
-        "pages": ["forsta-v021", "qualtrics-v020", "jspsych-v020", "custom-integration-v020"]
-      }    
-      ],
-      "version": "v021"
-    },
-    {
-      "group": "Developer Resources",
-      "pages": 
-      [
-        "api-reference/v017",
-      {
-        "group": "Integrations",
-        "pages": ["forsta", "qualtrics", "jspsych", "custom-integration"]
-      }    
-      ],
-      "version": "v017"
-    },
-    {
-      "group": "Developer Resources",
-      "pages": 
-      [
-        "api-reference/v016",
-      {
-        "group": "Integrations",
-        "pages": ["forsta", "qualtrics", "jspsych", "custom-integration"]
-      }    
-      ],
-      "version": "v016"
-    },
-    {
-      "group": "Developer Resources",
-      "pages": 
-      [
-        "api-reference/v015",
-      {
-        "group": "Integrations",
-        "pages": ["forsta", "qualtrics", "jspsych", "custom-integration"]
-      }    
-      ],
-      "version": "v015"
-    },
-    {
-      "group": "Developer Resources",
-      "pages": 
-      [
-        "api-reference/v014",
-      {
-        "group": "Integrations",
-        "pages": ["forsta", "qualtrics", "jspsych", "custom-integration"]
-      }    
-      ],
-      "version": "v014"
-    },
-    {
-      "group": "Developer Resources",
-      "pages": 
-      [
-        "api-reference/v013",
-      {
-        "group": "Integrations",
-        "pages": ["forsta", "qualtrics", "jspsych", "custom-integration"]
-      }    
-      ],
-      "version": "v013"
-    },
-    {
-      "group": "Developer Resources",
-      "pages": 
-      [
-        "api-reference/v012",
-      {
-        "group": "Integrations",
-        "pages": ["forsta", "qualtrics", "jspsych", "custom-integration"]
-      }    
-      ],
-      "version": "v012"
-    },
+
     {
       "group": "Support Center",
-      "pages": ["faq", "languages", "changelog", "status"]
-    },
-    {
-      "group": "Overview",
-      "pages": ["rjs/introduction", "rjs/installation", "rjs/cloud"]
-    },
-    {
-      "group": "Core",
-      "pages": ["rjs/overview", "rjs/survey",
-      {
-        "group": "Elements",
-        "pages": ["rjs/element", "rjs/bounding-box", "rjs/checkbox", "rjs/dropdown-select", "rjs/grid", "rjs/html", "rjs/multiple-select", "rjs/number-entry", "rjs/number-scale", "rjs/openend", "rjs/single-select", "rjs/text-input"]
-      },
-      "rjs/logic",
-      {
-        "group": "Plugins",
-        "pages": ["rjs/plugin", "rjs/pageHTML", "rjs/progress-bar"]
-      }
-    ]
-    },
-    {
-      "group": "Resources",
-      "pages": ["rjs/styling", "rjs/data", "rjs/examples"]
-    },
-    {
-      "group": "Support",
-      "pages": ["rjs/contribution", "rjs/community"]
+      "pages": ["status"]
     }
   ],
   "footerSocials": {
-    "twitter": "https://twitter.com/RoundtableDotAI",
-    "github": "https://github.com/roundtableAI",
-    "linkedin": "https://www.linkedin.com/company/roundtable-ai"
-  },  
-  "versions": ["v021", "v020", "v017", "v016", "v015", "v014", "v013", "v012"],
+    "linkedin": "https://www.linkedin.com/company/roundtable-ai",
+    "twitter": "https://twitter.com/RoundtableDotAI"
+  },
+  "versions": ["v0.0"],
   "redirects": [
     {
       "source": "http://docs.roundtable.ai/blog/*",

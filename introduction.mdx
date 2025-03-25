@@ -1,23 +1,31 @@
 ---
-title: 'What is Roundtable Alias'
+title: 'Roundtable API documentation'
 'sidebarTitle': 'Welcome'
 ---
 
-Roundtable Alias is an AI-powered API that analyzes open-ended survey responses to identify fraudulent, low-quality, and bot-generated content.
+Roundtable uses advanced behavioral analyses to help fraud teams quickly identify and respond to threats. Our API automatically generates detailed user logs and captures biometrics such as keystrokes, mouse movements, scrolling patterns, and focus changes. This proactive monitoring provides real-time alerts for suspicious activities, enabling security teams to investigate potential fraud before it impacts your business.
 
 ### Getting Started
-To start using Roundtable Alias, follow these steps:
+To start using Roundtable, follow these steps:
 
-1. **Sign up for an account**: Create your Roundtable Alias account to obtain your API key and access the dashboard.
-2. **Integrate the API**: Use the Alias API endpoint to send your survey data for analysis. Refer to the [API Reference](api-reference/v020) for detailed request and response formats.
-3. **Interpret the results**: Review the fraud signals, effort scores, and duplicate clusters returned by the API to identify and filter out low-quality responses.
-4. **Implement behavioral tracking and fingerprinting (optional)**: For enhanced fraud detection, integrate JavaScript trackers into your survey interface to capture behavioral and device data.
+1. **Sign up for an account**: Create your Roundtable account at [accounts.roundtable.ai](https://accounts.roundtable.ai) to obtain your site key and access the dashboard.
+
+2. **Integrate the tracker**: Add our JavaScript tracker to your site with a single line of code:
+   ```html
+   <script src="https://cdn.roundtable.ai/v0.0/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
+   ```
+
+3. **Access session logs**: Use our API to retrieve detailed user action logs and access session replays:
+   ```
+   GET https://api.roundtable.ai/v0.0/sessions/{sessionId}/report
+   ```
+   
+4. **Review flagged activities**: Analyze suspicious behaviors identified by our system, including unnatural mouse movements, rapid changes in user information, and other fraud signals.
 
 ### Next Steps
 
-1. Check out our [Quickstart Guide](quickstart) for a walkthrough of the integration process.
-2. Learn about the [different types of fraud checks](Overview) performed by Alias.
-3. Explore the [API Reference](api-reference/v020) to understand the request and response formats.
-4. Review the [FAQ](faq) for answers to common questions about Alias.
+1. Explore our [Integration Guide](integration) for detailed implementation instructions.
+2. Learn about the [behavioral signals and flags](signals) monitored by Roundtable.
+3. Review the [API Reference](api-reference) to understand the request and response formats.
 
-If you have any questions or need assistance, don't hesitate to reach out to our support team at support@roundtable.ai. We're here to help you get the most out of Roundtable Alias!
+If you have any questions or need assistance, contact support at support@roundtable.ai.
