@@ -15,17 +15,11 @@ Add our tracking script to your website by inserting this single line of code in
 
 Replace `YOUR_SITE_KEY` with the site key found in your Roundtable dashboard. The `data-user-id` attribute is an optional but recommended for tracking users across multiple sessions. This can help you identify whether a user's activity is anamolous relative to their historical activity.
 
-## Code placement:
+For optimal performance, place the script in the `<head>` section of your HTML document as early as possible.
 
-For optimal performance:
+## Example Implementations
 
-1. **Place the script in the `<head>` section** of your HTML document
-2. Position it as early as possible in the `<head>` to ensure maximum capture of user interactions
-3. If possible, make sure it loads before other JavaScript that might modify the DOM
-
-## Implementation Options
-
-### Standard Website Implementation
+### Standard Website
 
 For traditional websites, add the script to your base HTML template:
 
@@ -48,7 +42,7 @@ For traditional websites, add the script to your base HTML template:
 </html>
 ```
 
-### Single Page Application (SPA) Implementation
+### Single Page Application (SPA)
 
 For React, Angular, Vue.js, or other SPAs, add the script to your main HTML file:
 
@@ -91,11 +85,9 @@ For React, Angular, Vue.js, or other SPAs, add the script to your main HTML file
 </html>
 ```
 
-## User Identification
+## Identifying Users
 
-If included, the `data-user-id` attribute should be a string. This allows you to associate session data with specific users.
-
-Make sure to use a consistent identifier across sessions and devices. For example, this ID could be an email hash, account number hash, etc. We recommend anonymizing this ID before passing it to our script.
+If included, the `data-user-id` allows you to associate session data with specific users. This identifier should be consistent across sessions and devices, such as an email hash or account number hash. We recommend anonymizing this ID before passing it to our script.
 
 If the user ID isn't available when the HTML is initially rendered (e.g., after login or API call), you'll need to dynamically add the script:
 
@@ -127,6 +119,6 @@ const sessionId = sessionStorage.getItem('rtSessionId');
 
 ## Next Steps
 
-- Visit your [Roundtable Dashboard](https://app.roundtable.ai) to view collected data
+- Visit your [Roundtable Account](https://accounts.roundtable.ai) to generate a public API key.
 - Learn how to [Access Session Data](accessing-session-data) to retrieve user actions and replay recordings
 - Explore our [API Reference](api-reference) for more details

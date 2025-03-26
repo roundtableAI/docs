@@ -8,9 +8,9 @@ All API requests require authentication using your private API key:
 Authorization: Bearer YOUR_PRIVATE_KEY
 ```
 
-If you don't have a private key yet, contact support@roundtable.ai to generate one.
+If you don't have a private key, contact support@roundtable.ai.
 
-There are two methods to retrieve Roundtable's flags, session logs, and replay links:
+There are two methods to retrieve session flags, logs, and replays:
 
 ## Method 1: Retrieve a Specific Session
 
@@ -27,7 +27,7 @@ curl -X GET https://api.roundtable.ai/v0.0/sessions/abc123def456/report \
   -H "Authorization: Bearer YOUR_PRIVATE_KEY"
 ```
 
-This returns comprehensive data for the specified session, including automatically generated user logs, failed security checks, and a link to a session replay. The session ID can be found in session storage (`rtSessionId`) or captured when needed for later reference. 
+This returns all Roundtable data for the specified session, including automatically generated user logs, failed security checks, and a link to a session replay. The session ID can be found in session storage (`rtSessionId`) or captured when needed for later reference. 
 
 ## Method 2: Retrieve All Sessions for a User
 
@@ -44,7 +44,7 @@ curl -X GET https://api.roundtable.ai/v0.0/users/user-123/sessions \
   -H "Authorization: Bearer YOUR_PRIVATE_KEY"
 ```
 
-This returns an array of session data for the specified user. Each entry is an object consisting of the session data for that user. Note that while in beta, this endpoint is limited to the most recent 100 sessions.
+This returns an array of session data for the specified user. Each entry is an object consisting of the session data for that user. While in beta, this endpoint is limited to the most recent 100 sessions.
 
 ## Next Steps
 
