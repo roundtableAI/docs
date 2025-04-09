@@ -48,6 +48,18 @@
                       "description": "User identifier provided during script initialization (if any)",
                       "example": "user-456"
                     },
+                    "risk_score": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 100,
+                      "description": "Overall risk score for the session (0-100). Higher scores indicate higher risk.",
+                      "example": 75
+                    },
+                    "risk_explanation": {
+                      "type": "string",
+                      "description": "Short explanation of the factors contributing to the risk score",
+                      "example": "User was flagged for multiple likely bot behavior, indicating a medium to high risk of fraud."
+                    },
                     "user_logs": {
                       "type": "array",
                       "description": "Chronological list of user actions recorded during the session",
@@ -89,60 +101,62 @@
                         }
                       ]
                     },
-                    "failed_checks": {
-                      "type": "array",
-                      "description": "List of behavioral anomalies detected during the session",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "check": {
-                            "type": "string",
-                            "description": "Description of the failed check",
-                            "example": "Unnatural mouse movement"
-                          },
-                          "user_time": {
-                            "type": "string",
-                            "description": "Human-readable timestamp in user's local timezone",
-                            "example": "Mar 25, 2025 14:31:05"
-                          },
-                          "timestamp": {
-                            "type": "integer",
-                            "description": "Unix timestamp in milliseconds",
-                            "example": 1743055865000
-                          }
-                        }
-                      },
-                      "example": [
-                        {
-                          "check": "Unnatural mouse movement",
-                          "user_time": "Mar 25, 2025 14:31:05",
-                          "timestamp": 1743055865000
-                        },
-                        {
-                          "check": "Suspicious copy-paste activity",
-                          "user_time": "Mar 25, 2025 14:31:30",
-                          "timestamp": 1743055890000
-                        }
-                      ]
-                    },
-                    "session_replay": {
+                    "biometric_checks": {
                       "type": "object",
-                      "description": "Information about the session replay recording",
+                      "description": "Results of biometric analysis for bot detection",
                       "properties": {
-                        "url": {
+                        "programmatic_typing": {
                           "type": "string",
-                          "description": "URL to view the session replay",
-                          "example": "https://app.roundtable.ai/replay/abc123def456"
+                          "description": "User had highly regular typing patterns typical of programmatic input",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Detected"
                         },
-                        "duration_seconds": {
-                          "type": "integer",
-                          "description": "Total duration of the session in seconds",
-                          "example": 142
+                        "teleporting_mouse": {
+                          "type": "string",
+                          "description": "User moved the mouse cursor to different page locations without transition",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Not detected"
+                        },
+                        "no_corrections": {
+                          "type": "string",
+                          "description": "User made text entries without any corrections or backspaces",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Detected"
+                        },
+                        "all_pasted": {
+                          "type": "string",
+                          "description": "All text responses were pasted rather than typed by the user",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Unknown"
                         }
                       },
-                      "required": [
-                        "url"
-                      ]
+                      "example": {
+                        "programmatic_typing": "Detected",
+                        "teleporting_mouse": "Not detected",
+                        "no_corrections": "Detected",
+                        "all_pasted": "Unknown"
+                      }
+                    },
+                    "replay_link": {
+                      "type": "string",
+                      "description": "URL to view the session replay",
+                      "example": "https://app.roundtable.ai/replay/abc123def456"
                     }
                   }
                 }
@@ -191,15 +205,17 @@
                             "description": "Unique identifier for the session",
                             "example": "abc123def456"
                           },
-                          "start_time": {
-                            "type": "string",
-                            "description": "Human-readable timestamp of session start",
-                            "example": "Mar 25, 2025 14:30:45"
-                          },
-                          "start_timestamp": {
+                          "risk_score": {
                             "type": "integer",
-                            "description": "Unix timestamp in milliseconds of session start",
-                            "example": 1743055845000
+                            "minimum": 0,
+                            "maximum": 100,
+                            "description": "Overall risk assessment score for the session (0-100)",
+                            "example": 75
+                          },
+                          "risk_explanation": {
+                            "type": "string",
+                            "description": "Short explanation of the factors contributing to the risk score",
+                            "example": "Multiple bot behaviors detected including programmatic typing and lack of corrections"
                           },
                           "user_logs": {
                             "type": "array",
@@ -225,48 +241,62 @@
                               }
                             }
                           },
-                          "failed_checks": {
-                            "type": "array",
-                            "description": "List of behavioral anomalies detected during the session",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "check": {
-                                  "type": "string",
-                                  "description": "Description of the failed check",
-                                  "example": "Unnatural mouse movement"
-                                },
-                                "user_time": {
-                                  "type": "string",
-                                  "description": "Human-readable timestamp in user's local timezone",
-                                  "example": "Mar 25, 2025 14:31:05"
-                                },
-                                "timestamp": {
-                                  "type": "integer",
-                                  "description": "Unix timestamp in milliseconds",
-                                  "example": 1743055865000
-                                }
-                              }
-                            }
-                          },
-                          "session_replay": {
+                          "biometric_checks": {
                             "type": "object",
-                            "description": "Information about the session replay recording",
+                            "description": "Results of biometric analysis for bot detection",
                             "properties": {
-                              "url": {
+                              "programmatic_typing": {
                                 "type": "string",
-                                "description": "URL to view the session replay",
-                                "example": "https://app.roundtable.ai/replay/abc123def456"
+                                "description": "User had highly regular typing patterns typical of programmatic input",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Detected"
                               },
-                              "duration_seconds": {
-                                "type": "integer",
-                                "description": "Total duration of the session in seconds",
-                                "example": 142
+                              "teleporting_mouse": {
+                                "type": "string",
+                                "description": "User moved the mouse cursor to different page locations without transition",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
+                              },
+                              "no_corrections": {
+                                "type": "string",
+                                "description": "User made text entries without any corrections or backspaces",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Detected"
+                              },
+                              "all_pasted": {
+                                "type": "string",
+                                "description": "All text responses were pasted rather than typed by the user",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Unknown"
                               }
                             },
-                            "required": [
-                              "url"
-                            ]
+                            "example": {
+                              "programmatic_typing": "Detected",
+                              "teleporting_mouse": "Not detected",
+                              "no_corrections": "Detected",
+                              "all_pasted": "Unknown"
+                            }
+                          },
+                          "replay_link": {
+                            "type": "string",
+                            "description": "URL to view the session replay",
+                            "example": "https://app.roundtable.ai/replay/abc123def456"
                           }
                         }
                       }
@@ -338,7 +368,6 @@
           }
         },
         "required": [
-          "url"
         ]
       },
       "DeviceInfo": {
@@ -380,21 +409,6 @@
             "type": "string",
             "description": "Unique identifier for the session",
             "example": "abc123def456"
-          },
-          "start_time": {
-            "type": "string",
-            "description": "Human-readable timestamp of session start",
-            "example": "Mar 25, 2025 14:30:45"
-          },
-          "start_timestamp": {
-            "type": "integer",
-            "description": "Unix timestamp in milliseconds of session start",
-            "example": 1743055845000
-          },
-          "duration_seconds": {
-            "type": "integer",
-            "description": "Total duration of the session in seconds",
-            "example": 142
           },
           "action_count": {
             "type": "integer",
