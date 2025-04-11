@@ -17,13 +17,13 @@ There are two methods to retrieve session flags, logs, and replays:
 When you need data from a specific session, use the session ID to retrieve detailed information:
 
 ```
-GET https://api.roundtable.ai/v0.0/sessions/{sessionId}/report
+GET https://api.roundtable.ai/v1/sessions/{sessionId}/report
 ```
 
 ### Example Request
 
 ```bash
-curl -X GET https://api.roundtable.ai/v0.0/sessions/abc123def456/report \
+curl -X GET https://api.roundtable.ai/v1/sessions/abc123def456/report \
   -H "Authorization: Bearer YOUR_PRIVATE_KEY"
 ```
 
@@ -34,13 +34,13 @@ This returns all Roundtable data for the specified session, including automatica
 To retrieve all sessions associated with a specific user:
 
 ```
-GET https://api.roundtable.ai/v0.0/users/{userId}/sessions
+GET https://api.roundtable.ai/v1/users/{userId}/sessions
 ```
 
 ### Example Request
 
 ```bash
-curl -X GET https://api.roundtable.ai/v0.0/users/user-123/sessions \
+curl -X GET https://api.roundtable.ai/v1/users/user-123/sessions \
   -H "Authorization: Bearer YOUR_PRIVATE_KEY"
 ```
 
