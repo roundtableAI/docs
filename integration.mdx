@@ -10,7 +10,7 @@ This guide explains how to integrate Roundtable's behavioral biometrics and sess
 Add our tracking script to your website by inserting this single line of code in the `<head>` section of your HTML:
 
 ```html
-<script src="https://cdn.roundtable.ai/v0.0/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
+<script src="https://cdn.roundtable.ai/v1/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
 ```
 
 Replace `YOUR_SITE_KEY` with the site key found in your Roundtable dashboard. The `data-user-id` attribute is an optional but recommended for tracking users across multiple sessions. This can help you identify whether a user's activity is anamolous relative to their historical activity.
@@ -31,7 +31,7 @@ For traditional websites, add the script to your base HTML template:
     <title>Your Website</title>
     
     <!-- Roundtable Tracker (place as early as possible) -->
-    <script src="https://cdn.roundtable.ai/v0.0/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
+    <script src="https://cdn.roundtable.ai/v1/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
     
     <!-- Other head elements -->
     <link rel="stylesheet" href="styles.css">
@@ -55,7 +55,7 @@ For React, Angular, Vue.js, or other SPAs, add the script to your main HTML file
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
     <!-- Roundtable Tracker -->
-    <script src="https://cdn.roundtable.ai/v0.0/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
+    <script src="https://cdn.roundtable.ai/v1/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
     
     <title>React App</title>
 </head>
@@ -75,7 +75,7 @@ For React, Angular, Vue.js, or other SPAs, add the script to your main HTML file
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     
     <!-- Roundtable Tracker -->
-    <script src="https://cdn.roundtable.ai/v0.0/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
+    <script src="https://cdn.roundtable.ai/v1/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
     
     <title>Vue App</title>
 </head>
@@ -100,7 +100,7 @@ function getUserId() {
 
 // Once user ID is available, dynamically add the tracking script
 const userScript = document.createElement('script');
-userScript.src = "https://cdn.roundtable.ai/v0.0/tracker.js";
+userScript.src = "https://cdn.roundtable.ai/v1/tracker.js";
 userScript.setAttribute('data-site-key', 'YOUR_SITE_KEY');
 userScript.setAttribute('data-user-id', getUserId());
 document.head.appendChild(userScript);

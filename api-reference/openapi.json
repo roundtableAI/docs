@@ -3,7 +3,7 @@
   "info": {
     "title": "Roundtable API",
     "description": "API for retrieving behavioral biometrics and session replay data",
-    "version": "v0.0",
+    "version": "v1",
     "contact": {
       "email": "support@roundtable.ai"
     }
@@ -15,7 +15,7 @@
     }
   ],
   "paths": {
-    "/v0.0/sessions/{sessionId}/report": {
+    "/v1/sessions/{sessionId}/report": {
       "get": {
         "summary": "Retrieve data for a specific session",
         "description": "Get detailed user actions, failed checks, and session replay link for a specific session ID",
@@ -166,7 +166,7 @@
         }
       }
     },
-    "/v0.0/users/{userId}/sessions": {
+    "/v1/users/{userId}/sessions": {
       "get": {
         "summary": "Retrieve recent sessions for a specific user",
         "description": "Get the 100 most recent sessions for a specific user ID, including user actions, failed checks, and session replay links for each session",
@@ -366,9 +366,7 @@
             "description": "Total duration of the session in seconds",
             "example": 142
           }
-        },
-        "required": [
-        ]
+        }
       },
       "DeviceInfo": {
         "type": "object",

@@ -49,7 +49,7 @@
         "api-reference/session-data",
         "api-reference/user-data"
       ],
-      "version": "v0.0"
+      "version": "v1"
     },
 
     {
@@ -61,7 +61,7 @@
     "linkedin": "https://www.linkedin.com/company/roundtable-ai",
     "twitter": "https://twitter.com/RoundtableDotAI"
   },
-  "versions": ["v0.0"],
+  "versions": ["v1"],
   "redirects": [
     {
       "source": "http://docs.roundtable.ai/blog/*",
