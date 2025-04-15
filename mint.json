@@ -36,10 +36,11 @@
       "pages": ["introduction"]
     },
     {
-      "group": "Using Roundtable",
+      "group": "Guides",
       "pages": [
         "integration",
-        "accessing-session-data"
+        "accessing-session-data",
+        "using-the-dashboard"
       ]
     },
     {

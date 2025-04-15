@@ -1,30 +1,36 @@
 ---
-title: 'Roundtable API documentation'
+title: 'Welcome to Roundtable'
 'sidebarTitle': 'Welcome'
 ---
 
-Roundtable uses advanced behavioral analyses to help fraud teams quickly identify and respond to threats. Our API automatically generates detailed user logs and captures biometrics such as keystrokes, mouse movements, scrolling patterns, and focus changes. This monitoring provides real-time alerts for suspicious activities, letting security teams investigate potential fraud before it impacts their business.
+Roundtable uses advanced behavioral analyses to help fraud teams quickly identify and respond to threats. Our API automatically generates detailed user logs and captures detailed biometrics such as keystrokes, mouse movements, and scrolling patterns. This monitoring provides real-time alerts of suspicious activities, letting security teams stop potential fraud before it impacts their business.
 
-### Getting Started
+### Get started
 To start using Roundtable, follow these steps:
 
-1. **Sign up for an account**: Create your Roundtable account at [accounts.roundtable.ai](https://accounts.roundtable.ai) to obtain your site key and access the dashboard.
+1. **Sign up for an account**: Create your Roundtable account at [accounts.roundtable.ai](https://accounts.roundtable.ai) to obtain your site key and secret key.
 
 2. **Integrate the tracker**: Add our JavaScript tracker to your site with a single line of code:
    ```html
    <script src="https://cdn.roundtable.ai/v1/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
    ```
 
-3. **Access session logs**: Use our API to retrieve detailed user action logs and access session replays:
+3. **Access session logs**: Access detailed user action logs and session replays on the [Roundtab;e Dashboard](https://accounts.roundtable.ai) or via our API:
    ```
    GET https://api.roundtable.ai/v1/sessions/{sessionId}/report
    ```
-   
-4. **Review flagged activities**: Analyze suspicious behaviors identified by our system, including unnatural mouse movements, rapid changes in user information, and other fraud signals.
 
+### Why focus on behavior?
+
+Traditional security controls—passwords, device IDs, CAPTCHAs—are becoming easier for fraudsters to bypass. Stolen credentials and automated scripts can mimic a legitimate login but often exhibit telltale signs in their behavior. For instance, a human user might show slight pauses between keystrokes, or scroll through content at a natural pace, while malicious bots often operate at superhuman speeds or follow predetermined patterns.
+
+By looking at the full range of behavioral signals, Roundtable can detect anomalies more accurately. Behavior is harder to fake or spoof than credentials alone, and comparing current activity against historical user patterns provides a powerful layer of defense. This approach lets you reduce fraudulent transactions, account takeovers, and automated attacks, without dispruting the user experience.
+
+   
 ### Next Steps
 
-1. Explore our [Integration Guide](integration) for detailed implementation instructions.
-2. Review the [API Reference](api-reference) to understand the request and response formats.
+1. Sign up for an account at [accounts.roundtable.ai](https://accounts.roundtable.ai).
+2. Explore our [Integration Guide](integration) for detailed implementation instructions.
+3. Review the [API Reference](api-reference) for more details on the sessions logs, biometrics checks, and risk scores.
 
-If you have any questions or need assistance, contact support at support@roundtable.ai.
+If you have any questions or need assistance, contact us at support@roundtable.ai.
