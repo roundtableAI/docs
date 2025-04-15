@@ -76,7 +76,7 @@
                             "description": "Human-readable timestamp in user's local timezone",
                             "example": "Mar 25, 2025 14:30:50"
                           },
-                          "timestamp": {
+                          "unix_timestamp": {
                             "type": "integer",
                             "description": "Unix timestamp in milliseconds",
                             "example": 1743055850000
@@ -87,17 +87,17 @@
                         {
                           "action": "Signed in",
                           "user_time": "Mar 25, 2025 14:30:45",
-                          "timestamp": 1743055845000
+                          "unix_timestamp": 1743055845000
                         },
                         {
                           "action": "Navigated to /dashboard",
                           "user_time": "Mar 25, 2025 14:30:50",
-                          "timestamp": 1743055850000
+                          "unix_timestamp": 1743055850000
                         },
                         {
                           "action": "Updated credit card",
                           "user_time": "Mar 25, 2025 14:32:15",
-                          "timestamp": 1743055935000
+                          "unix_timestamp": 1743055935000
                         }
                       ]
                     },
@@ -233,7 +233,7 @@
                                   "description": "Human-readable timestamp in user's local timezone",
                                   "example": "Mar 25, 2025 14:30:50"
                                 },
-                                "timestamp": {
+                                "unix_timestamp": {
                                   "type": "integer",
                                   "description": "Unix timestamp in milliseconds",
                                   "example": 1743055850000
@@ -325,7 +325,7 @@
             "description": "Human-readable timestamp in user's local timezone",
             "example": "Mar 25, 2025 14:30:50"
           },
-          "timestamp": {
+          "unix_timestamp": {
             "type": "integer",
             "description": "Unix timestamp in milliseconds",
             "example": 1743055850000
@@ -345,7 +345,7 @@
             "description": "Human-readable timestamp in user's local timezone",
             "example": "Mar 25, 2025 14:31:05"
           },
-          "timestamp": {
+          "unix_timestamp": {
             "type": "integer",
             "description": "Unix timestamp in milliseconds",
             "example": 1743055865000
@@ -425,7 +425,7 @@
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "description": "Use your private API key as the bearer token"
+        "description": "Use your secret API key as the bearer token"
       }
     },
     "parameters": {
