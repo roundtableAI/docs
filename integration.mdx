@@ -87,24 +87,32 @@ For React, Angular, Vue.js, or other SPAs, add the script to your main HTML file
 
 ## Identifying Users
 
-If included, the `data-user-id` allows you to associate session data with specific users. This identifier should be consistent across sessions and devices, such as an email hash or account number hash. We recommend anonymizing this ID before passing it to our script.
+If included, the `data-user-id` attribute allows you to associate session data with specific users. This identifier should be consistent across sessions and devices (e.g., an email hash or account number hash). We recommend anonymizing this ID before passing it to our script.
 
-If the user ID isn't available when the HTML is initially rendered (e.g., after login or API call), you'll need to dynamically add the script:
+### 1. Setting `data-user-id` at Page Load
+
+If you already know the user ID when the page is rendered, simply include it in the script tag:
+
+```html
+<script 
+    src="https://cdn.roundtable.ai/v1/tracker.js" 
+    data-site-key="YOUR_SITE_KEY" 
+    data-user-id="USER_ID_IF_AVAILABLE">
+</script>
+```
+
+### 2. Updating the User ID After the Script Loads
+
+If the user ID is not known at page load—for example, if it’s only available after an API call or a login event—you do not need to reload or dynamically insert the script. Instead, call a global function to update the user ID in the running tracker:
 
 ```js
-// Define function to get user ID (from your auth system, localStorage, etc.)
-function getUserId() {
-    // Your logic to retrieve user ID
-    return 'user-123';
-}
-
-// Once user ID is available, dynamically add the tracking script
-const userScript = document.createElement('script');
-userScript.src = "https://cdn.roundtable.ai/v1/tracker.js";
-userScript.setAttribute('data-site-key', 'YOUR_SITE_KEY');
-userScript.setAttribute('data-user-id', getUserId());
-document.head.appendChild(userScript);
+// Example: call this after your auth/login flow 
+window.setRoundtableUserId("new-user-id");
 ```
+
+When this function is called, Roundtable will start using the new user ID for subsequent behavioral and replay data.
+
+> <b>Note:</b> Ensure the script has fully loaded before calling `setRoundtableUserId`. If you’re using a Single Page Application, you can place this call in a callback or a component that runs after the script is confirmed loaded.
 
 ## Using a Session ID
 
@@ -119,6 +127,6 @@ const sessionId = sessionStorage.getItem('rtSessionId');
 
 ## Next Steps
 
-- Visit your [Roundtable Account](https://accounts.roundtable.ai/account) to view your public API key.
-- Learn how to [Access Session Data](accessing-session-data) to retrieve user actions and replay recordings
-- Explore our [API Reference](api-reference) for more details
+- Visit your [Roundtable Account](https://accounts.roundtable.ai/account) to access your public API key.
+- Learn how to [Access Session Data](accessing-session-data) to retrieve user actions and replay recordings.
+- Explore our [API Reference](api-reference) for more details.
