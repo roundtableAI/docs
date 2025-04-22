@@ -155,7 +155,7 @@
                     },
                     "replay_link": {
                       "type": "string",
-                      "description": "URL to view the session replay",
+                      "description": "URL to view the session replay (will be null if replay is disabled)",
                       "example": "https://app.roundtable.ai/replay/abc123def456"
                     }
                   }
@@ -295,7 +295,7 @@
                           },
                           "replay_link": {
                             "type": "string",
-                            "description": "URL to view the session replay",
+                            "description": "URL to view the session replay (will be null if replay is disabled)",
                             "example": "https://app.roundtable.ai/replay/abc123def456"
                           }
                         }

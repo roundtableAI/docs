@@ -12,7 +12,10 @@ To start using Roundtable, follow these steps:
 
 2. **Integrate the tracker**: Add our JavaScript tracker to your site with a single line of code:
    ```html
-   <script src="https://cdn.roundtable.ai/v1/tracker.js" data-site-key="YOUR_SITE_KEY" data-user-id="OPTIONAL_USER_ID"></script>
+   <script
+      src="https://cdn.roundtable.ai/v1/tracker.js"
+      data-site-key="YOUR_SITE_KEY">
+   </script>
    ```
 
 3. **Access session logs**: Access detailed user action logs and session replays on the [Roundtable Dashboard](https://accounts.roundtable.ai) or via our API:
@@ -26,8 +29,11 @@ Traditional security controls—passwords, device IDs, CAPTCHAs—are becoming e
 
 By looking at the full range of behavioral signals, Roundtable can detect anomalies more accurately. Behavior is harder to fake or spoof than credentials alone, and comparing current activity against historical user patterns provides a powerful layer of defense. This approach lets you reduce fraudulent transactions, account takeovers, and automated attacks, without dispruting the user experience.
 
+### Privacy and data handling
+
+Roundtable is designed with privacy first. You decide whether to record visual session replays—simply turn the feature off if you only need behavioral signals. All data stays in‑tab for the life of the visit, and we never rely on cookies or long‑term browser storage.
    
-### Next Steps
+### Next steps
 
 1. Sign up for an account at [accounts.roundtable.ai](https://accounts.roundtable.ai).
 2. Explore our [Integration Guide](integration) for detailed implementation instructions.
