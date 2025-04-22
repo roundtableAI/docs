@@ -8,7 +8,6 @@ This guide shows how to drop Roundtable’s behavioral‑biometric & (optional) 
 ## Quick start – 2‑line install
 
 ```html
-<!-- 1 ‑ add the tracker -->
 <script
   src="https://cdn.roundtable.ai/v1/tracker.js"
   data-site-key="YOUR_SITE_KEY"
@@ -16,14 +15,15 @@ This guide shows how to drop Roundtable’s behavioral‑biometric & (optional) 
   data-replay="true"> <!-- default; set false to disable -->
 </script>
 
-<!-- 2 ‑ (optionally) update the UID later -->
+<!-- 2 ‑ (optionally) set / update the UID when the tracker is ready (skip if you used data-user-id) -->
 <script>
-  // call this whenever you learn who the user is
-  window.setRoundtableUserId?.('USER_ID');
+  const setUid = () => window.setRoundtableUserId?.('USER_ID');  // Only runs if script is ready
+  setUid(); // Try right away
+  window.addEventListener('roundtable:ready', setUid, { once:true }); // Try again once if event
 </script>
 ```
 
-Note that if you always provide `data-user-id` in the script tag, you can skip block 2.
+The Roundtable tracker dispatches a **`roundtable:ready`** event on `window` as soon as it finishes loading. Block 2 listens for that event so you can safely call `window.setRoundtableUserId` once the script is loaded.
 
 ### Script‑tag attributes
 
@@ -32,8 +32,6 @@ The tracker recognizes three data‑attributes that let you tailor its behavior:
 - `data-site-key` (required) – Your workspace’s site key (find it in the [Roundtable Dashboard](https://accounts.roundtable.ai)).
 - `data-user-id` (optional) – A stable identifier for a logged‑in user to track them over multiple sessions (a hashed value is fine).
 - `data-replay` (optional) – Set to "false" to disable replay capture (if omitted, replay data is collected).
-
-After the tracker finishes loading it fires a custom `roundtable:ready` event on window. That event tells you that the public API—including `window.setRoundtableUserId`—is available, which is especially useful SPAs where the script may load after your components mount (see below for more details on SPA integration).
 
 ## React / SPA example
 
