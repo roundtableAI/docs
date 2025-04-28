@@ -52,10 +52,9 @@
       ],
       "version": "v1"
     },
-
     {
       "group": "Support Center",
-      "pages": ["status"]
+      "pages": ["privacy", "status"]
     }
   ],
   "footerSocials": {
