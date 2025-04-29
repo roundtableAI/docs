@@ -23,7 +23,7 @@
   ],
   "topbarCtaButton": {
     "name": "Account",
-    "url": "https://app.roundtable.ai/account"
+    "url": "https://accounts.roundtable.ai/account"
   },
   "primaryTab": {
     "name": "Behavior Tracking"
