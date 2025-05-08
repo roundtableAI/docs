@@ -10,7 +10,7 @@ Authorization: Bearer YOUR_SECRET_KEY
 
 If you don't have a secret key, you can generate one at on your [account page](https://accounts.roundtable.ai/account) on the Roundtable dashboard.
 
-There are two methods to retrieve session flags, logs, and replays:
+There are two methods to retrieve session risk scores and flags:
 
 ## Method 1: Retrieve a a specific session
 
@@ -27,7 +27,7 @@ curl -X GET https://api.roundtable.ai/v1/sessions/abc123def456/report \
   -H "Authorization: Bearer YOUR_SECRET_KEY"
 ```
 
-This returns all Roundtable data for the specified session, including automatically generated user logs, failed security checks, and a link to a session replay. The session ID can be found in session storage (`rtSessionId`) or captured when needed for later reference. 
+This returns all Roundtable data for the specified session, including automatically generated user logs and failed security checks. The session ID can be found in session storage under `rtSessionId`. 
 
 ## Method 2: Retrieve all sessions for a user
 

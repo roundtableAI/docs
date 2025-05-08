@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Roundtable API",
-    "description": "API for retrieving behavioral biometrics and session replay data",
+    "description": "API for real-time bot detection",
     "version": "v1",
     "contact": {
       "email": "support@roundtable.ai"
@@ -18,7 +18,7 @@
     "/v1/sessions/{sessionId}/report": {
       "get": {
         "summary": "Retrieve data for a specific session",
-        "description": "Get detailed user actions, failed checks, and session replay link for a specific session ID",
+        "description": "Get risk scores, risk explanations, user actions, and failed checks for a specific session ID",
         "parameters": [
           {
             "name": "sessionId",
@@ -152,11 +152,6 @@
                         "no_corrections": "Detected",
                         "all_pasted": "Unknown"
                       }
-                    },
-                    "replay_link": {
-                      "type": "string",
-                      "description": "URL to view the session replay (will be null if replay is disabled)",
-                      "example": "https://app.roundtable.ai/replay/abc123def456"
                     }
                   }
                 }
@@ -169,7 +164,7 @@
     "/v1/users/{userId}/sessions": {
       "get": {
         "summary": "Retrieve recent sessions for a specific user",
-        "description": "Get the 100 most recent sessions for a specific user ID, including user actions, failed checks, and session replay links for each session",
+        "description": "Get the 100 most recent sessions for a specific user ID",
         "parameters": [
           {
             "name": "userId",
@@ -292,11 +287,6 @@
                               "no_corrections": "Detected",
                               "all_pasted": "Unknown"
                             }
-                          },
-                          "replay_link": {
-                            "type": "string",
-                            "description": "URL to view the session replay (will be null if replay is disabled)",
-                            "example": "https://app.roundtable.ai/replay/abc123def456"
                           }
                         }
                       }
@@ -349,22 +339,6 @@
             "type": "integer",
             "description": "Unix timestamp in milliseconds",
             "example": 1743055865000
-          }
-        }
-      },
-      "SessionReplay": {
-        "type": "object",
-        "description": "Information about the session replay recording",
-        "properties": {
-          "url": {
-            "type": "string",
-            "description": "URL to view the session replay",
-            "example": "https://app.roundtable.ai/replay/abc123def456"
-          },
-          "duration_seconds": {
-            "type": "integer",
-            "description": "Total duration of the session in seconds",
-            "example": 142
           }
         }
       },

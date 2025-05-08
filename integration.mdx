@@ -3,16 +3,16 @@ title: 'Integrating Roundtable'
 sidebarTitle: 'Integrating Roundtable'
 ---
 
-This guide shows how to drop Roundtable’s behavioral‑biometric & (optional) replay tracker into any web app.
+This guide shows how to integrate Roundtable’s bot detection suite into any web app.
 
-## Quick start – 2‑line install
+## Quick start
 
 ```html
 <script
   src="https://cdn.roundtable.ai/v1/tracker.js"
   data-site-key="YOUR_SITE_KEY"
   data-user-id="OPTIONAL_USER_ID"
-  data-replay="true"> <!-- default; set false to disable -->
+  >
 </script>
 
 <!-- 2 ‑ (optionally) set / update the UID when the tracker is ready (skip if you used data-user-id) -->
@@ -27,11 +27,10 @@ The Roundtable tracker dispatches a **`roundtable:ready`** event on `window` as
 
 ### Script‑tag attributes
 
-The tracker recognizes three data‑attributes that let you tailor its behavior:
+The tracker recognizes two data‑attributes that let you tailor its behavior:
 
 - `data-site-key` (required) – Your workspace’s site key (find it in the [Roundtable Dashboard](https://accounts.roundtable.ai)).
 - `data-user-id` (optional) – A stable identifier for a logged‑in user to track them over multiple sessions (a hashed value is fine).
-- `data-replay` (optional) – Set to "false" to disable replay capture (if omitted, replay data is collected).
 
 ## React / SPA example
 
@@ -79,8 +78,7 @@ useRoundtableUid(currentUser?.uid);
 ### Using the Session ID
 
 Every page‑view (or SPA session) gets a unique **session ID** that Roundtable stores in
-*sessionStorage* under `rtSessionId`. You can reference this ID from your own backend or logs to pull the exact biometrics and
-replay for that visit.
+*sessionStorage* under `rtSessionId`. You can reference this ID to pull risk scores and data from the session in your back end.
 
 ```js
 // Access the session ID anywhere in the front end
@@ -93,5 +91,5 @@ Because the session ID is stored in *sessionStorage*, the value is scoped to the
 ### Next steps
 
 - Visit your [Roundtable Account](https://accounts.roundtable.ai/account) to access your public API key.
-- Learn how to [Access Session Data](accessing-session-data) to retrieve user actions and replay recordings.
+- Learn how to [Access Session Data](accessing-session-data) to retrieve risk scores and session data.
 - Explore our [API Reference](api-reference) for more details.
