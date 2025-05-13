@@ -54,7 +54,7 @@
     },
     {
       "group": "Support Center",
-      "pages": ["privacy", "status"]
+      "pages": ["pricing", "privacy", "status"]
     }
   ],
   "footerSocials": {
