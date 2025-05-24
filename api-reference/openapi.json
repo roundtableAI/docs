@@ -152,6 +152,69 @@
                         "no_corrections": "Detected",
                         "all_pasted": "Unknown"
                       }
+                    },
+                    "device_checks": {
+                      "type": "object",
+                      "description": "Results of device and network checks for environment anomalies",
+                      "properties": {
+                        "bot": {
+                          "type": "string",
+                          "description": "Browser execution context indicates an automated tool (e.g. Selenium or Playwright)",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Detected"
+                        },
+                        "virtual_machine": {
+                          "type": "string",
+                          "description": "Signals show the browser is running inside a virtual machine or sandbox",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Not detected"
+                        },
+                        "vpn": {
+                          "type": "string",
+                          "description": "IP address belongs to a known VPN or hosting provider",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Detected"
+                        },
+                        "tor": {
+                          "type": "string",
+                          "description": "Connection is routed through a Tor exit node",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Not detected"
+                        },
+                        "location_spoofing": {
+                          "type": "string",
+                          "description": "Browser-reported geolocation conflicts with IP-based location or appears simulated",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Unknown"
+                        }
+                      },
+                      "example": {
+                        "bot": "Detected",
+                        "virtual_machine": "Not detected",
+                        "vpn": "Detected",
+                        "tor": "Not detected",
+                        "location_spoofing": "Unknown"
+                      }
                     }
                   }
                 }
@@ -287,6 +350,69 @@
                               "no_corrections": "Detected",
                               "all_pasted": "Unknown"
                             }
+                          },
+                          "device_checks": {
+                            "type": "object",
+                            "description": "Results of device and network checks for environment anomalies",
+                            "properties": {
+                              "bot": {
+                                "type": "string",
+                                "description": "Browser execution context indicates an automated tool (e.g. Selenium or Playwright)",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Detected"
+                              },
+                              "virtual_machine": {
+                                "type": "string",
+                                "description": "Signals show the browser is running inside a virtual machine or sandbox",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
+                              },
+                              "vpn": {
+                                "type": "string",
+                                "description": "IP address belongs to a known VPN or hosting provider",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Detected"
+                              },
+                              "tor": {
+                                "type": "string",
+                                "description": "Connection is routed through a Tor exit node",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
+                              },
+                              "location_spoofing": {
+                                "type": "string",
+                                "description": "Browser-reported geolocation conflicts with IP-based location or appears simulated",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Unknown"
+                              }
+                            },
+                            "example": {
+                              "bot": "Detected",
+                              "virtual_machine": "Not detected",
+                              "vpn": "Detected",
+                              "tor": "Not detected",
+                              "location_spoofing": "Unknown"
+                            }
                           }
                         }
                       }
@@ -339,37 +465,6 @@
             "type": "integer",
             "description": "Unix timestamp in milliseconds",
             "example": 1743055865000
-          }
-        }
-      },
-      "DeviceInfo": {
-        "type": "object",
-        "description": "Information about the user's device and environment",
-        "properties": {
-          "browser": {
-            "type": "string",
-            "description": "Browser name and version",
-            "example": "Chrome 120.0.0"
-          },
-          "os": {
-            "type": "string",
-            "description": "Operating system",
-            "example": "Windows 11"
-          },
-          "screen_resolution": {
-            "type": "string",
-            "description": "Screen resolution",
-            "example": "1920x1080"
-          },
-          "timezone": {
-            "type": "string",
-            "description": "User's timezone",
-            "example": "America/New_York"
-          },
-          "language": {
-            "type": "string",
-            "description": "Browser language",
-            "example": "en-US"
           }
         }
       },
