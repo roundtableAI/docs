@@ -38,6 +38,7 @@
     {
       "group": "Guides",
       "pages": [
+        "how-it-works",
         "integration",
         "accessing-session-data",
         "using-the-dashboard"
