@@ -1,0 +1,113 @@
+---
+title: 'Migrating from reCAPTCHA to Roundtable'
+sidebarTitle: 'Migrating from reCAPTCHA'
+---
+
+Roundtable continuously monitors user behavior throughout the session, it can be used to gate form submissions just like reCAPTCHA. This guide shows how to replace reCAPTCHA v3 with Roundtable.
+
+Both reCAPTCHA v3 and Roundtable provide a risk score, but they use opposite scales. reCAPTCHA scores range from 0.0 to 1.0 where higher scores indicate more human-like behavior, while Roundtable scores range from 0 to 100 where higher scores indicate higher risk.
+
+## Front-end changes
+
+Replace your reCAPTCHA script with the Roundtable tracker and update your form submission to send the session ID instead of a token. You can copy the exact script tag with your site key from the [Roundtable Dashboard](https://accounts.roundtable.ai).
+
+### Before (reCAPTCHA v3)
+```html
+<script src="https://www.google.com/recaptcha/api.js?render=YOUR_SITE_KEY"></script>
+
+<script>
+  document.getElementById('dummy-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    grecaptcha.ready(function() {
+      grecaptcha.execute('YOUR_SITE_KEY', {action: 'submit'}).then(function(token) {
+        const formData = new FormData(e.target);
+        formData.append('recaptcha_token', token);
+        
+        fetch('/submit-form', {
+          method: 'POST',
+          body: formData
+        });
+      });
+    });
+  });
+</script>
+```
+
+### After (Roundtable)
+```html
+<script 
+  src="https://cdn.roundtable.ai/v1/rt.js" 
+  data-site-key="YOUR_SITE_KEY">
+</script>
+
+<script>
+  document.getElementById('dummy-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const sessionId = sessionStorage.getItem('rtSessionId');
+    const formData = new FormData(e.target);
+    formData.append('roundtable_session_id', sessionId);
+    
+    fetch('/submit-form', {
+      method: 'POST',
+      body: formData
+    });
+  });
+</script>
+```
+
+## Back-end changes
+
+Replace your reCAPTCHA verification with a call to the Roundtable API. We recommend starting by blocking submissions with a risk score of 70 or higher.
+
+You'll need your secret key from the [Roundtable Dashboard](https://accounts.roundtable.ai) for API authentication.
+
+### Before (reCAPTCHA v3)
+```python
+import requests
+
+def verify_recaptcha(token, user_ip):
+    response = requests.post('https://www.google.com/recaptcha/api/siteverify', data={
+        'secret': 'YOUR_SECRET_KEY',
+        'response': token,
+        'remoteip': user_ip
+    })
+    
+    result = response.json()
+    return result['success'] and result['score'] >= 0.5
+
+# In your form handler
+recaptcha_token = request.form.get('recaptcha_token')
+if verify_recaptcha(recaptcha_token, request.remote_addr):
+    # Process form
+else:
+    return "Blocked", 403
+```
+
+### After (Roundtable)
+```python
+import requests
+
+def verify_roundtable(session_id):
+    response = requests.get(
+        f'https://api.roundtable.ai/v1/sessions/{session_id}/report',
+        headers={'Authorization': f'Bearer YOUR_SECRET_KEY'}
+    )
+    
+    if response.status_code == 200:
+        result = response.json()
+        return result['risk_score'] < 70  # Block scores >= 70
+    return False
+
+# In your form handler
+session_id = request.form.get('roundtable_session_id')
+if verify_roundtable(session_id):
+    # Process form
+else:
+    return "Blocked", 403
+```
+
+## Moving beyond reCAPTCHA
+
+Roundtable lets you easily replicate reCAPTCHA's form gating, but you can also do more. Unlike reCAPTCHA's single risk score, Roundtable provides detailed biometric checks and device flags for full visibility into session risk. You can use these individual flags to create sophisticated blocking rules beyond the risk score and gain insights into your users.

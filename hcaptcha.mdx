@@ -1,0 +1,109 @@
+---
+title: 'Migrating from hCaptcha to Roundtable'
+sidebarTitle: 'Migrating from hCaptcha'
+---
+
+This guide shows how to replace hCaptcha with Roundtable on form submissions. Unlike hCaptcha, which issues challenges at submission time, Roundtable runs completely invisibly in the background.
+
+## Front-end changes
+
+Replace your hCaptcha script with the Roundtable tracker and update your form submission to send the session ID instead of a token. You can copy the exact script tag with your site key from the [Roundtable Dashboard](https://accounts.roundtable.ai).
+
+### Before (hCaptcha)
+```html
+<script src="https://hcaptcha.com/1/api.js" async defer></script>
+
+<script>
+  document.getElementById('dummy-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    hcaptcha.execute('YOUR_SITE_KEY', {async: true}).then(function(response) {
+      const formData = new FormData(e.target);
+      formData.append('h-captcha-response', response.response);
+      
+      fetch('/submit-form', {
+        method: 'POST',
+        body: formData
+      });
+    });
+  });
+</script>
+```
+
+### After (Roundtable)
+```html
+<script 
+  src="https://cdn.roundtable.ai/v1/rt.js" 
+  data-site-key="YOUR_SITE_KEY">
+</script>
+
+<script>
+  document.getElementById('dummy-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const sessionId = sessionStorage.getItem('rtSessionId');
+    const formData = new FormData(e.target);
+    formData.append('roundtable_session_id', sessionId);
+    
+    fetch('/submit-form', {
+      method: 'POST',
+      body: formData
+    });
+  });
+</script>
+```
+
+## Back-end changes
+
+Replace your hCaptcha verification with a call to the Roundtable API. We recommend starting by blocking submissions with a risk score of 70 or higher.
+
+You'll need your secret key from the [Roundtable Dashboard](https://accounts.roundtable.ai) for API authentication.
+
+### Before (hCaptcha)
+```python
+import requests
+
+def verify_hcaptcha(token, user_ip):
+    response = requests.post('https://hcaptcha.com/siteverify', data={
+        'secret': 'YOUR_SECRET_KEY',
+        'response': token,
+        'remoteip': user_ip
+    })
+    
+    result = response.json()
+    return result['success']  # Simple pass/fail
+
+# In your form handler
+hcaptcha_response = request.form.get('h-captcha-response')
+if verify_hcaptcha(hcaptcha_response, request.remote_addr):
+    # Process form
+else:
+    return "Blocked", 403
+```
+
+### After (Roundtable)
+```python
+import requests
+
+def verify_roundtable(session_id):
+    response = requests.get(
+        f'https://api.roundtable.ai/v1/sessions/{session_id}/report',
+        headers={'Authorization': f'Bearer YOUR_SECRET_KEY'}
+    )
+    
+    if response.status_code == 200:
+        result = response.json()
+        return result['risk_score'] < 70  # Block scores >= 70
+    return False
+
+# In your form handler
+session_id = request.form.get('roundtable_session_id')
+if verify_roundtable(session_id):
+    # Process form
+else:
+    return "Blocked", 403
+```
+
+## What changes after migration
+
+After migrating from hCaptcha, you'll eliminate user friction entirely - no more challenges, puzzles, or failed attempts by legitimate users. And instead of hCaptcha's binary pass/fail decision, you'll get a risk score from 0-100 that you can tune to your specific needs. You can also access detailed biometric and device flags to understand exactly why a session was flagged, giving you much more control over your blocking decisions than hCaptcha's simple verification.
