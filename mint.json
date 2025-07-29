@@ -36,12 +36,20 @@
       "pages": ["introduction"]
     },
     {
-      "group": "Guides",
+      "group": "Set up",
       "pages": [
         "how-it-works",
         "integration",
         "accessing-session-data",
         "using-the-dashboard"
+      ]
+    },
+    {
+      "group": "Guides",
+      "pages": [
+        "best-practices",
+        "recaptcha",
+        "hcaptcha"
       ]
     },
     {

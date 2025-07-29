@@ -1,0 +1,61 @@
+---
+title: 'Leveraging continuous monitoring'
+sidebarTitle: 'Continuous Monitoring'
+---
+
+Roundtable's continuous monitoring approach enables detection strategies that aren't possible with traditional CAPTCHAs. This page contains some suggestions for getting started with your integration.
+
+## Deploy everywhere, verify strategically
+
+Unlike traditional CAPTCHAs that create obvious chokepoints, Roundtable is designed to be run on every page. This continuous tracking makes it harder for attackers to game your system.
+
+### Recommended deployment pattern
+
+**1. Install the tracker globally:** Add the Roundtable script to every page of your application so user behavior is tracked throughout the entire session.
+
+**2. Gate critical actions with API calls:** Check risk scores before allowing high-value actions like form submissions, financial transactions, content creation, and account changes. You can call the Roundtable API in your back end at any point during the user session to get an updated risk assessment.
+
+## Why this approach works better
+
+Traditional CAPTCHAs create predictable friction points that attackers can plan around. When attackers know exactly where CAPTCHAs appear, they can engineer their bots specifically to get around that single checkpoint. For example, attackers can hand their bot over to human workers when a CAPTCHA appears or use specialized solving services.
+
+Roundtable's cross-page monitoring makes this approach much harder. Since you're tracking behavior across the entire user journey, bots can't just temporarily "act human". Attackers' bot behavior will continuously be evaluated.
+
+## Advanced strategies
+
+**Use different thresholds for different actions:** More sensitive actions should have lower risk thresholds:
+
+```python
+# Different risk tolerance for different actions
+RISK_THRESHOLDS = {
+    'form_submit': 70,
+    'account_creation': 60,
+    'payment': 50,
+    'password_reset': 40
+}
+```
+
+**Leverage detailed flags for nuanced decisions:**
+Use specific biometric and device checks based on the types of bots or bad actors you expect to encounter:
+
+```python
+def should_block_session(session_data):
+    # High-confidence bot indicators
+    if session_data['device_checks']['bot'] == 'Detected':
+        return True
+    
+    # Multiple concerning behaviors
+    risk_flags = [
+        session_data['biometric_checks']['programmatic_typing'] == 'Detected',
+        session_data['biometric_checks']['teleporting_mouse'] == 'Detected',
+        session_data['device_checks']['vpn'] == 'Detected'
+    ]
+    
+    if sum(risk_flags) >= 2:
+        return True
+        
+    return session_data['risk_score'] >= 70
+```
+
+**Monitor and adjust:**
+Use the [Roundtable Dashboard](https://accounts.roundtable.ai) to track blocking rates and adjust your thresholds and rules accordingly. You can continuously optimize these detection rules based on attack patterns and business needs.
