@@ -3,9 +3,9 @@ title: 'Migrating from reCAPTCHA to Roundtable'
 sidebarTitle: 'Migrating from reCAPTCHA'
 ---
 
-Roundtable continuously monitors user behavior throughout the session, it can be used to gate form submissions just like reCAPTCHA. This guide shows how to replace reCAPTCHA v3 with Roundtable.
+Roundtable continuously monitors user behavior throughout the session and can gate form submissions just like reCAPTCHA. This guide shows how to replace reCAPTCHA v3 with Roundtable.
 
-Both reCAPTCHA v3 and Roundtable provide a risk score, but they use opposite scales. reCAPTCHA scores range from 0.0 to 1.0 where higher scores indicate more human-like behavior, while Roundtable scores range from 0 to 100 where higher scores indicate higher risk.
+Both reCAPTCHA v3 and Roundtable provide a risk score, but they use opposite scales. reCAPTCHA scores range from 0.0 to 1.0 where higher scores indicate lower risk, while Roundtable scores range from 0 to 100 where higher scores indicate higher risk.
 
 ## Front-end changes
 
