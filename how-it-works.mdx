@@ -1,16 +1,16 @@
 ---
-title: 'How Roundtable works'
+title: 'How Roundtable Proof-of-Human works'
 sidebarTitle: 'How it works'
 ---
 
-Roundtable’s API provides continuous bot and fraud prevention without adding friction for your users. We solve this by combining two independent signal streams:
+The Roundtable Proof-of-Human API provides continuous bot and fraud prevention without adding friction for your users. We solve this by combining two independent signal streams:
 
 1. **Behavioral analytics** analyze user interaction patterns such as typing cadence, mouse velocity, scroll rhythm, and touch gestures.  
 2. **Device & network intelligence** checks for virtual machines, VPNs, datacenter ASNs, headless browsers, and similar flags.
 
 These streams feed real-time models that generate a single risk score that continuously updates throughout the user session.
 
-Roundtable never records the content of keystrokes and does not use any cookies.
+The Roundtable Proof-of-Human API never records the content of keystrokes and does not use any cookies.
 
 ## How we're different from CAPTCHAs
 
@@ -20,9 +20,9 @@ Traditional CAPTCHA products evaluate risk at a single moment and then stop coll
 
 *Score-based CAPTCHAs* such as reCAPTCHA v3 or hCaptcha Enterprise run silently on page load or API call and the score you receive reflects that snapshot alone. Any behavior that happens later in the session is invisible.
 
-Roundtable is designed to stay active across the entire user session, with our risk signal improving as the user keeps interacting. If the session spans multiple pages, our tracker can automatically stitch data from each page together, giving you a single uninterrupted view of the session.
+The Roundtable Proof-of-Human API is designed to stay active across the entire user session, with our risk signal improving as the user keeps interacting. If the session spans multiple pages, our tracker can automatically stitch data from each page together, giving you a single uninterrupted view of the session.
 
-## Where to integrate Roundtable
+## Where to integrate Roundtable Proof-of-Human
 
 For single-page applications (SPAs), place the script tag in `index.html` so it loads once and tracks the entire app session. This root-level integration is the ideal way to ensure every interaction is captured.
 
@@ -34,7 +34,7 @@ Beyond SPAs, add the tracker to any pages where you see fraud, spam, or abuse, a
 
 ### Automatic session stitching
 
-As long as the user remains in the same tab, Roundtable keeps a stable session ID — even across route changes in an SPA or full navigations to separate pages — by persisting the ID in `sessionStorage`. We use this ID to continuously stich the session data together and give you an up-to-date risk score at any point during the session.
+As long as the user remains in the same tab, Roundtable Proof-of-Human keeps a stable session ID — even across route changes in an SPA or full navigations to separate pages — by persisting the ID in `sessionStorage`. We use this ID to continuously stich the session data together and give you an up-to-date risk score at any point during the session.
 
 ---
 

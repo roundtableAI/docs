@@ -1,15 +1,15 @@
 ---
-title: 'Migrating from reCAPTCHA to Roundtable'
+title: 'Migrating from reCAPTCHA to Roundtable Proof-of-Human'
 sidebarTitle: 'Migrating from reCAPTCHA'
 ---
 
-Roundtable continuously monitors user behavior throughout the session and can gate form submissions just like reCAPTCHA. This guide shows how to replace reCAPTCHA v3 with Roundtable.
+Roundtable Proof-of-Human continuously monitors user behavior throughout the session and can gate form submissions just like reCAPTCHA. This guide shows how to replace reCAPTCHA v3 with Roundtable.
 
-Both reCAPTCHA v3 and Roundtable provide a risk score, but they use opposite scales. reCAPTCHA scores range from 0.0 to 1.0 where higher scores indicate lower risk, while Roundtable scores range from 0 to 100 where higher scores indicate higher risk.
+Both reCAPTCHA v3 and Roundtable Proof-of-Human provide a risk score, but they use opposite scales. reCAPTCHA scores range from 0.0 to 1.0 where higher scores indicate lower risk, while Roundtable scores range from 0 to 100 where higher scores indicate higher risk.
 
 ## Front-end changes
 
-Replace your reCAPTCHA script with the Roundtable tracker and update your form submission to send the session ID instead of a token. You can copy the exact script tag with your site key from the [Roundtable Dashboard](https://accounts.roundtable.ai).
+Replace your reCAPTCHA script with the Roundtable Proof-of-Human tracker and update your form submission to send the session ID instead of a token. You can copy the exact script tag with your site key from the [Roundtable Dashboard](https://accounts.roundtable.ai).
 
 ### Before (reCAPTCHA v3)
 ```html
@@ -34,7 +34,7 @@ Replace your reCAPTCHA script with the Roundtable tracker and update your form s
 </script>
 ```
 
-### After (Roundtable)
+### After (Roundtable Proof-of-Human)
 ```html
 <script 
   src="https://cdn.roundtable.ai/v1/rt.js" 
@@ -59,9 +59,9 @@ Replace your reCAPTCHA script with the Roundtable tracker and update your form s
 
 ## Back-end changes
 
-Replace your reCAPTCHA verification with a call to the Roundtable API. We recommend starting by blocking submissions with a risk score of 70 or higher.
+Replace your reCAPTCHA verification with a call to the Roundtable Proof-of-Human API. We recommend starting by blocking submissions with a risk score of 70 or higher.
 
-You'll need your secret key from the [Roundtable Dashboard](https://accounts.roundtable.ai) for API authentication.
+You'll need your secret key from the [Dashboard](https://accounts.roundtable.ai) for API authentication.
 
 ### Before (reCAPTCHA v3)
 ```python
@@ -85,7 +85,7 @@ else:
     return "Blocked", 403
 ```
 
-### After (Roundtable)
+### After (Roundtable Proof-of-Human)
 ```python
 import requests
 
@@ -110,4 +110,4 @@ else:
 
 ## Moving beyond reCAPTCHA
 
-Roundtable lets you easily replicate reCAPTCHA's form gating, but you can also do more. Unlike reCAPTCHA's single risk score, Roundtable provides detailed biometric checks and device flags for full visibility into session risk. You can use these individual flags to create sophisticated blocking rules beyond the risk score and gain insights into your users.
+Roundtable Proof-of-Human lets you easily replicate reCAPTCHA's form gating, but you can also do more. Unlike reCAPTCHA's single risk score, Roundtable provides detailed biometric checks and device flags for full visibility into session risk. You can use these individual flags to create sophisticated blocking rules beyond the risk score and gain insights into your users.

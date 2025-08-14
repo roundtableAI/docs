@@ -1,9 +1,9 @@
 ---
-title: 'Integrating Roundtable'
+title: 'Integrating Roundtable Proof-of-Human'
 sidebarTitle: 'Integrating Roundtable'
 ---
 
-This guide shows how to integrate Roundtable’s bot detection suite into any web app.
+This guide shows how to integrate Roundtable Proof-of-Human’s bot detection suite into any web app.
 
 ## Quick start
 
@@ -23,18 +23,18 @@ This guide shows how to integrate Roundtable’s bot detection suite into any we
 </script>
 ```
 
-The Roundtable tracker dispatches a **`roundtable:ready`** event on `window` as soon as it finishes loading. Block 2 listens for that event so you can safely call `window.setRoundtableUserId` once the script is loaded.
+The Roundtable Proof-of-Human tracker dispatches a **`roundtable:ready`** event on `window` as soon as it finishes loading. Block 2 listens for that event so you can safely call `window.setRoundtableUserId` once the script is loaded.
 
 ### Script‑tag attributes
 
 The tracker recognizes two data‑attributes that let you tailor its behavior:
 
-- `data-site-key` (required) – Your workspace’s site key (find it in the [Roundtable Dashboard](https://accounts.roundtable.ai)).
+- `data-site-key` (required) – Your workspace’s site key (find it in the [Dashboard](https://accounts.roundtable.ai)).
 - `data-user-id` (optional) – A stable identifier for a logged‑in user to track them over multiple sessions (a hashed value is fine).
 
 ## React / SPA example
 
-Add the Roundtable tracking script in `public/index.html`:
+Add the Roundtable Proof-of-Human tracking script in `public/index.html`:
 
 ```html
 <script
@@ -77,7 +77,7 @@ useRoundtableUid(currentUser?.uid);
 
 ### Using the Session ID
 
-Every page‑view (or SPA session) gets a unique **session ID** that Roundtable stores in
+Every page‑view (or SPA session) gets a unique **session ID** that Roundtable Proof-of-Human stores in
 *sessionStorage* under `rtSessionId`. You can reference this ID to pull risk scores and data from the session in your back end.
 
 ```js
@@ -90,6 +90,6 @@ Because the session ID is stored in *sessionStorage*, the value is scoped to the
 
 ### Next steps
 
-- Visit your [Roundtable Account](https://accounts.roundtable.ai/account) to access your public API key.
+- Visit your [Account](https://accounts.roundtable.ai/account) to access your public API key.
 - Learn how to [Access Session Data](accessing-session-data) to retrieve risk scores and session data.
 - Explore our [API Reference](api-reference) for more details.
