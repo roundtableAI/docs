@@ -76,5 +76,13 @@
       "source": "http://docs.roundtable.ai/blog/*",
       "destination": "https://roundtable.ai/blog/:splat 301!"
     }
-  ]
+  ],
+  "seo": {
+    "indexing": "all",
+    "metatags": {
+      "og:type": "website",
+      "og:site_name": "Roundtable Proof of Human Documentation",
+      "description": "Documentation for Roundtable Proof of Human — guides, references, and tutorials."
+    }
+  }
 }
