@@ -1,4 +1,4 @@
-This guide explains how to retrieve session data from the Roundtable API. There are two primary methods to access your data: by specific session ID or by user ID. For more detailed information on the API specification, see the [API Reference](api-reference).
+This guide explains how to retrieve session data from the Roundtable Proof-of-Human API. There are two primary methods to access your data: by specific session ID or by user ID. For more detailed information on the API specification, see the [API Reference](api-reference).
 
 ## Authentication
 
@@ -8,7 +8,7 @@ All API requests require authentication using your secret API key:
 Authorization: Bearer YOUR_SECRET_KEY
 ```
 
-If you don't have a secret key, you can generate one at on your [account page](https://accounts.roundtable.ai/account) on the Roundtable dashboard.
+If you don't have a secret key, you can generate one at on your [account page](https://accounts.roundtable.ai/account) on the dashboard.
 
 There are two methods to retrieve session risk scores and flags:
 
@@ -27,7 +27,7 @@ curl -X GET https://api.roundtable.ai/v1/sessions/abc123def456/report \
   -H "Authorization: Bearer YOUR_SECRET_KEY"
 ```
 
-This returns all Roundtable data for the specified session, including automatically generated user logs and failed security checks. The session ID can be found in session storage under `rtSessionId`. 
+This returns all data for the specified session, including automatically generated user logs and failed security checks. The session ID can be found in session storage under `rtSessionId`. 
 
 ## Method 2: Retrieve all sessions for a user
 
@@ -48,5 +48,5 @@ This returns an array of session data for the specified user. Each entry is an o
 
 ## Next steps
 
-- Visit the [Roundtable Dashboard](https://accounts.roundtable.ai/account) to generate a secret key.
+- Visit the [Dashboard](https://accounts.roundtable.ai/account) to generate a secret key.
 - Review our [API Reference](api-reference) for detailed endpoint specifications

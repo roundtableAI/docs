@@ -3,15 +3,15 @@ title: 'Leveraging continuous monitoring'
 sidebarTitle: 'Continuous Monitoring'
 ---
 
-Roundtable's continuous monitoring approach enables detection strategies that aren't possible with traditional CAPTCHAs. This page contains some suggestions for getting started with your integration.
+Roundtable Proof-of-Human's continuous monitoring approach enables detection strategies that aren't possible with traditional CAPTCHAs. This page contains some suggestions for getting started with your integration.
 
 ## Deploy everywhere, verify strategically
 
-Unlike traditional CAPTCHAs that create obvious chokepoints, Roundtable is designed to be run on every page. This continuous tracking makes it harder for attackers to game your system.
+Unlike traditional CAPTCHAs that create obvious chokepoints, Roundtable Proof-of-Human is designed to be run on every page. This continuous tracking makes it harder for attackers to game your system.
 
 ### Recommended deployment pattern
 
-**1. Install the tracker globally:** Add the Roundtable script to every page of your application so user behavior is tracked throughout the entire session.
+**1. Install the tracker globally:** Add the Roundtable Proof-of-Human script to every page of your application so user behavior is tracked throughout the entire session.
 
 **2. Gate critical actions with API calls:** Check risk scores before allowing high-value actions like form submissions, financial transactions, content creation, and account changes. You can call the Roundtable API in your back end at any point during the user session to get an updated risk assessment.
 
@@ -19,7 +19,7 @@ Unlike traditional CAPTCHAs that create obvious chokepoints, Roundtable is desig
 
 Traditional CAPTCHAs create predictable friction points that attackers can plan around. When attackers know exactly where CAPTCHAs appear, they can engineer their bots specifically to get around that single checkpoint. For example, attackers can hand their bot over to human workers when a CAPTCHA appears or use specialized solving services.
 
-Roundtable's cross-page monitoring makes this approach much harder. Since you're tracking behavior across the entire user journey, bots can't just temporarily "act human". Attackers' bot behavior will continuously be evaluated.
+Roundtable Proof-of-Human's cross-page monitoring makes this approach much harder. Since you're tracking behavior across the entire user journey, bots can't just temporarily "act human". Attackers' bot behavior will continuously be evaluated.
 
 ## Advanced strategies
 
@@ -58,4 +58,4 @@ def should_block_session(session_data):
 ```
 
 **Monitor and adjust:**
-Use the [Roundtable Dashboard](https://accounts.roundtable.ai) to track blocking rates and adjust your thresholds and rules accordingly. You can continuously optimize these detection rules based on attack patterns and business needs.
+Use the [Dashboard](https://accounts.roundtable.ai) to track blocking rates and adjust your thresholds and rules accordingly. You can continuously optimize these detection rules based on attack patterns and business needs.
