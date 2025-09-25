@@ -1,0 +1,60 @@
+---
+title: 'Using the Roundtable badge'
+sidebarTitle: 'Using the Roundtable Badge'
+---
+
+Roundtable's verification badge is a small, drop-in widget that shows whether Proof of Human is running or not. It auto-renders wherever you place `<div class="roundtable-badge">`, listens to your tracker’s events, and gracefully handles SPAs and back-navigation.
+
+Note that the badge does *not* display any results related to risk score. Instead, it determines rsuccess or failure based on whether the Roundtable tracking is working correctly.
+
+![Roundtable badge](/images/badge.png)
+
+<Note>
+Roundtable's Terms of Service require you to include the Roundtable badge in at least one page where you are tracking user activity.
+</Note>
+
+## Quick start
+
+We recommend adding the tracker and the badge script on the same page, with the badge script after the tracking script:
+
+```html
+<!-- Core tracker -->
+<script
+  src="https://cdn.roundtable.ai/v1/rt.js"
+  data-site-key="YOUR_SITE_KEY"
+></script>
+
+<!-- Badge -->
+<div class="roundtable-badge"></div>
+<script src="https://cdn.roundtable.ai/v1/badge.js"></script>
+```
+
+After importing the badge script, the badge can be added anywhere by adding a div with the class `roundtable-badge`:
+
+```html
+<div class="roundtable-badge"></div>
+```
+
+## Styling
+
+The badge renders inside a Shadow DOM, so your site’s CSS won’t break it (and vice-versa).
+
+By default, the badge's width is `231px`. We recommend never setting the width less than this value. However, uou can control the badge width via a `width` attribute:
+
+```html
+<div class="roundtable-badge" width="300px"></div>
+```
+
+`width` takes any css width, e.g. `300px`, `100%`, etc.
+
+## State
+
+At any given time, the badge is in one of three states:
+
+- **Loading** – shows a spinner and an animating progress bar while the tracker initializes verifies Roundtable is running.
+- **Pass** – displays a check icon in black. This indicates that Roundtable is running and gathering user data.
+- **Fail** – displays an X icon in red. This indicates that Roundtable is not running.
+
+See also:
+- [Integrating Roundtable](integrating-roundtable) for adding the tracker
+- [Accessing Session Data](accessing-session-data) for using the session ID and scores
