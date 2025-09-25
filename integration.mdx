@@ -25,6 +25,10 @@ This guide shows how to integrate Roundtable Proof-of-Human’s bot detection su
 
 The Roundtable Proof-of-Human tracker dispatches a **`roundtable:ready`** event on `window` as soon as it finishes loading. Block 2 listens for that event so you can safely call `window.setRoundtableUserId` once the script is loaded.
 
+<Note>
+**Required badge:** Per our Terms of Service, you must include the Roundtable badge on at least one page where tracking is active. See [Using the Roundtable Badge](/using-the-badge).
+</Note>
+
 ### Script‑tag attributes
 
 The tracker recognizes two data‑attributes that let you tailor its behavior:
@@ -91,5 +95,5 @@ Because the session ID is stored in *sessionStorage*, the value is scoped to the
 ### Next steps
 
 - Visit your [Account](https://accounts.roundtable.ai/account) to access your public API key.
-- Learn how to [Access Session Data](accessing-session-data) to retrieve risk scores and session data.
-- Explore our [API Reference](api-reference) for more details.
+- Learn about [Accessing Session Data](accessing-session-data) to retrieve risk scores and session data.
+- Learn how to [Integrate the Roundtable badge](badge) on your site
