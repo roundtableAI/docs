@@ -144,13 +144,24 @@
                             "Unknown"
                           ],
                           "example": "Unknown"
+                        },
+                        "jump_scrolling": {
+                          "type": "string",
+                          "description": "User scrolls in large jumps with no intermediate or continuous scroll events",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Detected"
                         }
                       },
                       "example": {
                         "programmatic_typing": "Detected",
                         "teleporting_mouse": "Not detected",
                         "no_corrections": "Detected",
-                        "all_pasted": "Unknown"
+                        "all_pasted": "Unknown",
+                        "jump_scrolling": "Detected"
                       }
                     },
                     "device_checks": {
@@ -342,13 +353,24 @@
                                   "Unknown"
                                 ],
                                 "example": "Unknown"
+                              },
+                              "jump_scrolling": {
+                                "type": "string",
+                                "description": "User scrolls in large jumps with no intermediate or continuous scroll events",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Detected"
                               }
                             },
                             "example": {
                               "programmatic_typing": "Detected",
                               "teleporting_mouse": "Not detected",
                               "no_corrections": "Detected",
-                              "all_pasted": "Unknown"
+                              "all_pasted": "Unknown",
+                              "jump_scrolling": "Detected"
                             }
                           },
                           "device_checks": {
