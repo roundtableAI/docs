@@ -18,7 +18,9 @@ To start using Roundtable Proof-of-Human, follow these steps:
    </script>
    ```
 
-3. **Get session data**: View detailed session data on the [Dashboard](https://accounts.roundtable.ai) or via our API:
+3. **(Optionally) add more tracking info**: Specify the `data-user-id` or `data-tags` parameter to help track users beyond individual sessions. See our [Integration Guide](integration) for more info.
+
+4. **Get session data**: View detailed session data on the [Dashboard](https://accounts.roundtable.ai) or via our API:
    ```
    GET https://api.roundtable.ai/v1/sessions/{sessionId}/report
    ```
