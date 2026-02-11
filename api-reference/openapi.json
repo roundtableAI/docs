@@ -154,6 +154,16 @@
                             "Unknown"
                           ],
                           "example": "Detected"
+                        },
+                        "centered_clicks": {
+                          "type": "string",
+                          "description": "User made perfectly centered clicks with no natural variation",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Detected"
                         }
                       },
                       "example": {
@@ -161,7 +171,8 @@
                         "teleporting_mouse": "Not detected",
                         "no_corrections": "Detected",
                         "all_pasted": "Unknown",
-                        "jump_scrolling": "Detected"
+                        "jump_scrolling": "Detected",
+                        "centered_clicks": "Detected"
                       }
                     },
                     "device_checks": {
@@ -363,6 +374,16 @@
                                   "Unknown"
                                 ],
                                 "example": "Detected"
+                              },
+                              "centered_clicks": {
+                                "type": "string",
+                                "description": "User made perfectly centered clicks with no natural variation",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Detected"
                               }
                             },
                             "example": {
@@ -370,7 +391,8 @@
                               "teleporting_mouse": "Not detected",
                               "no_corrections": "Detected",
                               "all_pasted": "Unknown",
-                              "jump_scrolling": "Detected"
+                              "jump_scrolling": "Detected",
+                              "centered_clicks": "Detected"
                             }
                           },
                           "device_checks": {
