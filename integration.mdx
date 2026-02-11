@@ -12,6 +12,7 @@ This guide shows how to integrate Roundtable Proof-of-Human’s bot detection su
   src="https://cdn.roundtable.ai/v1/rt.js"
   data-site-key="YOUR_SITE_KEY"
   data-user-id="OPTIONAL_USER_ID"
+  data-tags="OPTIONAL_TAG"
   >
 </script>
 
@@ -27,14 +28,22 @@ The Roundtable Proof-of-Human tracker dispatches a **`roundtable:ready`** event 
 
 ### Script‑tag attributes
 
-The tracker recognizes two data‑attributes that let you tailor its behavior:
+The tracker recognizes three data‑attributes that let you tailor its behavior:
 
 - `data-site-key` (required) – Your workspace’s site key (find it in the [Dashboard](https://accounts.roundtable.ai)).
 - `data-user-id` (optional) – A stable identifier for a logged‑in user to track them over multiple sessions (a hashed value is fine).
+- `data-tags` (optional) – A comma-separated list of tags that will be associated with this session. Tags help you group and organize sessions.
 
 ## React / SPA example
 
-Add the Roundtable Proof-of-Human tracking script in `public/index.html`:
+The Roundtable Proof-of-Human tracker exposes two functions to manually set extra tracking information. These are useful in React or single-page apps.
+
+```ts
+window.setRoundtableUserId(uid);
+window.setRoundtableTags(["my_tag_1", "my_tag_2"]);
+```
+
+First, add the Roundtable Proof-of-Human tracking script in `public/index.html`:
 
 ```html
 <script
