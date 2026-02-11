@@ -28,7 +28,7 @@ The Roundtable Proof-of-Human tracker dispatches a **`roundtable:ready`** event 
 
 ### Script‑tag attributes
 
-The tracker recognizes two data‑attributes that let you tailor its behavior:
+The tracker recognizes three data‑attributes that let you tailor its behavior:
 
 - `data-site-key` (required) – Your workspace’s site key (find it in the [Dashboard](https://accounts.roundtable.ai)).
 - `data-user-id` (optional) – A stable identifier for a logged‑in user to track them over multiple sessions (a hashed value is fine).
@@ -40,7 +40,7 @@ The Roundtable Proof-of-Human tracker exposes two functions to manually set extr
 
 ```ts
 window.setRoundtableUserId(uid);
-window.setRoundtableTags(tags);
+window.setRoundtableTags(["my_tag_1", "my_tag_2"]);
 ```
 
 First, add the Roundtable Proof-of-Human tracking script in `public/index.html`:
