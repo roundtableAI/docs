@@ -48,6 +48,14 @@
                       "description": "User identifier provided during script initialization (if any)",
                       "example": "user-456"
                     },
+                    "tags": {
+                      "type": "array",
+                      "description": "Tags associated with this session",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": ["intake-survey", "checkout-flow"]
+                    },
                     "risk_score": {
                       "type": "integer",
                       "minimum": 0,
@@ -285,6 +293,14 @@
                             "description": "Unique identifier for the session",
                             "example": "abc123def456"
                           },
+                          "tags": {
+                            "type": "array",
+                            "description": "Tags associated with this session",
+                            "items": {
+                              "type": "string"
+                            },
+                            "example": ["intake-survey", "checkout-flow"]
+                          },
                           "risk_score": {
                             "type": "integer",
                             "minimum": 0,
@@ -507,6 +523,14 @@
                             "type": "string",
                             "description": "Unique identifier for the session",
                             "example": "abc123def456"
+                          },
+                          "tags": {
+                            "type": "array",
+                            "description": "Tags associated with this session",
+                            "items": {
+                              "type": "string"
+                            },
+                            "example": ["intake-survey", "checkout-flow"]
                           },
                           "risk_score": {
                             "type": "integer",
