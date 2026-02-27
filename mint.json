@@ -55,10 +55,11 @@
     },
     {
       "group": "Developer Resources",
-      "pages": 
+      "pages":
       [
         "api-reference/session-data",
-        "api-reference/user-data"
+        "api-reference/user-data",
+        "api-reference/tag-data"
       ],
       "version": "v1"
     },
