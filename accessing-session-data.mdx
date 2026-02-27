@@ -74,20 +74,10 @@ To retrieve all sessions associated with a specific tag:
 GET https://api.roundtable.ai/v1/tags/{tag}/sessions
 ```
 
-> **This route is also available using query parameters**
-> `GET https://api.roundtable.ai/v1/tags/sessions?tag={tag}`
-
 ### Example request
 
 ```bash
-curl -X GET https://api.roundtable.ai/v1/tags/checkout-flow/sessions \
-  -H "Authorization: Bearer YOUR_SECRET_KEY"
-```
-
-Query parameter example:
-
-```bash
-curl -X GET "https://api.roundtable.ai/v1/tags/sessions?tag=checkout-flow" \
+curl -X GET https://api.roundtable.ai/v1/tags/tag-123/sessions \
   -H "Authorization: Bearer YOUR_SECRET_KEY"
 ```
 
