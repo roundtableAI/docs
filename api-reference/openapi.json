@@ -48,6 +48,14 @@
                       "description": "User identifier provided during script initialization (if any)",
                       "example": "user-456"
                     },
+                    "tags": {
+                      "type": "array",
+                      "description": "Tags associated with this session",
+                      "items": {
+                        "type": "string"
+                      },
+                      "example": ["intake-survey", "checkout-flow"]
+                    },
                     "risk_score": {
                       "type": "integer",
                       "minimum": 0,
@@ -246,6 +254,237 @@
         }
       }
     },
+    "/v1/tags/{tag}/sessions": {
+      "get": {
+        "summary": "Retrieve recent sessions for a specific tag",
+        "description": "Get the 100 most recent sessions that include a specific tag",
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The tag to filter sessions by"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tag sessions retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tag": {
+                      "type": "string",
+                      "description": "The tag identifier",
+                      "example": "checkout-flow"
+                    },
+                    "sessions": {
+                      "type": "array",
+                      "description": "List of session data",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "session_id": {
+                            "type": "string",
+                            "description": "Unique identifier for the session",
+                            "example": "abc123def456"
+                          },
+                          "tags": {
+                            "type": "array",
+                            "description": "Tags associated with this session",
+                            "items": {
+                              "type": "string"
+                            },
+                            "example": ["intake-survey", "checkout-flow"]
+                          },
+                          "risk_score": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 100,
+                            "description": "Overall risk assessment score for the session (0-100)",
+                            "example": 75
+                          },
+                          "risk_explanation": {
+                            "type": "string",
+                            "description": "Short explanation of the factors contributing to the risk score",
+                            "example": "Multiple bot behaviors detected including programmatic typing and lack of corrections"
+                          },
+                          "user_logs": {
+                            "type": "array",
+                            "description": "Chronological list of user actions recorded during the session",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "action": {
+                                  "type": "string",
+                                  "description": "Description of the user action",
+                                  "example": "Navigated to /dashboard"
+                                },
+                                "user_time": {
+                                  "type": "string",
+                                  "description": "Human-readable timestamp in user's local timezone",
+                                  "example": "Mar 25, 2025 14:30:50"
+                                },
+                                "unix_timestamp": {
+                                  "type": "integer",
+                                  "description": "Unix timestamp in milliseconds",
+                                  "example": 1743055850000
+                                }
+                              }
+                            }
+                          },
+                          "biometric_checks": {
+                            "type": "object",
+                            "description": "Results of biometric analysis for bot detection",
+                            "properties": {
+                              "programmatic_typing": {
+                                "type": "string",
+                                "description": "User had highly regular typing patterns typical of programmatic input",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Detected"
+                              },
+                              "teleporting_mouse": {
+                                "type": "string",
+                                "description": "User moved the mouse cursor to different page locations without transition",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
+                              },
+                              "no_corrections": {
+                                "type": "string",
+                                "description": "User made text entries without any corrections or backspaces",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Detected"
+                              },
+                              "all_pasted": {
+                                "type": "string",
+                                "description": "All text responses were pasted rather than typed by the user",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Unknown"
+                              },
+                              "jump_scrolling": {
+                                "type": "string",
+                                "description": "User scrolls in large jumps with no intermediate or continuous scroll events",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Detected"
+                              },
+                              "centered_clicks": {
+                                "type": "string",
+                                "description": "User made perfectly centered clicks with no natural variation",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Detected"
+                              }
+                            },
+                            "example": {
+                              "programmatic_typing": "Detected",
+                              "teleporting_mouse": "Not detected",
+                              "no_corrections": "Detected",
+                              "all_pasted": "Unknown",
+                              "jump_scrolling": "Detected",
+                              "centered_clicks": "Detected"
+                            }
+                          },
+                          "device_checks": {
+                            "type": "object",
+                            "description": "Results of device and network checks for environment anomalies",
+                            "properties": {
+                              "bot": {
+                                "type": "string",
+                                "description": "Browser execution context indicates an automated tool (e.g. Selenium or Playwright)",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Detected"
+                              },
+                              "virtual_machine": {
+                                "type": "string",
+                                "description": "Signals show the browser is running inside a virtual machine or sandbox",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
+                              },
+                              "vpn": {
+                                "type": "string",
+                                "description": "IP address belongs to a known VPN or hosting provider",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Detected"
+                              },
+                              "tor": {
+                                "type": "string",
+                                "description": "Connection is routed through a Tor exit node",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
+                              },
+                              "location_spoofing": {
+                                "type": "string",
+                                "description": "Browser-reported geolocation conflicts with IP-based location or appears simulated",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Unknown"
+                              }
+                            },
+                            "example": {
+                              "bot": "Detected",
+                              "virtual_machine": "Not detected",
+                              "vpn": "Detected",
+                              "tor": "Not detected",
+                              "location_spoofing": "Unknown"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/users/{userId}/sessions": {
       "get": {
         "summary": "Retrieve recent sessions for a specific user",
@@ -284,6 +523,14 @@
                             "type": "string",
                             "description": "Unique identifier for the session",
                             "example": "abc123def456"
+                          },
+                          "tags": {
+                            "type": "array",
+                            "description": "Tags associated with this session",
+                            "items": {
+                              "type": "string"
+                            },
+                            "example": ["intake-survey", "checkout-flow"]
                           },
                           "risk_score": {
                             "type": "integer",
@@ -559,6 +806,15 @@
           "type": "string"
         },
         "description": "The unique user identifier"
+      },
+      "TagParam": {
+        "name": "tag",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "The tag to filter sessions by"
       }
     }
   },
@@ -575,6 +831,10 @@
     {
       "name": "users",
       "description": "Operations related to user data"
+    },
+    {
+      "name": "tags",
+      "description": "Operations related to tag data"
     }
   ],
   "externalDocs": {
