@@ -37,7 +37,7 @@ curl -X GET "https://api.roundtable.ai/v1/sessions/report?sessionId=abc123def456
   -H "Authorization: Bearer YOUR_SECRET_KEY"
 ```
 
-This returns all data for the specified session, including automatically generated user logs and failed security checks. The session ID can be found in session storage under `rtSessionId`. 
+This returns all data for the specified session, including automatically generated user logs and failed security checks. The session ID can be retrieved with `window.getRoundtableSessionId()` in the browser. 
 
 ## Method 2: Retrieve all sessions for a user
 
