@@ -86,12 +86,12 @@ useRoundtableUid(currentUser?.uid);
 
 ### Using the Session ID
 
-Every page‑view (or SPA session) gets a unique **session ID** that Roundtable Proof-of-Human stores in
-*sessionStorage* under `rtSessionId`. You can reference this ID to pull risk scores and data from the session in your back end.
+Every page‑view (or SPA session) gets a unique **session ID** that can be retrieved with `window.getRoundtableSessionId()`.
+You can reference this ID to pull risk scores and data from the session in your back end.
 
 ```js
 // Access the session ID anywhere in the front end
-const sessionId = sessionStorage.getItem('rtSessionId');
+const sessionId = window.getRoundtableSessionId();
 console.log('Roundtable session:', sessionId);
 ```
 

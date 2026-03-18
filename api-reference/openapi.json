@@ -27,7 +27,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "The unique session identifier (found in session storage as rtSessionId)"
+            "description": "The unique session identifier (from `window.getRoundtableSessionId()`)"
           }
         ],
         "responses": {
@@ -796,7 +796,7 @@
         "schema": {
           "type": "string"
         },
-        "description": "The unique session identifier (found in session storage as rtSessionId)"
+        "description": "The unique session identifier (from `window.getRoundtableSessionId()`)"
       },
       "UserIdParam": {
         "name": "userId",

@@ -45,7 +45,7 @@ Replace your reCAPTCHA script with the Roundtable Proof-of-Human tracker and upd
   document.getElementById('dummy-form').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const sessionId = sessionStorage.getItem('rtSessionId');
+    const sessionId = window.getRoundtableSessionId();
     const formData = new FormData(e.target);
     formData.append('roundtable_session_id', sessionId);
     
