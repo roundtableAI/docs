@@ -113,6 +113,16 @@
                       "type": "object",
                       "description": "Results of biometric analysis for bot detection",
                       "properties": {
+                        "ml_flag": {
+                          "type": "string",
+                          "description": "ML model detected patterns across biometric data consistent with automated behavior",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Not detected"
+                        },
                         "programmatic_typing": {
                           "type": "string",
                           "description": "User had highly regular typing patterns typical of programmatic input",
@@ -175,6 +185,7 @@
                         }
                       },
                       "example": {
+                        "ml_flag": "Not detected",
                         "programmatic_typing": "Detected",
                         "teleporting_mouse": "Not detected",
                         "no_corrections": "Detected",
@@ -341,6 +352,16 @@
                             "type": "object",
                             "description": "Results of biometric analysis for bot detection",
                             "properties": {
+                              "ml_flag": {
+                                "type": "string",
+                                "description": "ML model detected patterns across biometric data consistent with automated behavior",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
+                              },
                               "programmatic_typing": {
                                 "type": "string",
                                 "description": "User had highly regular typing patterns typical of programmatic input",
@@ -403,6 +424,7 @@
                               }
                             },
                             "example": {
+                              "ml_flag": "Not detected",
                               "programmatic_typing": "Detected",
                               "teleporting_mouse": "Not detected",
                               "no_corrections": "Detected",
@@ -572,6 +594,16 @@
                             "type": "object",
                             "description": "Results of biometric analysis for bot detection",
                             "properties": {
+                              "ml_flag": {
+                                "type": "string",
+                                "description": "ML model detected patterns across biometric data consistent with automated behavior",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
+                              },
                               "programmatic_typing": {
                                 "type": "string",
                                 "description": "User had highly regular typing patterns typical of programmatic input",
@@ -634,6 +666,7 @@
                               }
                             },
                             "example": {
+                              "ml_flag": "Not detected",
                               "programmatic_typing": "Detected",
                               "teleporting_mouse": "Not detected",
                               "no_corrections": "Detected",
