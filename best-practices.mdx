@@ -44,6 +44,10 @@ def should_block_session(session_data):
     if session_data['device_checks']['bot'] == 'Detected':
         return True
     
+    # ML model flagged automated behavior
+    if session_data['biometric_checks']['ml_flag'] == 'Detected':
+        return True
+
     # Multiple concerning behaviors
     risk_flags = [
         session_data['biometric_checks']['programmatic_typing'] == 'Detected',
