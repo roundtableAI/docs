@@ -65,7 +65,7 @@
     },
     {
       "group": "Support Center",
-      "pages": ["privacy", "status"]
+      "pages": ["privacy", "status", "changelog"]
     }
   ],
   "footerSocials": {
