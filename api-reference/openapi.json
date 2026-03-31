@@ -113,7 +113,7 @@
                       "type": "object",
                       "description": "Results of biometric analysis for bot detection",
                       "properties": {
-                        "ml_flag": {
+                        "agent_behavior": {
                           "type": "string",
                           "description": "ML model detected patterns across biometric data consistent with automated behavior",
                           "enum": [
@@ -185,7 +185,7 @@
                         }
                       },
                       "example": {
-                        "ml_flag": "Not detected",
+                        "agent_behavior": "Not detected",
                         "programmatic_typing": "Detected",
                         "teleporting_mouse": "Not detected",
                         "no_corrections": "Detected",
@@ -352,7 +352,7 @@
                             "type": "object",
                             "description": "Results of biometric analysis for bot detection",
                             "properties": {
-                              "ml_flag": {
+                              "agent_behavior": {
                                 "type": "string",
                                 "description": "ML model detected patterns across biometric data consistent with automated behavior",
                                 "enum": [
@@ -424,7 +424,7 @@
                               }
                             },
                             "example": {
-                              "ml_flag": "Not detected",
+                              "agent_behavior": "Not detected",
                               "programmatic_typing": "Detected",
                               "teleporting_mouse": "Not detected",
                               "no_corrections": "Detected",
@@ -594,7 +594,7 @@
                             "type": "object",
                             "description": "Results of biometric analysis for bot detection",
                             "properties": {
-                              "ml_flag": {
+                              "agent_behavior": {
                                 "type": "string",
                                 "description": "ML model detected patterns across biometric data consistent with automated behavior",
                                 "enum": [
@@ -666,7 +666,7 @@
                               }
                             },
                             "example": {
-                              "ml_flag": "Not detected",
+                              "agent_behavior": "Not detected",
                               "programmatic_typing": "Detected",
                               "teleporting_mouse": "Not detected",
                               "no_corrections": "Detected",
