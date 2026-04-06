@@ -3,6 +3,14 @@ title: "Changelog"
 description: "Latest updates and improvements to Roundtable."
 ---
 
+## April 2026
+
+<AccordionGroup>
+  <Accordion title="New: Centered clicks visualization on dashboard">
+    Added a new visualization to session reports showing click positions for the session.
+  </Accordion>
+</AccordionGroup>
+
 ## March 2026
 
 <AccordionGroup>
@@ -12,7 +20,38 @@ description: "Latest updates and improvements to Roundtable."
   <Accordion title="New: Session tags and Tag API">
     Added the ability to attach tags to each session, and the [Tag API](/api-reference/tag-data) for retrieving tag data.
   </Accordion>
+  <Accordion title="New: Tag summaries on dashboard">
+    Added summaries for each tag on the dashboard, providing an at-a-glance overview of tag-level data.
+  </Accordion>
+  <Accordion title="New: Filtering by tag and route on dashboard">
+    Added the ability to filter sessions by tag or route directly on the dashboard.
+  </Accordion>
   <Accordion title="Fix: roundtable:ready event">
     Fixed a bug in the `roundtable:ready` event to ensure the session ID is available when this event fires.
+  </Accordion>
+</AccordionGroup>
+
+## February 2026
+
+<AccordionGroup>
+  <Accordion title="New: centered_clicks flag">
+    Released the `centered_clicks` flag, which detects when a user makes perfectly centered clicks with no natural variation — a signal commonly associated with automated or bot-driven interactions.
+  </Accordion>
+  <Accordion title="New: Route summaries on dashboard">
+    Added summaries for every route visited during a session on the dashboard, giving a quick overview of user navigation patterns.
+  </Accordion>
+</AccordionGroup>
+
+## January 2026
+
+<AccordionGroup>
+  <Accordion title="New: jump_scrolling flag">
+    Released the `jump_scrolling` flag, which detects when a user scrolls in large jumps with no intermediate or continuous scroll events.
+  </Accordion>
+  <Accordion title="New: Device info on dashboard">
+    Added device and browser information to the dashboard, making it easy to see what device and browser each session used.
+  </Accordion>
+  <Accordion title="New: Automated action chunking on dashboard">
+    Added automated action chunking on the dashboard, which groups actions together for easier review of session activity.
   </Accordion>
 </AccordionGroup>
