@@ -18,7 +18,7 @@
     "/v1/sessions/{sessionId}/report": {
       "get": {
         "summary": "Retrieve data for a specific session",
-        "description": "Get risk scores, risk explanations, user actions, and failed checks for a specific session ID",
+        "description": "Get risk scores, risk explanations, biometric checks, and device checks for a specific session ID",
         "parameters": [
           {
             "name": "sessionId",
@@ -67,47 +67,6 @@
                       "type": "string",
                       "description": "Short explanation of the factors contributing to the risk score",
                       "example": "User was flagged for multiple likely bot behavior, indicating a medium to high risk of fraud."
-                    },
-                    "user_logs": {
-                      "type": "array",
-                      "description": "Chronological list of user actions recorded during the session",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "action": {
-                            "type": "string",
-                            "description": "Description of the user action",
-                            "example": "Navigated to /dashboard"
-                          },
-                          "user_time": {
-                            "type": "string",
-                            "description": "Human-readable timestamp in user's local timezone",
-                            "example": "Mar 25, 2025 14:30:50"
-                          },
-                          "unix_timestamp": {
-                            "type": "integer",
-                            "description": "Unix timestamp in milliseconds",
-                            "example": 1743055850000
-                          }
-                        }
-                      },
-                      "example": [
-                        {
-                          "action": "Signed in",
-                          "user_time": "Mar 25, 2025 14:30:45",
-                          "unix_timestamp": 1743055845000
-                        },
-                        {
-                          "action": "Navigated to /dashboard",
-                          "user_time": "Mar 25, 2025 14:30:50",
-                          "unix_timestamp": 1743055850000
-                        },
-                        {
-                          "action": "Updated credit card",
-                          "user_time": "Mar 25, 2025 14:32:15",
-                          "unix_timestamp": 1743055935000
-                        }
-                      ]
                     },
                     "biometric_checks": {
                       "type": "object",
@@ -265,6 +224,88 @@
         }
       }
     },
+    "/v1/sessions/{sessionId}/events": {
+      "get": {
+        "summary": "Retrieve the event log for a specific session",
+        "description": "Get the chronological list of user events recorded during a specific session",
+        "parameters": [
+          {
+            "name": "sessionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The unique session identifier (from `window.getRoundtableSessionId()`)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session events retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "session_id": {
+                      "type": "string",
+                      "description": "Unique identifier for the session",
+                      "example": "abc123def456"
+                    },
+                    "event_count": {
+                      "type": "integer",
+                      "description": "Total number of events recorded during the session",
+                      "example": 3
+                    },
+                    "events": {
+                      "type": "array",
+                      "description": "Chronological list of user events recorded during the session",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "action": {
+                            "type": "string",
+                            "description": "Description of the user event",
+                            "example": "Navigated to /dashboard"
+                          },
+                          "user_time": {
+                            "type": "string",
+                            "description": "Human-readable timestamp in the user's local timezone",
+                            "example": "Mar 25, 2025 14:30:50"
+                          },
+                          "unix_timestamp": {
+                            "type": "integer",
+                            "description": "Unix timestamp in milliseconds",
+                            "example": 1743055850000
+                          }
+                        }
+                      },
+                      "example": [
+                        {
+                          "action": "Signed in",
+                          "user_time": "Mar 25, 2025 14:30:45",
+                          "unix_timestamp": 1743055845000
+                        },
+                        {
+                          "action": "Navigated to /dashboard",
+                          "user_time": "Mar 25, 2025 14:30:50",
+                          "unix_timestamp": 1743055850000
+                        },
+                        {
+                          "action": "Clicked \"Update credit card\"",
+                          "user_time": "Mar 25, 2025 14:32:15",
+                          "unix_timestamp": 1743055935000
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/tags/{tag}/sessions": {
       "get": {
         "summary": "Retrieve recent sessions for a specific tag",
@@ -323,30 +364,6 @@
                             "type": "string",
                             "description": "Short explanation of the factors contributing to the risk score",
                             "example": "Multiple bot behaviors detected including programmatic typing and lack of corrections"
-                          },
-                          "user_logs": {
-                            "type": "array",
-                            "description": "Chronological list of user actions recorded during the session",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "action": {
-                                  "type": "string",
-                                  "description": "Description of the user action",
-                                  "example": "Navigated to /dashboard"
-                                },
-                                "user_time": {
-                                  "type": "string",
-                                  "description": "Human-readable timestamp in user's local timezone",
-                                  "example": "Mar 25, 2025 14:30:50"
-                                },
-                                "unix_timestamp": {
-                                  "type": "integer",
-                                  "description": "Unix timestamp in milliseconds",
-                                  "example": 1743055850000
-                                }
-                              }
-                            }
                           },
                           "biometric_checks": {
                             "type": "object",
@@ -565,30 +582,6 @@
                             "type": "string",
                             "description": "Short explanation of the factors contributing to the risk score",
                             "example": "Multiple bot behaviors detected including programmatic typing and lack of corrections"
-                          },
-                          "user_logs": {
-                            "type": "array",
-                            "description": "Chronological list of user actions recorded during the session",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "action": {
-                                  "type": "string",
-                                  "description": "Description of the user action",
-                                  "example": "Navigated to /dashboard"
-                                },
-                                "user_time": {
-                                  "type": "string",
-                                  "description": "Human-readable timestamp in user's local timezone",
-                                  "example": "Mar 25, 2025 14:30:50"
-                                },
-                                "unix_timestamp": {
-                                  "type": "integer",
-                                  "description": "Unix timestamp in milliseconds",
-                                  "example": 1743055850000
-                                }
-                              }
-                            }
                           },
                           "biometric_checks": {
                             "type": "object",

@@ -6,6 +6,9 @@ description: "Latest updates and improvements to Roundtable."
 ## April 2026
 
 <AccordionGroup>
+  <Accordion title="New: Session events API">
+    Added the [events endpoint](/api-reference/events-data) for retrieving the full chronological event log for a session. The event log has been removed from the `user_logs` field on the session, user, and tag endpoints — use the events endpoint to fetch it instead.
+  </Accordion>
   <Accordion title="Update: Increased all_pasted flag sensitivity">
     Updated the `all_pasted` flag to flag on the first paste event instead of waiting for 5 or more pastes.
   </Accordion>
