@@ -18,7 +18,7 @@
     "/v1/sessions/{sessionId}/report": {
       "get": {
         "summary": "Retrieve data for a specific session",
-        "description": "Get risk scores, risk explanations, biometric checks, and device checks for a specific session ID",
+        "description": "Get the risk score, risk explanation, biometric checks, and device checks for a specific session ID. The `user_logs` field is also included for backward compatibility but is deprecated — use the [`/v1/sessions/{sessionId}/events`](/api-reference/events-data) endpoint to retrieve a session's event log.",
         "parameters": [
           {
             "name": "sessionId",
@@ -67,6 +67,48 @@
                       "type": "string",
                       "description": "Short explanation of the factors contributing to the risk score",
                       "example": "User was flagged for multiple likely bot behavior, indicating a medium to high risk of fraud."
+                    },
+                    "user_logs": {
+                      "type": "array",
+                      "deprecated": true,
+                      "description": "**Deprecated.** Chronological list of user actions recorded during the session. This field will be removed soon — use the [`/v1/sessions/{sessionId}/events`](/api-reference/events-data) endpoint instead.",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "action": {
+                            "type": "string",
+                            "description": "Description of the user action",
+                            "example": "Navigated to /dashboard"
+                          },
+                          "user_time": {
+                            "type": "string",
+                            "description": "Human-readable timestamp in user's local timezone",
+                            "example": "Mar 25, 2025 14:30:50"
+                          },
+                          "unix_timestamp": {
+                            "type": "integer",
+                            "description": "Unix timestamp in milliseconds",
+                            "example": 1743055850000
+                          }
+                        }
+                      },
+                      "example": [
+                        {
+                          "action": "Signed in",
+                          "user_time": "Mar 25, 2025 14:30:45",
+                          "unix_timestamp": 1743055845000
+                        },
+                        {
+                          "action": "Navigated to /dashboard",
+                          "user_time": "Mar 25, 2025 14:30:50",
+                          "unix_timestamp": 1743055850000
+                        },
+                        {
+                          "action": "Updated credit card",
+                          "user_time": "Mar 25, 2025 14:32:15",
+                          "unix_timestamp": 1743055935000
+                        }
+                      ]
                     },
                     "biometric_checks": {
                       "type": "object",
@@ -365,6 +407,31 @@
                             "description": "Short explanation of the factors contributing to the risk score",
                             "example": "Multiple bot behaviors detected including programmatic typing and lack of corrections"
                           },
+                          "user_logs": {
+                            "type": "array",
+                            "deprecated": true,
+                            "description": "**Deprecated.** Chronological list of user actions recorded during the session. This field will be removed soon — use the [`/v1/sessions/{sessionId}/events`](/api-reference/events-data) endpoint instead.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "action": {
+                                  "type": "string",
+                                  "description": "Description of the user action",
+                                  "example": "Navigated to /dashboard"
+                                },
+                                "user_time": {
+                                  "type": "string",
+                                  "description": "Human-readable timestamp in user's local timezone",
+                                  "example": "Mar 25, 2025 14:30:50"
+                                },
+                                "unix_timestamp": {
+                                  "type": "integer",
+                                  "description": "Unix timestamp in milliseconds",
+                                  "example": 1743055850000
+                                }
+                              }
+                            }
+                          },
                           "biometric_checks": {
                             "type": "object",
                             "description": "Results of biometric analysis for bot detection",
@@ -582,6 +649,31 @@
                             "type": "string",
                             "description": "Short explanation of the factors contributing to the risk score",
                             "example": "Multiple bot behaviors detected including programmatic typing and lack of corrections"
+                          },
+                          "user_logs": {
+                            "type": "array",
+                            "deprecated": true,
+                            "description": "**Deprecated.** Chronological list of user actions recorded during the session. This field will be removed soon — use the [`/v1/sessions/{sessionId}/events`](/api-reference/events-data) endpoint instead.",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "action": {
+                                  "type": "string",
+                                  "description": "Description of the user action",
+                                  "example": "Navigated to /dashboard"
+                                },
+                                "user_time": {
+                                  "type": "string",
+                                  "description": "Human-readable timestamp in user's local timezone",
+                                  "example": "Mar 25, 2025 14:30:50"
+                                },
+                                "unix_timestamp": {
+                                  "type": "integer",
+                                  "description": "Unix timestamp in milliseconds",
+                                  "example": 1743055850000
+                                }
+                              }
+                            }
                           },
                           "biometric_checks": {
                             "type": "object",
