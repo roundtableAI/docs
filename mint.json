@@ -58,6 +58,7 @@
       "pages":
       [
         "api-reference/session-data",
+        "api-reference/events-data",
         "api-reference/user-data",
         "api-reference/tag-data"
       ],
