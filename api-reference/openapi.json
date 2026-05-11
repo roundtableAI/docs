@@ -211,7 +211,7 @@
                         },
                         "virtual_machine": {
                           "type": "string",
-                          "description": "Signals show the browser is running inside a virtual machine or sandbox",
+                          "description": "Signals suggest the browser may not be running on a standard local device",
                           "enum": [
                             "Detected",
                             "Not detected",
@@ -533,7 +533,7 @@
                               },
                               "virtual_machine": {
                                 "type": "string",
-                                "description": "Signals show the browser is running inside a virtual machine or sandbox",
+                                "description": " Signals suggest the browser is running in a remote, virtualized, sandboxed, or software-rendered environment",
                                 "enum": [
                                   "Detected",
                                   "Not detected",
@@ -776,7 +776,7 @@
                               },
                               "virtual_machine": {
                                 "type": "string",
-                                "description": "Signals show the browser is running inside a virtual machine or sandbox",
+                                "description": "Signals suggest the browser is running in a remote, virtualized, sandboxed, or software-rendered environment",
                                 "enum": [
                                   "Detected",
                                   "Not detected",
