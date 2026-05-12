@@ -68,6 +68,18 @@
                       "description": "Short explanation of the factors contributing to the risk score",
                       "example": "User was flagged for multiple likely bot behavior, indicating a medium to high risk of fraud."
                     },
+                    "recommended_action": {
+                      "type": "string",
+                      "description": "Suggested action based on the risk score",
+                      "enum": [
+                        "Auto-accept",
+                        "Accept with monitoring",
+                        "Manual review or require additional verification",
+                        "Auto-reject or high-priority review",
+                        "Unknown"
+                      ],
+                      "example": "Manual review or require additional verification"
+                    },
                     "user_logs": {
                       "type": "array",
                       "deprecated": true,
@@ -407,6 +419,18 @@
                             "description": "Short explanation of the factors contributing to the risk score",
                             "example": "Multiple bot behaviors detected including programmatic typing and lack of corrections"
                           },
+                          "recommended_action": {
+                            "type": "string",
+                            "description": "Suggested action based on the risk score",
+                            "enum": [
+                              "Auto-accept",
+                              "Accept with monitoring",
+                              "Manual review or require additional verification",
+                              "Auto-reject or high-priority review",
+                              "Unknown"
+                            ],
+                            "example": "Manual review or require additional verification"
+                          },
                           "user_logs": {
                             "type": "array",
                             "deprecated": true,
@@ -649,6 +673,18 @@
                             "type": "string",
                             "description": "Short explanation of the factors contributing to the risk score",
                             "example": "Multiple bot behaviors detected including programmatic typing and lack of corrections"
+                          },
+                          "recommended_action": {
+                            "type": "string",
+                            "description": "Suggested action based on the risk score",
+                            "enum": [
+                              "Auto-accept",
+                              "Accept with monitoring",
+                              "Manual review or require additional verification",
+                              "Auto-reject or high-priority review",
+                              "Unknown"
+                            ],
+                            "example": "Manual review or require additional verification"
                           },
                           "user_logs": {
                             "type": "array",
