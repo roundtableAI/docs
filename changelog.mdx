@@ -6,6 +6,9 @@ description: "Latest updates and improvements to Roundtable."
 ## May 2026
 
 <AccordionGroup>
+  <Accordion title="New: software_renderer device check">
+    Added the `software_renderer` device check, which flags sessions where the browser is using a software-based graphics renderer (e.g. SwiftShader or llvmpipe) instead of hardware acceleration — a common signal of remote, virtualized, or headless browser environments.
+  </Accordion>
   <Accordion title="New: Recommended action">
     Added `recommended_action` to the API and dashboard, providing a suggested action based on the session's risk score.
   </Accordion>
