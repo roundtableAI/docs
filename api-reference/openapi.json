@@ -231,6 +231,16 @@
                           ],
                           "example": "Not detected"
                         },
+                        "software_renderer": {
+                          "type": "string",
+                          "description": "Browser is using a software-based graphics renderer (e.g. SwiftShader or llvmpipe) instead of hardware acceleration, which may suggest a remote, virtualized, or headless browser environment",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Not detected"
+                        },
                         "vpn": {
                           "type": "string",
                           "description": "IP address belongs to a known VPN or hosting provider",
@@ -265,6 +275,7 @@
                       "example": {
                         "bot": "Detected",
                         "virtual_machine": "Not detected",
+                        "software_renderer": "Not detected",
                         "vpn": "Detected",
                         "tor": "Not detected",
                         "location_spoofing": "Unknown"
@@ -565,6 +576,16 @@
                                 ],
                                 "example": "Not detected"
                               },
+                              "software_renderer": {
+                                "type": "string",
+                                "description": "Browser is using a software-based graphics renderer (e.g. SwiftShader or llvmpipe) instead of hardware acceleration, which may suggest a remote, virtualized, or headless browser environment",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
+                              },
                               "vpn": {
                                 "type": "string",
                                 "description": "IP address belongs to a known VPN or hosting provider",
@@ -599,6 +620,7 @@
                             "example": {
                               "bot": "Detected",
                               "virtual_machine": "Not detected",
+                              "software_renderer": "Not detected",
                               "vpn": "Detected",
                               "tor": "Not detected",
                               "location_spoofing": "Unknown"
@@ -820,6 +842,16 @@
                                 ],
                                 "example": "Not detected"
                               },
+                              "software_renderer": {
+                                "type": "string",
+                                "description": "Browser is using a software-based graphics renderer (e.g. SwiftShader or llvmpipe) instead of hardware acceleration, which may suggest a remote, virtualized, or headless browser environment",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
+                              },
                               "vpn": {
                                 "type": "string",
                                 "description": "IP address belongs to a known VPN or hosting provider",
@@ -854,6 +886,7 @@
                             "example": {
                               "bot": "Detected",
                               "virtual_machine": "Not detected",
+                              "software_renderer": "Not detected",
                               "vpn": "Detected",
                               "tor": "Not detected",
                               "location_spoofing": "Unknown"
