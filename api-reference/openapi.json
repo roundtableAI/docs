@@ -195,6 +195,16 @@
                             "Unknown"
                           ],
                           "example": "Detected"
+                        },
+                        "programmatic_clicking": {
+                          "type": "string",
+                          "description": "User clicks were made programmatically rather than through natural user interaction",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Not detected"
                         }
                       },
                       "example": {
@@ -204,7 +214,8 @@
                         "no_corrections": "Detected",
                         "all_pasted": "Unknown",
                         "jump_scrolling": "Detected",
-                        "centered_clicks": "Detected"
+                        "centered_clicks": "Detected",
+                        "programmatic_clicking": "Not detected"
                       }
                     },
                     "device_checks": {
@@ -540,6 +551,16 @@
                                   "Unknown"
                                 ],
                                 "example": "Detected"
+                              },
+                              "programmatic_clicking": {
+                                "type": "string",
+                                "description": "User clicks were made programmatically rather than through natural user interaction",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
                               }
                             },
                             "example": {
@@ -549,7 +570,8 @@
                               "no_corrections": "Detected",
                               "all_pasted": "Unknown",
                               "jump_scrolling": "Detected",
-                              "centered_clicks": "Detected"
+                              "centered_clicks": "Detected",
+                              "programmatic_clicking": "Not detected"
                             }
                           },
                           "device_checks": {
@@ -806,6 +828,16 @@
                                   "Unknown"
                                 ],
                                 "example": "Detected"
+                              },
+                              "programmatic_clicking": {
+                                "type": "string",
+                                "description": "User clicks were made programmatically rather than through natural user interaction",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
                               }
                             },
                             "example": {
@@ -815,7 +847,8 @@
                               "no_corrections": "Detected",
                               "all_pasted": "Unknown",
                               "jump_scrolling": "Detected",
-                              "centered_clicks": "Detected"
+                              "centered_clicks": "Detected",
+                              "programmatic_clicking": "Not detected"
                             }
                           },
                           "device_checks": {
