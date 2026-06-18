@@ -205,6 +205,16 @@
                             "Unknown"
                           ],
                           "example": "Not detected"
+                        },
+                        "external_input": {
+                          "type": "string",
+                          "description": "User left the survey tab and pasted input after returning",
+                          "enum": [
+                            "Detected",
+                            "Not detected",
+                            "Unknown"
+                          ],
+                          "example": "Not detected"
                         }
                       },
                       "example": {
@@ -215,7 +225,8 @@
                         "all_pasted": "Unknown",
                         "jump_scrolling": "Detected",
                         "centered_clicks": "Detected",
-                        "programmatic_clicking": "Not detected"
+                        "programmatic_clicking": "Not detected",
+                        "external_input": "Not detected"
                       }
                     },
                     "device_checks": {
@@ -561,6 +572,16 @@
                                   "Unknown"
                                 ],
                                 "example": "Not detected"
+                              },
+                              "external_input": {
+                                "type": "string",
+                                "description": "User left the survey tab and pasted input after returning",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
                               }
                             },
                             "example": {
@@ -571,7 +592,8 @@
                               "all_pasted": "Unknown",
                               "jump_scrolling": "Detected",
                               "centered_clicks": "Detected",
-                              "programmatic_clicking": "Not detected"
+                              "programmatic_clicking": "Not detected",
+                              "external_input": "Not detected"
                             }
                           },
                           "device_checks": {
@@ -838,6 +860,16 @@
                                   "Unknown"
                                 ],
                                 "example": "Not detected"
+                              },
+                              "external_input": {
+                                "type": "string",
+                                "description": "User left the survey tab and pasted input after returning",
+                                "enum": [
+                                  "Detected",
+                                  "Not detected",
+                                  "Unknown"
+                                ],
+                                "example": "Not detected"
                               }
                             },
                             "example": {
@@ -848,7 +880,8 @@
                               "all_pasted": "Unknown",
                               "jump_scrolling": "Detected",
                               "centered_clicks": "Detected",
-                              "programmatic_clicking": "Not detected"
+                              "programmatic_clicking": "Not detected",
+                              "external_input": "Not detected"
                             }
                           },
                           "device_checks": {
