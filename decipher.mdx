@@ -1,0 +1,87 @@
+---
+title: 'Decipher integration'
+sidebarTitle: 'Decipher integration'
+---
+
+This guide shows how to add Roundtable Proof-of-Human to a Decipher (Forsta) survey so that every respondent is tracked throughout their survey.
+
+## Before you start
+
+Decipher only makes API calls to whitelisted domains. Contact Forsta support and ask them to whitelist `https://api.roundtable.ai` for your account.
+
+## Loading the tracker
+
+Add the following as a top-level element in your survey XML. Placing it at the top level loads the tracker on every page, so behavior is tracked across the entire survey. It also captures the session ID and saves it to a persistent variable. Replace `YOUR_SITE_KEY` with your site key from the [Integration script](https://accounts.roundtable.ai/account/integration) page on the Roundtable dashboard:
+
+```xml
+<style name="respview.client.js" mode="after">
+<![CDATA[
+<!-- Roundtable API Script -->
+<script src="https://cdn.roundtable.ai/v1/rt.js" data-site-key="YOUR_SITE_KEY"></script>
+<!-- End Roundtable API Script -->
+<script>
+(function () {
+  function saveSid() {
+    if (sessionStorage.getItem('rt_sid_saved')) return true;
+    var sid = window.getRoundtableSessionId && window.getRoundtableSessionId();
+    if (!sid) return false;
+    Survey.setPersistent('client_roundtable_session_id', sid);
+    sessionStorage.setItem('rt_sid_saved', '1');
+    return true;
+  }
+  if (!saveSid()) {
+    window.addEventListener('roundtable:ready', saveSid, { once: true });
+  }
+})();
+]]>
+</style>
+```
+
+The first script tag loads the tracker. The second captures the session ID and saves it as `p.client_roundtable_session_id`.
+
+## Retrieving session data
+
+The block above starts tracking and saves the session ID to `p.client_roundtable_session_id`. To pull the risk score and flags for a respondent back into your survey, call the session report endpoint from a Decipher API node. Place this after the last page you'd like to track.
+
+### 1. Call the report endpoint
+
+```xml
+<exec>
+p.Params1  = dict(sessionId=p.get('client_roundtable_session_id', ''))
+p.Headers1 = dict(Authorization="Bearer YOUR_SECRET_KEY")
+</exec>
+
+<logic label="LN_Roundtable"
+  cond="p.get('client_roundtable_session_id', '') != ''"
+  api:params="p.Params1"
+  api:headers="p.Headers1"
+  api:url="https://api.roundtable.ai/v1/sessions/report"
+  uses="api.1"/>
+```
+
+Pass the captured session ID as the `sessionId` query parameter, and your secret key as a `Bearer` token in the `Authorization` header. You can get your secret key from the [Secret keys](https://accounts.roundtable.ai/account/api-keys) dashboard page (it starts with `sk-`).
+
+<Warning>
+  Make sure not to put your secret key in client-side JavaScript — it belongs only in the server-side `<exec>` and `<logic>` blocks.
+</Warning>
+
+### 2. Save the response
+
+After calling the API, `LN_Roundtable.r` now holds the parsed JSON response. You can store them by reading the fields you want to track and storing them in a hidden text question:
+
+```xml
+<exec>
+rt_data.d1.val = LN_Roundtable.r.get('risk_score', 'NA')
+rt_data.d2.val = LN_Roundtable.r.get('risk_explanation', 'NA')
+rt_data.d3.val = LN_Roundtable.r.get('recommended_action', 'NA')
+</exec>
+
+<text label="rt_data" optional="0" size="25" where="execute,survey,report">
+  <title>Roundtable risk data</title>
+  <row label="d1">risk_score</row>
+  <row label="d2">risk_explanation</row>
+  <row label="d3">recommended_action</row>
+</text>
+```
+
+The API returns the risk score (0–100), risk explanation, recommended action, biometric checks, and device checks for the session. For the full response shape and all available fields, see the [API Reference](api-reference/session-data).
