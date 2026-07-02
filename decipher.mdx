@@ -11,7 +11,7 @@ Decipher only makes API calls to whitelisted domains. Contact Forsta support and
 
 ## Loading the tracker
 
-Add the following as a top-level element in your survey XML. Placing it at the top level loads the tracker on every page, so behavior is tracked across the entire survey. It also captures the session ID and saves it to a persistent variable. Replace `YOUR_SITE_KEY` with your site key from the [Integration script](https://accounts.roundtable.ai/account/integration) page on the Roundtable dashboard:
+Add the following as a top-level element in your survey XML. Placing it at the top level loads the tracker on every page, so behavior is tracked across the entire survey. Replace `YOUR_SITE_KEY` with your site key from the [Integration script](https://accounts.roundtable.ai/account/integration) page on the Roundtable dashboard:
 
 ```xml
 <style name="respview.client.js" mode="after">
@@ -19,29 +19,37 @@ Add the following as a top-level element in your survey XML. Placing it at the t
 <!-- Roundtable API Script -->
 <script src="https://cdn.roundtable.ai/v1/rt.js" data-site-key="YOUR_SITE_KEY"></script>
 <!-- End Roundtable API Script -->
-<script>
-(function () {
-  function saveSid() {
-    if (sessionStorage.getItem('rt_sid_saved')) return true;
-    var sid = window.getRoundtableSessionId && window.getRoundtableSessionId();
-    if (!sid) return false;
-    Survey.setPersistent('client_roundtable_session_id', sid);
-    sessionStorage.setItem('rt_sid_saved', '1');
-    return true;
-  }
-  if (!saveSid()) {
-    window.addEventListener('roundtable:ready', saveSid, { once: true });
-  }
-})();
 ]]>
 </style>
 ```
 
-The first script tag loads the tracker. The second captures the session ID and saves it as `p.client_roundtable_session_id`.
+## Capturing the session ID
+
+To retrieve a respondent's data later, you need their session ID. Add the following `<style>` block inside an early question that every respondent sees (for example, the first question of the survey):
+
+```xml
+<style name="question.after" wrap="ready"><![CDATA[
+function saveSid() {
+  var sid = window.getRoundtableSessionId && window.getRoundtableSessionId();
+  if (!sid) return false;
+  Survey.setPersistent('client_roundtable_session_id', sid);
+  return true;
+}
+if (!saveSid()) {
+  window.addEventListener('roundtable:ready', saveSid, { once: true });
+}
+]]></style>
+```
+
+This gets the session ID with `window.getRoundtableSessionId()` and makes it available server-side as `p.client_roundtable_session_id`.
+
+<Note>
+ Attach this code to a question the respondent answers and submits — not to a terminal or exit page.
+</Note>
 
 ## Retrieving session data
 
-The block above starts tracking and saves the session ID to `p.client_roundtable_session_id`. To pull the risk score and flags for a respondent back into your survey, call the session report endpoint from a Decipher API node. Place this after the last page you'd like to track.
+The question code above saves the session ID to `p.client_roundtable_session_id`. To pull the risk score and flags for a respondent back into your survey, call the session report endpoint from a Decipher API node. Place this after the last page you'd like to track.
 
 ### 1. Call the report endpoint
 
