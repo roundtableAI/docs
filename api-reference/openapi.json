@@ -66,7 +66,7 @@
                     "risk_explanation": {
                       "type": "string",
                       "description": "Short explanation of the factors contributing to the risk score",
-                      "example": "User was flagged for multiple likely bot behavior, indicating a medium to high risk of fraud."
+                      "example": "User was flagged for multiple likely bot behaviors, indicating a medium to high risk of fraud."
                     },
                     "recommended_action": {
                       "type": "string",

@@ -1,6 +1,6 @@
 ---
 title: 'Using the Roundtable badge'
-sidebarTitle: 'Using the Roundtable Badge'
+sidebarTitle: 'Using the Roundtable badge'
 ---
 
 Roundtable's verification badge is a small, drop-in widget that shows whether Proof of Human is running or not. It auto-renders wherever you place `<div class="roundtable-badge">`, listens to your tracker’s events, and gracefully handles SPAs and back-navigation.
@@ -35,7 +35,7 @@ After importing the badge script, the badge can be added anywhere by adding a di
 
 The badge renders inside a Shadow DOM, so your site’s CSS won’t break it (and vice-versa).
 
-By default, the badge's width is `231px`. We recommend never setting the width less than this value. However, uou can control the badge width via a `width` attribute:
+By default, the badge's width is `231px`. We recommend never setting the width less than this value. However, you can control the badge width via a `width` attribute:
 
 ```html
 <div class="roundtable-badge" width="300px"></div>
@@ -47,10 +47,10 @@ By default, the badge's width is `231px`. We recommend never setting the width l
 
 At any given time, the badge is in one of three states:
 
-- **Loading:** shows a spinner and an animating progress bar while the tracker initializes verifies Roundtable is running.
+- **Loading:** shows a spinner and an animating progress bar while the tracker initializes and verifies Roundtable is running.
 - **Pass:** displays a check icon in black. This indicates that Roundtable is running and gathering user data.
 - **Fail:** displays an X icon in red. This indicates that Roundtable is not running.
 
 See also:
-- [Integrating Roundtable](integrating-roundtable) for adding the tracker
+- [Integrating Roundtable](integration) for adding the tracker
 - [Accessing Session Data](accessing-session-data) for using the session ID and scores
