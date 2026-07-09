@@ -20,15 +20,14 @@ This guide shows how to integrate Roundtable Proof-of-Human’s bot detection su
 <script>
   const setUid = () => window.setRoundtableUserId?.('USER_ID');  // Only runs if script is ready
   setUid(); // Try right away
-  window.addEventListener('roundtable:ready', setUid, { once:true }); // Try again once if event
+  window.addEventListener('roundtable:ready', setUid, { once:true }); // Try again once if event fires
 </script>
 ```
-
-The Roundtable Proof-of-Human tracker dispatches a **`roundtable:ready`** event on `window` as soon as it is done loading. Block 2 listens for that event so you can safely call `window.setRoundtableUserId` once the script is loaded.
+The Roundtable Proof-of-Human tracker dispatches a **`roundtable:ready`** event on `window` as soon as it is done loading. Block 2 listens for that completion event so you can safely call `window.setRoundtableUserId` once the tracker is loaded.
 
 ### Script‑tag attributes
 
-The tracker recognizes three data‑attributes that let you tailor its behavior:
+The tracker recognizes three data‑attributes that let you tailor the tracker's behavior:
 
 - `data-site-key` (required) – Your workspace’s site key (find it in the [Dashboard](https://accounts.roundtable.ai)).
 - `data-user-id` (optional) – A stable identifier for a logged‑in user to track them over multiple sessions (a hashed value is fine).
@@ -99,6 +98,6 @@ Because the session ID is stored in *sessionStorage*, the value is scoped to the
 
 ### Next steps
 
-- Visit your [Account](https://accounts.roundtable.ai/account) to access your public API key.
+- Visit your [Account](https://accounts.roundtable.ai/account) to access your data site key.
 - Learn about [Accessing Session Data](accessing-session-data) to retrieve risk scores and session data.
-- Learn how to [Integrate the Roundtable badge](badge) on your site
+- Learn how to [Integrate the Roundtable badge](using-the-badge) on your site
