@@ -79,9 +79,18 @@ After calling the API, Roundtable_API.r holds the parsed JSON response. Read the
 
 ```xml
 <exec>
+def to_ascii(v):
+    if isinstance(v, unicode):
+        for a, b in [(u'\u2014', '-'), (u'\u2013', '-'), (u'\u2011', '-'),
+                     (u'\u2018', "'"), (u'\u2019', "'"),
+                     (u'\u201c', '"'), (u'\u201d', '"')]:
+            v = v.replace(a, b)
+        return v.encode('ascii', 'replace')
+    return v
+
 rt_data.d1.val = Roundtable_API.r.get('risk_score', 'NA')
-rt_data.d2.val = Roundtable_API.r.get('risk_explanation', 'NA')
-rt_data.d3.val = Roundtable_API.r.get('recommended_action', 'NA')
+rt_data.d2.val = to_ascii(Roundtable_API.r.get('risk_explanation', 'NA'))
+rt_data.d3.val = to_ascii(Roundtable_API.r.get('recommended_action', 'NA'))
 </exec>
 
 <text label="rt_data" optional="0" size="25" where="execute,survey,report">
