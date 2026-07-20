@@ -1,13 +1,13 @@
 ---
-title: 'Using the Roundtable badge'
-sidebarTitle: 'Using the Roundtable badge'
+title: 'Using the Proof of Human badge'
+sidebarTitle: 'Using the Proof of Human badge'
 ---
 
-Roundtable's verification badge is a small, drop-in widget that shows whether Proof of Human is running or not. It auto-renders wherever you place `<div class="roundtable-badge">`, listens to your tracker’s events, and gracefully handles SPAs and back-navigation.
+Proof of Human's verification badge is a small, drop-in widget that shows whether Proof of Human is running or not. It auto-renders wherever you place `<div class="roundtable-badge">`, listens to your tracker’s events, and gracefully handles SPAs and back-navigation.
 
-Note that the badge does *not* display any results related to risk score. Instead, it determines success or failure based on whether the Roundtable tracking is working correctly.
+Note that the badge does *not* display any results related to risk score. Instead, it determines success or failure based on whether the Proof of Human tracking is working correctly.
 
-![Roundtable badge](/images/badge.png)
+![Proof of Human badge](/images/badge.png)
 
 ## Quick start
 
@@ -16,13 +16,13 @@ We recommend adding the tracker and the badge script on the same page, with the 
 ```html
 <!-- Core tracker -->
 <script
-  src="https://cdn.roundtable.ai/v1/rt.js"
+  src="https://cdn.poh.org/v1/rt.js"
   data-site-key="YOUR_SITE_KEY"
 ></script>
 
 <!-- Badge -->
 <div class="roundtable-badge"></div>
-<script src="https://cdn.roundtable.ai/v1/badge.js"></script>
+<script src="https://cdn.poh.org/v1/badge.js"></script>
 ```
 
 After importing the badge script, the badge can be added anywhere by adding a div with the class `roundtable-badge`:
@@ -47,10 +47,10 @@ By default, the badge's width is `231px`. We recommend never setting the width l
 
 At any given time, the badge is in one of three states:
 
-- **Loading:** shows a spinner and an animating progress bar while the tracker initializes and verifies Roundtable is running.
-- **Pass:** displays a check icon in black. This indicates that Roundtable is running and gathering user data.
-- **Fail:** displays an X icon in red. This indicates that Roundtable is not running.
+- **Loading:** shows a spinner and an animating progress bar while the tracker initializes and verifies Proof of Human is running.
+- **Pass:** displays a check icon in black. This indicates that Proof of Human is running and gathering user data.
+- **Fail:** displays an X icon in red. This indicates that Proof of Human is not running.
 
 See also:
-- [Integrating Roundtable](integration) for adding the tracker
+- [Integrating Proof of Human](integration) for adding the tracker
 - [Accessing Session Data](accessing-session-data) for using the session ID and scores

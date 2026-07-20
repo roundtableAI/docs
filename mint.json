@@ -1,6 +1,6 @@
 {
   "openapi": "api-reference/openapi.json",
-  "name": "Roundtable",
+  "name": "Proof of Human",
   "logo": {
     "dark": "/images/png-logo-black.png",
     "light": "/images/png-logo.png"
@@ -18,12 +18,12 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:support@roundtable.ai"
+      "url": "mailto:support@poh.org"
     }
   ],
   "topbarCtaButton": {
     "name": "Account",
-    "url": "https://accounts.roundtable.ai/account"
+    "url": "https://app.poh.org/account"
   },
   "primaryTab": {
     "name": "Behavior Tracking"
@@ -70,22 +70,22 @@
     }
   ],
   "footerSocials": {
-    "linkedin": "https://www.linkedin.com/company/roundtable-ai",
-    "twitter": "https://twitter.com/RoundtableDotAI"
+    "linkedin": "https://www.linkedin.com/company/proofofhumanpbc",
+    "twitter": "https://twitter.com/RoundtableHQ_"
   },
   "versions": ["v1"],
   "redirects": [
     {
-      "source": "http://docs.roundtable.ai/blog/*",
-      "destination": "https://roundtable.ai/blog/:splat 301!"
+      "source": "http://docs.poh.org/blog/*",
+      "destination": "https://poh.org/blog/:splat 301!"
     }
   ],
   "seo": {
     "indexing": "all",
     "metatags": {
       "og:type": "website",
-      "og:site_name": "Roundtable Proof of Human Documentation",
-      "description": "Documentation for Roundtable Proof of Human — guides, references, and tutorials."
+      "og:site_name": "Proof of Human Documentation",
+      "description": "Documentation for Proof of Human — guides, references, and tutorials."
     }
   }
 }

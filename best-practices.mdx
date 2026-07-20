@@ -3,17 +3,17 @@ title: 'Best practices'
 sidebarTitle: 'Best practices'
 ---
 
-This page contains recommendations for getting the most out of Roundtable Proof-of-Human. This will help you deploy Proof-of-Human effectively, calibrate your risk thresholds, and maintain your detection pipeline over time.
+This page contains recommendations for getting the most out of Proof of Human. This will help you deploy Proof of Human effectively, calibrate your risk thresholds, and maintain your detection pipeline over time.
 
 ## Deploy the tracker on as many pages as possible
 
-Roundtable Proof-of-Human is designed to run on every page of your application. The more pages you track, the more behavioral data is collected, and the more accurate your risk scores become. Unlike traditional CAPTCHAs that create a single checkpoint, continuous cross-page tracking makes it much harder for bots to game your system by temporarily "acting human".
+Proof of Human is designed to run on every page of your application. The more pages you track, the more behavioral data is collected, and the more accurate your risk scores become. Unlike traditional CAPTCHAs that create a single checkpoint, continuous cross-page tracking makes it much harder for bots to game your system by temporarily "acting human".
 
 Pages with text input fields are especially valuable — typing is one of the best signals for distinguishing humans from bots and AI agents.
 
 ## Gather data before gating
 
-Place the tracker as early as possible in the user journey and check risk scores as late as possible, ideally checking at the moment of a critical action like a survey submission, account creation, or payment. This gives Roundtable the maximum amount of behavioral data to work with before you need to make a decision. The longer a session runs before you call the API, the more confident the risk score will be.
+Place the tracker as early as possible in the user journey and check risk scores as late as possible, ideally checking at the moment of a critical action like a survey submission, account creation, or payment. This gives Proof of Human the maximum amount of behavioral data to work with before you need to make a decision. The longer a session runs before you call the API, the more confident the risk score will be.
 
 ## Start with recommended risk score thresholds
 
@@ -29,7 +29,7 @@ These defaults work well for most use cases, but you should adjust them based on
 
 ## Start in monitor-only mode and set initial thresholds
 
-Before enforcing any automated blocking rules, we recommend running Roundtable in observation mode for a period. This just means adding the tracker to your site or project and letting data accumulate without acting on it. You can then review sessions in the [Dashboard](https://accounts.roundtable.ai) or retrieve them via the [API](/accessing-session-data) to calibrate your thresholds against real traffic.
+Before enforcing any automated blocking rules, we recommend running Proof of Human in observation mode for a period. This just means adding the tracker to your site or project and letting data accumulate without acting on it. You can then review sessions in the [Dashboard](https://app.poh.org) or retrieve them via the [API](/accessing-session-data) to calibrate your thresholds against real traffic.
 
 ### Adjust thresholds over time
 

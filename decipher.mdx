@@ -3,22 +3,22 @@ title: 'Decipher integration'
 sidebarTitle: 'Decipher integration'
 ---
 
-This guide shows how to add Roundtable Proof-of-Human to a Decipher (Forsta) survey so that every respondent is tracked throughout their survey.
+This guide shows how to add Proof of Human to a Decipher (Forsta) survey so that every respondent is tracked throughout their survey.
 
 ## Before you start
 
-Decipher only makes API calls to whitelisted domains. Contact Forsta support and ask them to whitelist `https://api.roundtable.ai` for your account.
+Decipher only makes API calls to whitelisted domains. Contact Forsta support and ask them to whitelist `https://api.poh.org` for your account.
 
 ## Loading the tracker
 
-Add the following as a top-level element in your survey XML. Placing it at the top level loads the tracker on every page, so behavior is tracked across the entire survey. Replace `YOUR_SITE_KEY` with your site key from the [Integration script](https://accounts.roundtable.ai/account/integration) page on the Roundtable dashboard:
+Add the following as a top-level element in your survey XML. Placing it at the top level loads the tracker on every page, so behavior is tracked across the entire survey. Replace `YOUR_SITE_KEY` with your site key from the [Integration script](https://app.poh.org/account/integration) page on the Proof of Human dashboard:
 
 ```xml
 <style name="respview.client.js" mode="after">
 <![CDATA[
-<!-- Roundtable API Script -->
-<script src="https://cdn.roundtable.ai/v1/rt.js" data-site-key="YOUR_SITE_KEY"></script>
-<!-- End Roundtable API Script -->
+<!-- Proof of Human API Script -->
+<script src="https://cdn.poh.org/v1/rt.js" data-site-key="YOUR_SITE_KEY"></script>
+<!-- End Proof of Human API Script -->
 ]]>
 </style>
 ```
@@ -63,11 +63,11 @@ p.Headers1 = dict(Authorization="Bearer YOUR_SECRET_KEY")
   cond="p.get('client_roundtable_session_id', '') != ''"
   api:params="p.Params1"
   api:headers="p.Headers1"
-  api:url="https://api.roundtable.ai/v1/sessions/report"
+  api:url="https://api.poh.org/v1/sessions/report"
   uses="api.1"/>
 ```
 
-Pass the captured session ID as the `sessionId` query parameter, and your secret key as a `Bearer` token in the `Authorization` header. You can get your secret key from the [Secret keys](https://accounts.roundtable.ai/account/api-keys) dashboard page (it starts with `sk-`).
+Pass the captured session ID as the `sessionId` query parameter, and your secret key as a `Bearer` token in the `Authorization` header. You can get your secret key from the [Secret keys](https://app.poh.org/account/api-keys) dashboard page (it starts with `sk-`).
 
 <Warning>
   Make sure not to put your secret key in client-side JavaScript — it belongs only in the server-side `<exec>` and `<logic>` blocks.
