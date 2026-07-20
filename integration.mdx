@@ -1,15 +1,15 @@
 ---
-title: 'Integrating Roundtable Proof-of-Human'
-sidebarTitle: 'Integrating Roundtable'
+title: 'Integrating Proof of Human'
+sidebarTitle: 'Integrating Proof of Human'
 ---
 
-This guide shows how to integrate Roundtable Proof-of-Human’s bot detection suite into any web app.
+This guide shows how to integrate Proof of Human’s bot detection suite into any web app.
 
 ## Quick start
 
 ```html
 <script
-  src="https://cdn.roundtable.ai/v1/rt.js"
+  src="https://cdn.poh.org/v1/rt.js"
   data-site-key="YOUR_SITE_KEY"
   data-user-id="OPTIONAL_USER_ID"
   data-tags="OPTIONAL_TAG"
@@ -23,30 +23,30 @@ This guide shows how to integrate Roundtable Proof-of-Human’s bot detection su
   window.addEventListener('roundtable:ready', setUid, { once:true }); // Try again once if event fires
 </script>
 ```
-The Roundtable Proof-of-Human tracker dispatches a **`roundtable:ready`** event on `window` as soon as it is done loading. Block 2 listens for that completion event so you can safely call `window.setRoundtableUserId` once the tracker is loaded.
+The Proof of Human tracker dispatches a **`roundtable:ready`** event on `window` as soon as it is done loading. Block 2 listens for that completion event so you can safely call `window.setRoundtableUserId` once the tracker is loaded.
 
 ### Script‑tag attributes
 
 The tracker recognizes three data‑attributes that let you tailor the tracker's behavior:
 
-- `data-site-key` (required) – Your workspace’s site key (find it in the [Dashboard](https://accounts.roundtable.ai)).
+- `data-site-key` (required) – Your workspace’s site key (find it in the [Dashboard](https://app.poh.org)).
 - `data-user-id` (optional) – A stable identifier for a logged‑in user to track them over multiple sessions (a hashed value is fine).
 - `data-tags` (optional) – A comma-separated list of tags that will be associated with this session. Tags help you group and organize sessions.
 
 ## React / SPA example
 
-The Roundtable Proof-of-Human tracker exposes two functions to manually set extra tracking information. These are useful in React or single-page apps.
+The Proof of Human tracker exposes two functions to manually set extra tracking information. These are useful in React or single-page apps.
 
 ```ts
 window.setRoundtableUserId(uid);
 window.setRoundtableTags(["my_tag_1", "my_tag_2"]);
 ```
 
-First, add the Roundtable Proof-of-Human tracking script in `public/index.html`:
+First, add the Proof of Human tracking script in `public/index.html`:
 
 ```html
 <script
-  src="https://cdn.roundtable.ai/v1/rt.js"
+  src="https://cdn.poh.org/v1/rt.js"
   data-site-key="YOUR_SITE_KEY">
 </script>
 ```
@@ -98,6 +98,6 @@ Because the session ID is stored in *sessionStorage*, the value is scoped to the
 
 ### Next steps
 
-- Visit your [Account](https://accounts.roundtable.ai/account) to access your data site key.
+- Visit your [Account](https://app.poh.org/account) to access your data site key.
 - Learn about [Accessing Session Data](accessing-session-data) to retrieve risk scores and session data.
-- Learn how to [Integrate the Roundtable badge](using-the-badge) on your site
+- Learn how to [Integrate the Proof of Human badge](using-the-badge) on your site

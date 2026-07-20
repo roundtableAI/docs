@@ -1,16 +1,16 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Roundtable API",
+    "title": "Proof of Human API",
     "description": "API for real-time bot detection",
     "version": "v1",
     "contact": {
-      "email": "support@roundtable.ai"
+      "email": "support@poh.org"
     }
   },
   "servers": [
     {
-      "url": "https://api.roundtable.ai",
+      "url": "https://api.poh.org",
       "description": "Production API server"
     }
   ],
@@ -1091,7 +1091,7 @@
     }
   ],
   "externalDocs": {
-    "description": "Roundtable Documentation",
-    "url": "https://docs.roundtable.ai"
+    "description": "Proof of Human Documentation",
+    "url": "https://docs.poh.org"
   }
 }
